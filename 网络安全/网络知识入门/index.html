@@ -1,0 +1,8675 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/">
+      
+      
+        <link rel="next" href="../%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%EF%BC%9Acoyfefe/">
+      
+      
+      <link rel="icon" href="../../favicon.ico">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+    
+    
+      
+        <title>网络安全基本知识 - Lynx's Blog</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,700,700i%7CFira+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Fira Sans";--md-code-font:"Fira Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#网络安全基本知识" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Lynx&#39;s Blog" class="md-header__button md-logo" aria-label="Lynx's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Lynx's Blog
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              网络安全基本知识
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="blue"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Welcome to Lynx's Blog
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Go/Android%20%E7%AB%AF%20DNS%20%E6%9F%A5%E8%AF%A2%E9%94%99%E8%AF%AF/" class="md-tabs__link">
+          
+  
+  Go
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Java/JSR303%E6%A0%A1%E9%AA%8C/" class="md-tabs__link">
+          
+  
+  Java
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Linux/Centos7%20%E4%B8%8B%E4%BD%BF%E7%94%A8%20Apache%20%E9%85%8D%E7%BD%AE%20Flask/" class="md-tabs__link">
+          
+  
+  Linux
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../Python/Django%20%E6%9D%A1%E4%BB%B6%E8%BF%87%E6%BB%A4%E6%9F%A5%E8%AF%A2/" class="md-tabs__link">
+          
+  
+  Python
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1.1%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-tabs__link">
+          
+  
+  操作系统
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/Keras%20%E4%B8%AD%20model.evaluate%20%E5%92%8C%20model.predict%20%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-tabs__link">
+          
+  
+  数据分析
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/1.1%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-tabs__link">
+          
+  
+  数据结构与算法
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/360%20%E5%85%A8%E6%99%AF%E7%85%A7%E7%89%87%E8%AF%86%E5%88%AB/" class="md-tabs__link">
+          
+  
+  杂七杂八
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Kali%E9%85%8D%E7%BD%AE%EF%BC%88%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%89/" class="md-tabs__link">
+          
+  
+  网络安全
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/DHT%20%E8%AF%A6%E8%A7%A3/" class="md-tabs__link">
+          
+  
+  计算机网络
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" class="md-tabs__link">
+          
+  
+  设计模式
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Lynx&#39;s Blog" class="md-nav__button md-logo" aria-label="Lynx's Blog" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 3 1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82Z"/></svg>
+
+    </a>
+    Lynx's Blog
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome to Lynx's Blog
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Go
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Go
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Android%20%E7%AB%AF%20DNS%20%E6%9F%A5%E8%AF%A2%E9%94%99%E8%AF%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android 端 DNS 查询错误
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/BPF%20%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BPF 使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20IP%20%E5%A5%97%E6%8E%A5%E5%AD%97%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go IP 套接字编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20TCP%20%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go TCP 编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20UDP%20%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go UDP 编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20%E5%88%87%E7%89%87%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go 切片的深拷贝和浅拷贝
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20%E5%92%8C%20Android%20%E5%BC%80%E5%8F%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go 和 Android 开发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20%E5%9F%BA%E7%A1%80%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go 学习——文件操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20%E5%AE%9E%E7%8E%B0%E7%AB%AF%E5%8F%A3%E6%98%A0%E5%B0%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go 实现端口映射
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go 工具使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20%E6%89%A7%E8%A1%8C%20shell%20%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go 执行 shell 命令
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%8D%A0%E4%BD%8D%E7%AC%A6%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go 格式化占位符使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20%E6%A3%80%E6%9F%A5%E7%BB%93%E6%9E%84%E4%BD%93%E6%98%AF%E5%90%A6%E5%AE%9E%E7%8E%B0%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go 检查结构体是否实现接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20%E7%9A%84%E4%B8%89%E7%A7%8D%E6%8C%87%E9%92%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go 的三种指针
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20%E7%BC%96%E8%AF%91%E4%BC%98%E5%8C%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go 编译优化
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Go%20%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Go 静态编译机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/HTTP%20%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B%E8%BF%BD%E8%B8%AA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP 请求流程追踪
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/SingleFlight%20%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SingleFlight 解析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/TCP%20%E7%B2%98%E5%8C%85%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TCP 粘包问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Tun%20%E7%BD%91%E5%8D%A1%E5%88%9B%E5%BB%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tun 网卡创建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Uber%20Go%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Uber Go编码规范
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/Zstandard%20%E5%8E%8B%E7%BC%A9%E7%AE%97%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Zstandard 压缩算法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/gRPC%20%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    gRPC 入门使用教程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/gRPC%20%E6%8F%90%E4%BE%9B%E6%8F%90%E4%BE%9B%E6%8E%A5%E5%8F%A3%E6%96%87%E6%A1%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    gRPC 提供接口文档
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/gin%20%E7%B1%BB%E5%9E%8B%E6%A6%82%E8%A7%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    类型概览
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/gomobile%20%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    gomobile 使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/runtime%20%E5%8C%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    runtime 包
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/sync.Map%20%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sync.Map 详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/sync.Pool%20%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sync.Pool 详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/%E4%B8%80%E7%A7%8D%E5%BE%88%E9%AA%9A%E7%9A%84%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E6%A3%80%E6%9F%A5%E6%96%B9%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    一种很骚的编译环境检查方式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/%E4%BD%BF%E7%94%A8UDP%E5%AE%9E%E7%8E%B0%20p2p/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用 UDP 实现 p2p
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/%E4%BF%AE%E5%A4%8D%20Go%20%2340569%20%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    修复 Go #40569 问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/%E5%AE%9A%E6%97%B6%E5%99%A8%E7%94%A8%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    定时器用法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/%E5%B0%8F%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    小函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/%E5%BC%82%E6%88%96%E6%80%A7%E8%83%BD%E5%8E%8B%E6%A6%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    异或性能压榨
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/%E8%87%AA%E8%A1%8C%E7%BC%96%E8%AF%91%20Go/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    自行编译 Go
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Go/%E9%80%9A%E8%BF%87%20Go%20%E5%AD%A6%E4%B9%A0%20TDD/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    通过 Go 学习 TDD
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Java
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Java
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/JSR303%E6%A0%A1%E9%AA%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JSR303 校验
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20Web%E5%AD%A6%E4%B9%A0%EF%BC%9AHttpServlet%20%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java Web学习：HttpServlet
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20Web%E5%AD%A6%E4%B9%A0%EF%BC%9AServlet%20%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java Web学习——Servlet 入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20Web%E5%AD%A6%E4%B9%A0%EF%BC%9AServletConfig%20%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java Web学习：ServletConfig 类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20Web%E5%AD%A6%E4%B9%A0%EF%BC%9AServletContext%20%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java Web 学习：ServletContext 类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%20Web%E5%AD%A6%E4%B9%A0%EF%BC%9ATomcat/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java Web学习——Tomcat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94HelloWorld/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    入门，从实现 Hello World! 开始
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94JDBC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——JDBC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94JUC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——JUC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94Java8%20%E6%96%B0%E7%89%B9%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——Java8 新特性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94Object%20%E7%B1%BB%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——Object 类的使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94Socket%E7%BC%96%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——Socket编程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94final%20%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——final 关键字的使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94static%20%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——static 关键字的使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%86%85%E9%83%A8%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——内部类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%8C%85%E8%A3%85%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——包装类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%8F%8D%E5%B0%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——反射
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%8F%98%E9%87%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——变量
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——基础知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——多线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——异常处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E7%B1%BB%E4%B8%8E%E6%8A%BD%E8%B1%A1%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——抽象类与抽象方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——控制语句
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——数据类型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%95%B0%E7%BB%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——数组
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——文件操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%9E%9A%E4%B8%BE%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——枚举类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%B3%9B%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——泛型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%B3%A8%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——注解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%B3%A8%E9%87%8A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——注释
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E9%9B%86%E5%90%88/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——集合
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/Java%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Java学习之路——面向对象入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/%E4%B8%BA%E4%BB%80%E4%B9%88%20switch%20%E8%AF%AD%E5%8F%A5%E6%AF%94%20if-else%E6%89%A7%E8%A1%8C%E6%95%88%E7%8E%87%E9%AB%98%EF%BC%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么 switch 语句执行效率比 if-else 语句高？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Java/%E8%87%AA%E5%8A%A8%E9%85%8D%E7%BD%AE%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    自动配置原理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Linux
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Linux
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Centos7%20%E4%B8%8B%E4%BD%BF%E7%94%A8%20Apache%20%E9%85%8D%E7%BD%AE%20Flask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Centos 7 下使用 Apache 配置 Flask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Centos7%20%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Centos 常用软件安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Centos7%E4%B8%8B%E9%83%A8%E7%BD%B2Flask%E5%BA%94%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Centos7下部署Flask应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/D-Bus%20%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    D-Bus 学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/DERP%20%E4%B8%AD%E7%BB%A7%E6%90%AD%E5%BB%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DERP 中继搭建
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Debian%20%E4%BD%BF%E7%94%A8%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debian 使用无线网卡
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Debian%20%E4%BD%BF%E7%94%A8%E8%93%9D%E7%89%99/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debian 使用蓝牙
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Debian%20%E5%AE%89%E8%A3%85%20redis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debian 安装 Redis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Debian%20%E7%BC%96%E8%AF%91%E5%AE%89%E8%A3%85%20qBittorent/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debian 编译安装 qBittorent
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Debian%20%E9%85%8D%E7%BD%AE%20Avahi%20/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debian 配置 Avahi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Debian%20%E9%85%8D%E7%BD%AE%20samba/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Debian 配置 samba
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Docker%20%E5%9F%BA%E7%A1%80%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker 基础使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Docker%20%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker 系统架构与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Docker%20%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E4%B8%8E%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker 系统架构与使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Docker%20%E7%BB%95%E8%BF%87%E4%BA%86%20firewalld%20%E7%9A%84%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker 绕过了 firewalld 的问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Docker%20%E9%85%8D%E7%BD%AE%20PostgreSQL%20%E7%9A%84%E4%B8%BB%E4%BB%8E%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker 配置 PostgreSQL13 的主从环境
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Kali%20%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E5%88%B0%E7%BD%91%E7%BB%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kali 无法连接到网络
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Kali%E6%89%A7%E8%A1%8Capt-get%20upgrade%E5%90%8E%E6%97%A0%E6%B3%95%E6%89%93%E5%BC%80%E7%BB%88%E7%AB%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kali 执行 apt-get upgrade 后无法打开终端
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Linux%20%E4%B8%8B%E8%8E%B7%E5%8F%96%E5%BD%93%E5%89%8D%E8%BF%9E%E6%8E%A5%20WiFi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 下编码获取当前连接 WiFi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Linux%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 常用命令
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Linux%20%E7%BD%91%E7%BB%9C%E9%85%8D%E7%BD%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Centos minimal 网络配置
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Linux%E5%B8%B8%E7%94%A8%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux常用特殊字符
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Linux%E9%87%8D%E8%BD%BD%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux重载配置文件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Lxd%20%E5%AE%89%E8%A3%85%20Windows%20%E8%99%9A%E6%8B%9F%E6%9C%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lxd 安装 Windows 虚拟机
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/Tailscale%20%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Tailscale 安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/dbus%20%E6%95%B0%E5%80%BC%E7%B1%BB%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    D-Bus 数值类型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/dbus%20%E6%B5%8B%E8%AF%95%E5%91%BD%E4%BB%A4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DBUS 测试命令
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/proc%20%E7%9B%AE%E5%BD%95%E4%B8%BA%E7%A9%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Proc 目录为空
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/rsylog%20%E4%BF%9D%E5%AD%98%E5%88%B0%20sqlite/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    rsylog 保存到 sqlite
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/snap%20%E5%AD%A6%E4%B9%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Snap 学习
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/snap%20%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E5%85%A5%E9%97%A8%28Go%20%E8%AF%AD%E8%A8%80%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    snap 应用构建入门(Go 语言)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/ssh%20%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SSH 免密登录
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/%E4%BD%BF%E7%94%A8ls%E5%91%BD%E4%BB%A4%E6%97%B6%E5%87%BA%E7%8E%B0%E7%9A%84total/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用ls命令时出现的total
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/%E5%B8%B8%E8%A7%81%E8%99%9A%E6%8B%9F%E7%BD%91%E5%8D%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常见虚拟网卡
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%20API/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    微信小程序API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/%E6%9B%B4%E6%8D%A2%20yum%20%E6%BA%90%E4%B8%BA%E9%98%BF%E9%87%8C%E6%BA%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    更换 yum 源为阿里源
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/%E6%9C%8D%E5%8A%A1%E7%83%AD%E9%87%8D%E8%BD%BD%E5%AE%9E%E7%8E%B0%E6%80%9D%E8%B7%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    服务热重载实现思路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/%E7%A7%81%E6%9C%89%E7%9B%B8%E5%86%8C%20PhotoPrism%20%E8%B0%83%E7%A0%94/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    私有相册 PhotoPrism 调研
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%BA%90%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络资源服务测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Linux/%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E7%99%BB%E5%BD%95%E5%A4%B1%E8%B4%A5%E7%9A%84%20ssh%20IP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    自动禁用登录失败的 ssh IP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Django%20%E6%9D%A1%E4%BB%B6%E8%BF%87%E6%BB%A4%E6%9F%A5%E8%AF%A2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Django 条件过滤查询
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Django%20%E6%A8%A1%E5%9E%8B%E5%AD%97%E6%AE%B5%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Django 模型字段说明
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Django%E5%B0%86%E6%8E%A7%E5%88%B6%E5%8F%B0%E8%BE%93%E5%87%BA%E9%87%8D%E5%AE%9A%E5%90%91%E8%87%B3%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Django 将控制台输出重定向至文件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/PyQt5%20%E4%BD%BF%E7%94%A8%E5%A4%9A%E4%B8%AA%E6%A7%BD%E5%87%BD%E6%95%B0%E6%97%B6%E7%A8%8B%E5%BA%8F%E5%8D%A1%E6%AD%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyQt5 使用多个槽函数时程序卡死
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/PyQt5%20%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97%E8%AF%B4%E6%98%8E/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyQt5 常用模块说明
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/PyQt5%20%E7%82%B9%E5%87%BB%E4%BC%9A%E8%A7%A6%E5%8F%91%E4%B8%A4%E6%AC%A1%E6%A7%BD%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyQt5 点击会触发两次槽函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/PyQt5%E2%80%94%E2%80%94%E5%88%9B%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AAGUI%20%E7%A8%8B%E5%BA%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    PyQt5——创建自己的第一个 GUI 程序
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20%E5%8A%A8%E6%80%81%E6%98%BE%E7%A4%BA%E4%BB%BB%E5%8A%A1%E8%BF%9B%E5%BA%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 动态显示任务进度
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20%E5%9C%A8%E5%88%9B%E5%BB%BA%E5%A4%9A%E8%BF%9B%E7%A8%8B%E6%97%B6%E6%8A%9B%E5%87%BARuntimeError%E9%94%99%E8%AF%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 在创建多进程时抛出 RuntimeError 错误
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20%E6%9E%84%E5%BB%BA%20Web%20%E6%9C%8D%E5%8A%A1%E5%99%A8%201.0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 构建 Web 服务器 1.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20%E6%9E%84%E5%BB%BA%20Web%20%E6%9C%8D%E5%8A%A1%E5%99%A8%202.0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 构建 Web 服务器 2.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%20%E6%9E%84%E5%BB%BA%20Web%20%E6%9C%8D%E5%8A%A1%E5%99%A8%203.0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 构建 Web 服务器 3.0
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%20%E2%80%94%E2%80%94%20%40property%20%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90%E5%8F%8A%E5%AE%9E%E7%8E%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python学习之路 —— @property 原理剖析及实现
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%20%E2%80%94%E2%80%94%20struct%E6%A8%A1%E5%9D%97%E4%BD%BF%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python学习之路——struct 模块使用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94MD5%E5%8A%A0%E5%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——MD5 加密
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94base64%E7%BC%96%E7%A0%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——Base64 编码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%85%83%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——元类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%85%83%E7%BB%84%EF%BC%88tuple%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——元组(tuple)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%85%A5%E9%97%A8%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——入门知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——内存管理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%88%97%E8%A1%A8%EF%BC%88list%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——列表(list)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%8D%8F%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——协程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——单例模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%A4%9A%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——多线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——字符串
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E5%BC%82%E5%B8%B8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——异常
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%96%87%E4%BB%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——文件
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%9D%A1%E4%BB%B6%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——条件控制语句
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%9E%9A%E4%B8%BE%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——枚举类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——模块
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E6%B7%B1%E5%85%A5%E5%AD%A6%E4%B9%A0%E5%A4%9A%E6%80%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——深入学习多态
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E7%B1%BB%E7%9A%84%E9%AD%94%E6%B3%95%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——类的魔法方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——编程基础知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——计算机基础知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E8%BF%90%E7%AE%97%E7%AC%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——运算符
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E7%94%9F%E6%88%90%E5%99%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——迭代器与生成器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E9%9B%86%E5%90%88%EF%BC%88set%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——集合(set)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%85%A5%E9%97%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——面向对象入门
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E5%AD%A6%E4%B9%A0%E4%B9%8B%E8%B7%AF%E2%80%94%E2%80%94%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 学习之路——高阶函数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/Python%E7%94%A8whl%E6%96%87%E4%BB%B6%E5%AE%89%E8%A3%85%E5%A4%96%E9%83%A8%E6%A8%A1%E5%9D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 利用whl文件安装外部模块
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/UnboundLocalError%20local%20variable%20%E2%80%98xxx%E2%80%98%20referenced%20before%20assignment/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UnboundLocalError local variable ‘xxx‘ referenced before assignment
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/%E4%B8%BA%E4%BB%80%E4%B9%88%20Python%20%E9%BB%98%E8%AE%A4%E5%8F%82%E6%95%B0%E5%BF%85%E9%A1%BB%E7%94%A8%E4%B8%8D%E5%8F%AF%E5%8F%98%E5%AF%B9%E8%B1%A1%EF%BC%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么 Python 默认参数必须用不可变对象？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/%E5%88%A9%E7%94%A8%20Python%20%E5%88%B6%E4%BD%9C%E6%9C%89%E8%B6%A3%E7%9A%84%E4%BA%8C%E7%BB%B4%E7%A0%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    利用Python制作有趣的二维码
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/%E5%88%A9%E7%94%A8Python%E7%BB%98%E5%88%B6%E5%9B%BE%E6%A1%88%E2%80%94%E2%80%94%E7%8E%AB%E8%89%B2%E4%B8%8E%E9%9B%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    利用Python绘制图案——玫色与雅
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/%E5%88%A9%E7%94%A8Python%E7%BB%98%E5%88%B6%E5%9B%BE%E6%A1%88%E2%80%94%E2%80%94%E8%9E%BA%E6%97%8B%E4%B8%B8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    利用Python绘制图案——螺旋丸
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%8F%91%E7%94%9F%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E7%9A%84%E8%A7%A3%E5%86%B3%E5%8A%9E%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多进程发生内存溢出的解决办法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Python/%E8%87%AA%E5%8A%A8%E6%9B%B4%E6%96%B0%20Python%20%E7%9A%84%E6%89%80%E6%9C%89%E5%BA%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    自动更新 Python 的所有库
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    操作系统
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            操作系统
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1.1%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 操作系统的基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1.2%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%8F%91%E5%B1%95%E4%B8%8E%E5%88%86%E7%B1%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 操作系统的发展与分类
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1.3%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%BF%90%E8%A1%8C%E7%8E%AF%E5%A2%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.3 操作系统的运行环境
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/1.4%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.4 操作系统的体系结构
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2.1%20%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.1 进程与线程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2.2%20%E5%A4%84%E7%90%86%E6%9C%BA%E8%B0%83%E5%BA%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.2 处理机调度
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2.3%20%E8%BF%9B%E7%A8%8B%E5%90%8C%E6%AD%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.3 进程同步
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/2.4%20%E6%AD%BB%E9%94%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.4 死锁
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/3.1%20%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    3.1 内存管理概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    数据分析
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            数据分析
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/Keras%20%E4%B8%AD%20model.evaluate%20%E5%92%8C%20model.predict%20%E7%9A%84%E5%8C%BA%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Keras 中 model.evaluate 和 model.predict 的区别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/numpy%20%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E4%B8%8E%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Numpy 常用函数与方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/pandas%20%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E4%B8%8E%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pandas 常用函数与方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/%E6%96%B0%E9%97%BB%E5%88%86%E7%B1%BB%EF%BC%9A%E5%A4%9A%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    新闻分类：多分类问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E4%B8%93%E6%9C%89%E5%90%8D%E8%AF%8D%E5%BD%92%E7%BA%B3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    机器学习专有名词归纳
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/%E7%94%B5%E5%BD%B1%E8%AF%84%E8%AE%BA%E5%88%86%E7%B1%BB%EF%BC%9A%E4%BA%8C%E5%88%86%E7%B1%BB%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    电影评论分类：二分类问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E6%95%B0%E6%8D%AE%E8%A1%A8%E7%A4%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    神经网络中的数据表示
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/%E9%A2%84%E6%B5%8B%E6%88%BF%E4%BB%B7%EF%BC%9A%E5%9B%9E%E5%BD%92%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    预测房价：回归问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    数据结构与算法
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            数据结构与算法
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/1.1%20%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.1 数据结构的基本概念
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/1.2%20%E7%AE%97%E6%B3%95%E5%92%8C%E7%AE%97%E6%B3%95%E8%AF%84%E4%BB%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    1.2 算法和算法评价
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/2.1%20%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2.1 线性表的定义和基本操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    杂七杂八
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
+            <span class="md-nav__icon md-icon"></span>
+            杂七杂八
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/360%20%E5%85%A8%E6%99%AF%E7%85%A7%E7%89%87%E8%AF%86%E5%88%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    360 全景照片识别
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/51%E5%8D%95%E7%89%87%E6%9C%BA%E5%85%A5%E9%97%A8%E4%BE%8B%E7%A8%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    51单片机入门例程
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/Adnroid%20%E5%BB%BA%E7%AB%8B%E8%93%9D%E7%89%99%E8%BF%9E%E6%8E%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Android 建立蓝牙连接
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/C%E8%AF%AD%E8%A8%80%E6%8C%87%E9%92%88%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    C 语言指针测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/FFmpeg%20%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%BB%93%E6%9E%84%E4%BD%93/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FFmpeg 中常用结构体
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/FFmpeg%E5%BC%80%E5%8F%91%E4%B9%8B%E6%97%B6%E9%97%B4%E5%9F%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FFmpeg 开发之时间基
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/Git%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git 学习笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/Git%20%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Git 常用操作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/GitHub%20%E5%85%8B%E9%9A%86%E5%8A%A0%E9%80%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GitHub  克隆加速
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/JetBrains%E7%B3%BB%E5%88%97Database%E6%8A%A5%E9%94%99%EF%BC%9ACan%E2%80%98t%20find%20bundle%20for%20base%20name%20com.mysql.cj.LocalizedErrorMessages%2C%20locale%20zh/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    JetBrains系列Database报错：Can't find bundle for base name com.mysql.cj.LocalizedErrorMessages, locale zh_CN.
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/L2CAP%20COC%20%E8%B0%83%E7%A0%94/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    L2CAP COC 调研
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/Live%20Photo%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Live Photo 详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/MySQL%20%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E7%9A%84%E5%9D%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MySQL 类型转换的坑
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/Pycharm%E5%8F%8C%E5%87%BB%E5%9B%BE%E6%A0%87%E5%90%AF%E5%8A%A8%E4%B8%8D%E4%BA%86%EF%BC%88JetBrains%E5%85%A8%E5%AE%B6%E6%A1%B6%E9%80%9A%E7%94%A8%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pycharm双击图标启动不了（Jetbrains通用）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/QQ%20%E9%9F%B3%E4%B9%90%20P2P%20%E7%BC%93%E5%AD%98%E6%B8%85%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    QQ 音乐 P2P 缓存清理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/RemoteApp%20%E5%AE%9E%E7%8E%B0%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RemoteApp  实现分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/SQL%20%E7%BB%8F%E5%85%B850%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL 经典 50 题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/TOTP%E5%92%8CHOTP%E5%8E%9F%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MFA 和 动态令牌（OTP、HOTP、TOTP）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/VPN%20Kill%20Switch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VPN Kill Switch
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/WIndows%20%E4%B8%AA%E4%BA%BA%E5%BA%94%E7%94%A8%E5%85%B1%E4%BA%AB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows 共享个人应用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/Windows%20%E4%B8%AA%E4%BA%BA%E7%89%88%E5%AE%9E%E7%8E%B0%E5%A4%9A%E7%94%A8%E6%88%B7%E8%BF%9C%E7%A8%8B%E7%99%BB%E9%99%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Windows 个人版实现多用户远程登陆
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/ffmpeg%E5%BC%80%E5%8F%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FFmpeg 开发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/gitlab%20API%20%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    gitlab API 访问数据
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/gitlab%20%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Gitlab 数据迁移
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E2%80%9C%E6%97%A0%E5%88%BA%E9%B1%BC%E5%9F%BA%E5%9B%A0%E5%B7%A5%E7%A8%8B%E2%80%9D%E5%BC%95%E5%8F%91%E7%9A%84%E6%80%9D%E8%80%83/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    “无刺鱼基因工程”引发的思考
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E4%B8%BA%E4%BB%80%E4%B9%88%20av_gettime%28%29%20%E8%BF%94%E5%9B%9E%E5%80%BC%E6%9C%89%E6%AD%A3%E6%9C%89%E8%B4%9F%EF%BC%9F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    为什么 av_gettime() 返回值有正有负？
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E4%BD%BF%E7%94%A8%20WMIC%20%E8%8E%B7%E5%8F%96%E7%B3%BB%E7%BB%9F%E4%BF%A1%E6%81%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用 WMIC 获取系统信息
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E5%85%8D%E8%B4%B9%20SSL%20%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    免费 SSL 证书申请
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%89%E8%8C%83%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    关系型数据库三范式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E5%A4%87%E4%BB%BD%E7%9A%84%E9%87%8D%E8%A6%81%E6%80%A7/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    备份的重要性
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E5%BE%AE%E5%A4%84%E7%90%86%E5%99%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    微处理器基础知识
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E6%B1%87%E7%BC%96%E6%8C%87%E4%BB%A4%E8%A7%A3%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    汇编指令介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E7%94%B5%E8%84%91%E4%B8%8B%E8%BD%BD%E5%88%B0%E6%B5%81%E6%B0%93%E8%BD%AF%E4%BB%B6%E5%90%8E%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F%E8%B6%85%E8%AF%A6%E7%BB%86%E6%95%99%E5%AD%A6%EF%BC%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    电脑下载到流氓软件后怎么办？超详细教学！
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E7%9B%91%E6%B5%8B%20Windows%20%E5%BA%94%E7%94%A8%E8%A1%8C%E4%B8%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    监测 Windows 应用行为
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E7%BB%95%E8%BF%87%E7%BD%91%E9%A1%B5%E7%89%88%E6%89%B9%E6%94%B9%E7%BD%91%E2%80%9C%E7%A6%81%E6%AD%A2%E7%B2%98%E8%B4%B4%E2%80%9D%E9%99%90%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    绕过批改网“禁止粘贴”限制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E8%87%AA%E7%AD%BE%E5%90%8D%20SSL%20%E8%AF%81%E4%B9%A6%E5%88%B6%E4%BD%9C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    自签名 SSL 证书制作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/%E8%A7%A3%E5%86%B3%20hexo%20init%20%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    解决 hexo init 失败问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_10" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    网络安全
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_10">
+            <span class="md-nav__icon md-icon"></span>
+            网络安全
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Kali%E9%85%8D%E7%BD%AE%EF%BC%88%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%89/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Kali 配置（虚拟机）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Python%20%E5%AE%9E%E7%8E%B0%20DoS%20%E6%94%BB%E5%87%BB%20%E2%80%94%E2%80%94%20UDP%E6%B4%AA%E6%B0%B4%E6%94%BB%E5%87%BB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python 实现 DoS 攻击 —— UDP洪水攻击
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL%E6%89%8B%E5%B7%A5%E6%B3%A8%E5%85%A5%E6%BC%8F%E6%B4%9E%E6%B5%8B%E8%AF%95%28MySQL%E6%95%B0%E6%8D%AE%E5%BA%93%29/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL 手工注入漏洞测试（MySQL数据库）
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../SQL%E6%B3%A8%E5%85%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SQL 注入
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Scapy%20%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scapy 介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Scapy%E7%BC%96%E7%A8%8B%E5%AE%9E%E4%BE%8B%E4%B9%8BARP%E6%89%AB%E6%8F%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scapy编程实例之ARP扫描
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Scapy%E7%BC%96%E7%A8%8B%E5%AE%9E%E4%BE%8B%E4%B9%8Bping%E6%89%AB%E6%8F%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scapy编程实例之ping扫描
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../php%20MD5%E5%80%BC%E6%AF%94%E8%BE%83%E7%BB%95%E8%BF%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    php MD5值比较绕过
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../php%20%E6%95%B0%E7%BB%84%E6%BA%A2%E5%87%BA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    php 数组溢出
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sqli-labs%20%E9%80%9A%E5%85%B3%E7%AC%94%E8%AE%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sqli-labs 通关笔记
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sqlmap%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    sqlmap 使用指南
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86%E2%80%94%E2%80%94%E5%9F%9F%E5%90%8D%E4%BF%A1%E6%81%AF%E8%8E%B7%E5%8F%96/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    信息手机——域名信息获取
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%97%85%E6%8E%A2%E6%AC%BA%E9%AA%97%E2%80%94%E2%80%94ARP%E6%AC%BA%E9%AA%97/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    嗅探欺骗——ARP欺骗
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    文件上传漏洞
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    网络安全基本知识
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    网络安全基本知识
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#一ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、IP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、IP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-ipv4协议" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. IPv4协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ipv6协议" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. IPv6协议
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#二域名" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、域名
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、域名">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-作用" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 作用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-购买" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 购买
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-备案" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 备案
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-二级域名与多级域名" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 二级域名与多级域名
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#三dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、DNS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-本地-hosts-文件" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 本地 hosts 文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-a记录和cname" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. A记录和CNAME
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-常见-dns-攻击" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 常见 DNS 攻击
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 常见 DNS 攻击">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#域名劫持" class="md-nav__link">
+    <span class="md-ellipsis">
+      域名劫持
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#缓存投毒" class="md-nav__link">
+    <span class="md-ellipsis">
+      缓存投毒
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns劫持" class="md-nav__link">
+    <span class="md-ellipsis">
+      DNS劫持
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns-ddos攻击" class="md-nav__link">
+    <span class="md-ellipsis">
+      DNS DDoS攻击
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#四cdn" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、CDN
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、CDN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cdn的实现" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. CDN的实现
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cdn-检测" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. CDN 检测
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#五url--urn--uri" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、URL + URN = URI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、URL + URN = URI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-三者之间的区别" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 三者之间的区别
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 三者之间的区别">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#url" class="md-nav__link">
+    <span class="md-ellipsis">
+      URL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uri" class="md-nav__link">
+    <span class="md-ellipsis">
+      URI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#urn" class="md-nav__link">
+    <span class="md-ellipsis">
+      URN
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#六http" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、HTTP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、HTTP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-简介" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 简介
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-http-请求" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. HTTP 请求
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. HTTP 请求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#请求报文" class="md-nav__link">
+    <span class="md-ellipsis">
+      请求报文
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-请求方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP 请求方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-请求头" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP 请求头
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-http-响应" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. HTTP 响应
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. HTTP 响应">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#http-响应码" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP 响应码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-响应头" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP 响应头
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#七https" class="md-nav__link">
+    <span class="md-ellipsis">
+      七、HTTPS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、HTTPS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-通信流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 通信流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-https-的优缺点" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. HTTPS 的优缺点
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. HTTPS 的优缺点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#优点" class="md-nav__link">
+    <span class="md-ellipsis">
+      优点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#缺点" class="md-nav__link">
+    <span class="md-ellipsis">
+      缺点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E9%9D%B6%E6%9C%BA%E6%B8%97%E9%80%8F%EF%BC%9Acoyfefe/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    靶机渗透：coyfefe
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    计算机网络
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_11">
+            <span class="md-nav__icon md-icon"></span>
+            计算机网络
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/DHT%20%E8%AF%A6%E8%A7%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    DHT 详解
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/Docker%20%E5%9B%9B%E7%A7%8D%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker 四种网络模型
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP%20%E4%BB%A3%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP 代理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP%20%E9%95%BF%E8%BF%9E%E6%8E%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HTTP 长连接
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/Linux%20%E4%B8%8B%20arp_ignore%20%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Linux 下 arp_ignore 问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/NAT%20%E5%9B%9E%E6%B5%81%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NAT 回流问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/NAT%20%E7%A9%BF%E9%80%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NAT 穿透
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/NAT%20%E8%A1%8C%E4%B8%BA%E6%B5%8B%E8%AF%95%E5%AE%9E%E9%AA%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NAT 行为测试实验
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/Nat%20%E7%B1%BB%E5%9E%8B%E6%8E%A2%E6%B5%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    NAT 类型探测
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/P2P%20%E6%97%B6%E9%81%87%E5%88%B0%E7%AB%AF%E5%8F%A3%E8%A2%AB%E6%94%B9%E7%9A%84%E5%9D%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    P2P 时遇到端口被改的坑
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/Socks5%20%E4%BB%A3%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Socks5 代理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/TCP%20%E9%95%BF%E8%BF%9E%E6%8E%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    TCP 长连接
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/VM%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%89%E7%A7%8D%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VM 虚拟机三种网络模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/VPN%20%E6%B5%81%E9%87%8F%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VPN 流量分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/Wake-on-LAN/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wake-on-LAN
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/WebRTC%20P2P%20%E8%83%BD%E5%8A%9B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    WebRTC P2P 能力
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/Wireguard%20%E5%AE%9E%E8%B7%B5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Wireguard 实践
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/iOS%20%E5%90%8E%E5%8F%B0%E6%97%B6%E5%AF%B9%20socket%20%E7%9A%84%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    iOS 后台时对 socket 的处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/iptables%20%E4%B8%89%E8%A1%A8%E4%BA%94%E9%93%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    iptables 三表五链
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/socket%20%E5%9C%B0%E5%9D%80%E5%92%8C%E7%AB%AF%E5%8F%A3%E5%A4%8D%E7%94%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    socket 地址和端口复用
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/udp%20recvfrom%20connection%20refused%20%E9%97%AE%E9%A2%98/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    udp recvfrom: connection refused 问题
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%B8%8D%E5%90%8C%E7%BD%91%E7%BB%9C%E6%A8%A1%E5%9E%8B%E4%B8%8B%E5%BB%BA%E7%AB%8B%20P2P%20%E8%BF%9E%E6%8E%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    不同网络模型下建立 P2P 连接
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E4%BF%AE%E6%94%B9%20VMWare%20%E7%BD%91%E5%8D%A1%E9%80%9F%E7%8E%87/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    修改 VMWare 虚拟机速率
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E5%8D%95%E7%BD%91%E5%8D%A1%E5%A4%9AIP%E7%BD%91%E6%AE%B5%E4%BB%A3%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    单网卡多IP网段代理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%8D%B8%E8%BD%BD%E6%8A%80%E6%9C%AF/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络卸载技术
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/%E7%BD%91%E7%BB%9C%E5%8F%98%E6%9B%B4%E5%AF%B9libp2p%E7%9A%84%E5%BD%B1%E5%93%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    网络变更对libp2p的影响
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_12" id="__nav_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    设计模式
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_12">
+            <span class="md-nav__icon md-icon"></span>
+            设计模式
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——中介者模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——享元模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——代理模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——单例模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%8E%9F%E5%9E%8B%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——原型模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——命令模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——备忘录模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——外观模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——工厂方法模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——建造者模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——抽象工厂模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%A1%A5%E6%8E%A5%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——桥接模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E6%A8%A1%E6%9D%BF%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——模板模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E7%8A%B6%E6%80%81%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——状态模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——策略模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E7%BB%84%E5%90%88%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——组合模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A3%85%E9%A5%B0%E5%99%A8%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——装饰器模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——观察者模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%AE%BF%E9%97%AE%E8%80%85%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——访问者模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%B4%A3%E4%BB%BB%E9%93%BE%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——责任链模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——迭代器模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E2%80%94%E2%80%94%E9%80%82%E9%85%8D%E8%80%85%E6%A8%A1%E5%BC%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    设计模式——适配者模式
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#一ip" class="md-nav__link">
+    <span class="md-ellipsis">
+      一、IP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="一、IP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-ipv4协议" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. IPv4协议
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ipv6协议" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. IPv6协议
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#二域名" class="md-nav__link">
+    <span class="md-ellipsis">
+      二、域名
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="二、域名">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-作用" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 作用
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-购买" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 购买
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-备案" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 备案
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-二级域名与多级域名" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 二级域名与多级域名
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#三dns" class="md-nav__link">
+    <span class="md-ellipsis">
+      三、DNS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="三、DNS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-本地-hosts-文件" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 本地 hosts 文件
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-a记录和cname" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. A记录和CNAME
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-常见-dns-攻击" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 常见 DNS 攻击
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 常见 DNS 攻击">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#域名劫持" class="md-nav__link">
+    <span class="md-ellipsis">
+      域名劫持
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#缓存投毒" class="md-nav__link">
+    <span class="md-ellipsis">
+      缓存投毒
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns劫持" class="md-nav__link">
+    <span class="md-ellipsis">
+      DNS劫持
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dns-ddos攻击" class="md-nav__link">
+    <span class="md-ellipsis">
+      DNS DDoS攻击
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#四cdn" class="md-nav__link">
+    <span class="md-ellipsis">
+      四、CDN
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四、CDN">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-cdn的实现" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. CDN的实现
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cdn-检测" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. CDN 检测
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#五url--urn--uri" class="md-nav__link">
+    <span class="md-ellipsis">
+      五、URL + URN = URI
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="五、URL + URN = URI">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-三者之间的区别" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 三者之间的区别
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 三者之间的区别">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#url" class="md-nav__link">
+    <span class="md-ellipsis">
+      URL
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uri" class="md-nav__link">
+    <span class="md-ellipsis">
+      URI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#urn" class="md-nav__link">
+    <span class="md-ellipsis">
+      URN
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#六http" class="md-nav__link">
+    <span class="md-ellipsis">
+      六、HTTP
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="六、HTTP">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-简介" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 简介
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-http-请求" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. HTTP 请求
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. HTTP 请求">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#请求报文" class="md-nav__link">
+    <span class="md-ellipsis">
+      请求报文
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-请求方法" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP 请求方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-请求头" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP 请求头
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-http-响应" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. HTTP 响应
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. HTTP 响应">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#http-响应码" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP 响应码
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#http-响应头" class="md-nav__link">
+    <span class="md-ellipsis">
+      HTTP 响应头
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#七https" class="md-nav__link">
+    <span class="md-ellipsis">
+      七、HTTPS
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="七、HTTPS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-概念_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 概念
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-通信流程" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 通信流程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-https-的优缺点" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. HTTPS 的优缺点
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. HTTPS 的优缺点">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#优点" class="md-nav__link">
+    <span class="md-ellipsis">
+      优点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#缺点" class="md-nav__link">
+    <span class="md-ellipsis">
+      缺点
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<div style="float:right"><span id="busuanzi_container_page_pv"><font size="3" color="grey">阅读量: <span id="busuanzi_value_page_pv"></span><font></font></font></span></div>
+<h1 id="网络安全基本知识">网络安全基本知识<a class="headerlink" href="#网络安全基本知识" title="Permanent link"></a></h1>
+<h2 id="一ip">一、IP<a class="headerlink" href="#一ip" title="Permanent link"></a></h2>
+<h3 id="1-概念">1. 概念<a class="headerlink" href="#1-概念" title="Permanent link"></a></h3>
+<blockquote>
+<p>IP是Internet Protocol（网际互连协议）的缩写，是TCP/IP体系中的网络层协议。</p>
+</blockquote>
+<p>现在使用的 IP 地址主要为：IPV4 和 IPV6。</p>
+<h3 id="2-ipv4协议">2. IPv4协议<a class="headerlink" href="#2-ipv4协议" title="Permanent link"></a></h3>
+<p>IPv4 协议以 4字节，32比特表示，每个字节之间用 "." 号分割，例如：“192.0.2.235”。</p>
+<p>IPv4 可用地址仅为 4,294,967,296个。2019年11月26日，全球所有43亿个IPv4地址已分配完毕，这意味着没有更多的IPv4地址可以分配给ISP和其他大型网络基础设施提供商。</p>
+<h3 id="3-ipv6协议">3. IPv6协议<a class="headerlink" href="#3-ipv6协议" title="Permanent link"></a></h3>
+<p>IPv6 协议以 128比特表示，每个字节之间用 ":" 号分割，例如：“2031:0000:1F1F:0000:0000:0100:11A0:ADDF”。IPv6 可用地址有 2^128个。</p>
+<h2 id="二域名">二、域名<a class="headerlink" href="#二域名" title="Permanent link"></a></h2>
+<h3 id="1-概念_1">1. 概念<a class="headerlink" href="#1-概念_1" title="Permanent link"></a></h3>
+<blockquote>
+<p><strong>域名</strong>（英语：<strong>Domain Name</strong>），又称<strong>网域</strong>，是由一串用点分隔的名字组成的Internet上某一台计算机或计算机组的名称，用于在数据传输时对计算机的定位标识（有时也指地理位置）。</p>
+</blockquote>
+<h3 id="2-作用">2. 作用<a class="headerlink" href="#2-作用" title="Permanent link"></a></h3>
+<p>由于IP地址具有不方便记忆并且不能显示地址组织的名称和性质等缺点，人们设计出了域名，并通过网域名称系统（DNS，Domain Name System）来将域名和IP地址相互映射，使人更方便地访问互联网，而不用去记住能够被机器直接读取的IP地址数串。</p>
+<h3 id="3-购买">3. 购买<a class="headerlink" href="#3-购买" title="Permanent link"></a></h3>
+<p>域名可用在域名提供商那里购买注册，例如<a href="https://cloud.tencent.com/act/domainsales?fromSource=gwzcw.3892502.3892502.3892502&amp;utm_medium=cpc&amp;utm_id=gwzcw.3892502.3892502.3892502">腾讯云</a>，<a href="https://wanwang.aliyun.com/domain/">阿里云</a>等。</p>
+<h3 id="4-备案">4. 备案<a class="headerlink" href="#4-备案" title="Permanent link"></a></h3>
+<p>根据 《<a href="http://www.scio.gov.cn/32344/32345/32347/32986/xgzc32992/Document/1438710/1438710.htm#:~:text=%20%E6%9C%AC%E5%8A%9E%E6%B3%95%E6%89%80%E7%A7%B0%E4%BA%92%E8%81%94%E7%BD%91%E4%BF%A1%E6%81%AF%E6%9C%8D%E5%8A%A1%EF%BC%8C%E6%98%AF%E6%8C%87%E9%80%9A%E8%BF%87%E4%BA%92%E8%81%94%E7%BD%91%E6%8F%90%E4%BE%9B%E4%BF%A1%E6%81%AF%E6%9C%8D%E5%8A%A1%E7%9A%84%E6%B4%BB%E5%8A%A8%E3%80%82,%E7%AC%AC%E4%B8%89%E6%9D%A1%20%E5%9B%BD%E5%AE%B6%E4%BA%92%E8%81%94%E7%BD%91%E4%BF%A1%E6%81%AF%E5%86%85%E5%AE%B9%E4%B8%BB%E7%AE%A1%E9%83%A8%E9%97%A8%E4%BE%9D%E7%85%A7%E8%81%8C%E8%B4%A3%E8%B4%9F%E8%B4%A3%E4%BA%92%E8%81%94%E7%BD%91%E4%BF%A1%E6%81%AF%E5%86%85%E5%AE%B9%E7%AE%A1%E7%90%86%EF%BC%8C%E5%8D%8F%E8%B0%83%20.">互联网信息服务管理办法</a>》 以及 《<a href="http://www.gov.cn/gongbao/content/2005/content_93018.htm">非经营性互联网信息服务备案管理办法</a>》 ，国家对非经营性互联网信息服务实行备案制度，对经营性互联网信息服务实行许可制度。未取得许可或者未履行备案手续的，不得从事互联网信息服务。即所有对中国大陆提供服务的网站都必须先进行 ICP 备案，才可开通服务。</p>
+<p>通俗点儿讲所谓的“备案”类似于我们国人现实生活中的“上户口”，需要提供的信息有：姓名、家庭住址（域名）、父母（网站所有人）、联系方式等等。</p>
+<h3 id="5-二级域名与多级域名">5. 二级域名与多级域名<a class="headerlink" href="#5-二级域名与多级域名" title="Permanent link"></a></h3>
+<p>一级域名，是由一个合法的字符串+域名后缀组成，例如：baidu.com 就是一级域名；</p>
+<p>二级域名：二级域名是在一级域名前面加上一个字符串，例如：baike.baidu.com；</p>
+<p>多级域名：多级域名就是在一级域名前加上多个字符串组成。</p>
+<h2 id="三dns">三、DNS<a class="headerlink" href="#三dns" title="Permanent link"></a></h2>
+<h3 id="1-概念_2">1. 概念<a class="headerlink" href="#1-概念_2" title="Permanent link"></a></h3>
+<blockquote>
+<p><strong>域名系统</strong>（英文：<strong>D</strong>omain <strong>N</strong>ame <strong>S</strong>ystem，缩写：<strong>DNS</strong>）是互联网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。</p>
+</blockquote>
+<p>国内常用 DNS：<strong>114 DNS</strong>、<strong>阿里DNS</strong>、<strong>百度DNS</strong>、<strong>360 DNS</strong>和<strong>Google DNS</strong>。</p>
+<h3 id="2-本地-hosts-文件">2. 本地 hosts 文件<a class="headerlink" href="#2-本地-hosts-文件" title="Permanent link"></a></h3>
+<p>hosts 文件是一个没有扩展名的系统文件，可以用记事本等工具打开，作用就是将一些常用的网址域名与其对应的IP地址建立一个关联“数据库”。</p>
+<p>当用户访问某个域名时，系统会首先自动从 hosts 文件中寻找对应的 IP地址。如果找到，系统会根据找到的 IP进行服务器的访问，如果没有找到，则系统会再将网址提交 DNS域名解析服务器进行IP地址的解析。</p>
+<p>在 Windows系统中，hosts 文件路径为：<code>C:\windows\system32\drivers\etc\hosts</code> 目录下；在Linux 系统中，hosts 文件路径为：<code>/etc/hosts</code>。</p>
+<h3 id="3-a记录和cname">3. A记录和CNAME<a class="headerlink" href="#3-a记录和cname" title="Permanent link"></a></h3>
+<p><strong>A 记录</strong>：</p>
+<blockquote>
+<p>A (Address) 记录是用来指定主机名（或域名）对应的IP地址记录。用户可以将该域名下的网站服务器指向到自己的网页服务器(web server)上。同时也可以设置域名的子域名。</p>
+</blockquote>
+<p><strong>CNAME</strong>：</p>
+<blockquote>
+<p>CNAME 被称为规范名字，也称别名记录。当需要将多个域名需要指向同一服务器IP时，此时我们就可以将一个域名做 A记录指向服务器IP，然后将其他的域名做别名(即CNAME)到A记录的域名上。这样用户就可以在访问不同域名时访问到同一个服务。</p>
+</blockquote>
+<h3 id="4-常见-dns-攻击">4. 常见 DNS 攻击<a class="headerlink" href="#4-常见-dns-攻击" title="Permanent link"></a></h3>
+<h4 id="域名劫持">域名劫持<a class="headerlink" href="#域名劫持" title="Permanent link"></a></h4>
+<p>通过采用黑客手段控制了域名管理密码和域名管理邮箱，然后将该域名的NS纪录指向到黑客可以控制的DNS服务器，然后通过在该DNS服务器上添加相应域名纪录，从而使网民访问该域名时，进入了黑客所指向的内容。</p>
+<h4 id="缓存投毒">缓存投毒<a class="headerlink" href="#缓存投毒" title="Permanent link"></a></h4>
+<p>利用控制DNS缓存服务器，把原本准备访问某网站的用户在不知不觉中带到黑客指向的其他网站上。</p>
+<h4 id="dns劫持">DNS劫持<a class="headerlink" href="#dns劫持" title="Permanent link"></a></h4>
+<p>DNS劫持又称域名劫持，是指在劫持的网络范围内拦截域名解析的请求，分析请求的域名，把审查范围以外的请求放行，否则返回假的IP地址或者什么都不做使请求失去响应，其效果就是对特定的网络不能访问或访问的是假网址。</p>
+<h4 id="dns-ddos攻击">DNS DDoS攻击<a class="headerlink" href="#dns-ddos攻击" title="Permanent link"></a></h4>
+<p>通过控制大批僵尸网络利用真实DNS协议栈发起大量域名查询请求，利用工具软件伪造源IP发送海量DNS查询，发送海量DNS查询报文导致网络带宽耗尽而无法传送正常DNS查询请求。</p>
+<h2 id="四cdn">四、CDN<a class="headerlink" href="#四cdn" title="Permanent link"></a></h2>
+<h3 id="1-概念_3">1. 概念<a class="headerlink" href="#1-概念_3" title="Permanent link"></a></h3>
+<blockquote>
+<p>CDN的全称是Content Delivery Network，即内容分发网络。CDN是构建在现有网络基础之上的智能虚拟网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。</p>
+</blockquote>
+<p>简单来说，CDN就是采用更多的缓存服务器（CDN边缘节点），布放在用户访问相对集中的地区或网络中。当用户访问网站时，利用全局负载技术，将用户的访问指向距离最近的缓存服务器上，由缓存服务器响应用户请求（类似于京东这样电商的本地仓库）。</p>
+<h3 id="2-cdn的实现">2. CDN的实现<a class="headerlink" href="#2-cdn的实现" title="Permanent link"></a></h3>
+<p>网站运行商在 CDN运营商那里购买 CDN服务时，会得到一个专有的 CDN加速 DNS 服务器地址，网站运营商将自己的域名解析到这个专有 DNS 服务器上。</p>
+<p>当用户请求目标网站时，本地 DNS 会返回专有 DNS服务器的地址，域名解析服务交给这个专有 DNS 服务器。CDN 运营商的专有 DNS 服务器会根据用户的 IP 地址得到用户所在的地理位置，再返回距离用户最近的 CDN服务器的地址。于是用户就会去返回的这个 CDN 服务器请求资源，从而实现用户访问的加速。</p>
+<h3 id="3-cdn-检测">3. CDN 检测<a class="headerlink" href="#3-cdn-检测" title="Permanent link"></a></h3>
+<p>由于CDN 的机制，会对我们进行渗透测试时造成困难。因此检测网站是否使用了 CDN对我们而言是一件十分重要的事情。</p>
+<p>根据 CDN的原理，我们可以在不同地区访问网站，看看解析得到的IP是否是同一个，如果不是，那么该网站就可能使用了 CDN服务。</p>
+<p>我们可以通过各种在线服务平台对网站进行CDN检测，例如：<a href="https://www.ping.cn/ping">Ping.cn-全国多地区网络节点在线ping检测平台</a>等。</p>
+<h2 id="五url--urn--uri">五、URL + URN = URI<a class="headerlink" href="#五url--urn--uri" title="Permanent link"></a></h2>
+<h3 id="1-概念_4">1. 概念<a class="headerlink" href="#1-概念_4" title="Permanent link"></a></h3>
+<blockquote>
+<p>URL = Uniform Resource Locator    统一资源<strong>定位符</strong>，一种定位资源的主要访问机制的字符串；</p>
+<p>URN = Uniform Resource Name      统一资源<strong>名称</strong>，通过特定命名空间中的唯一名称或ID来标识资源；</p>
+<p>URI = Uniform Resource Identifier    统一资源<strong>标志符</strong>，用来标识抽象或物理资源的一个紧凑字符串。</p>
+</blockquote>
+<h3 id="2-三者之间的区别">2. 三者之间的区别<a class="headerlink" href="#2-三者之间的区别" title="Permanent link"></a></h3>
+<h4 id="url">URL<a class="headerlink" href="#url" title="Permanent link"></a></h4>
+<p><strong>标准格式：</strong></p>
+<blockquote>
+<p>protocol :// hostname[:port] / path / [;parameters][?query]#fragment</p>
+</blockquote>
+<ul>
+<li><strong>protocol：</strong>协议；</li>
+<li><strong>hostname：</strong>主机名；</li>
+<li><strong>port：</strong>端口；</li>
+<li><strong>path：</strong>路径；</li>
+<li><strong>parameters：</strong>参数；</li>
+<li><strong>query</strong>：查询；</li>
+<li><strong>fragment：</strong>参数片段。</li>
+</ul>
+<p><strong>举例：</strong></p>
+<blockquote>
+<p><a href="http://127.0.0.1:8000/file/1.txt">http://127.0.0.1:8000/file/1.txt</a></p>
+</blockquote>
+<h4 id="uri">URI<a class="headerlink" href="#uri" title="Permanent link"></a></h4>
+<p><strong>标准格式：</strong></p>
+<blockquote>
+<p>scheme:[//[user[:password]@]host[:port]][/path][?query][#fragment]</p>
+</blockquote>
+<ul>
+<li><strong>user：</strong>用户信息</li>
+</ul>
+<p><strong>举例：</strong></p>
+<blockquote>
+<div class="language-text highlight"><pre><span></span><code>                hierarchical part
+    ┌───────────────────┴─────────────────────┐
+                authority               path
+    ┌───────────────┴───────────────┐┌───┴────┐
+</code></pre></div>
+<p>abc://username:<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#112;&#97;&#115;&#115;&#119;&#111;&#114;&#100;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;">&#112;&#97;&#115;&#115;&#119;&#111;&#114;&#100;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;</a>:123/path/data?key=value&amp;key2=value2#fragid1
+  └┬┘   └───────┬───────┘ └────┬────┘ └┬┘           └─────────┬─────────┘ └──┬──┘
+scheme  user information     host     port                  query         fragment</p>
+</blockquote>
+<h4 id="urn">URN<a class="headerlink" href="#urn" title="Permanent link"></a></h4>
+<p><strong>举例：</strong></p>
+<blockquote>
+<p>urn:example:mammal:monotreme:echidna
+          └┬┘ └──────────────┬───────────────┘
+      scheme              path
+</p>
+</blockquote>
+<h2 id="六http">六、HTTP<a class="headerlink" href="#六http" title="Permanent link"></a></h2>
+<h3 id="1-概念_5">1. 概念<a class="headerlink" href="#1-概念_5" title="Permanent link"></a></h3>
+<blockquote>
+<p>超文本传输协议（Hypertext Transfer Protocol，HTTP）是一个简单的请求-响应协议，它通常运行在TCP之上。它指定了客户端可能发送给服务器什么样的消息以及得到什么样的响应。请求和响应消息的头以ASCII形式给出。</p>
+</blockquote>
+<h3 id="2-简介">2. 简介<a class="headerlink" href="#2-简介" title="Permanent link"></a></h3>
+<ul>
+<li>超文本传输协议（Hypertext Transfer Protocol，HTTP）是一个简单的请求-响应协议，它通常运行在TCP之上。它指定了客户端可能发送给服务器什么样的消息以及得到什么样的响应</li>
+<li>现在主要应用 http1.1 协议</li>
+<li>http是无状态协议，不会保存多次请求之间的关系，使用<code>cookie</code>做状态管理</li>
+<li>持久连接节省通信量（HTTP1.1和部分HTTP1.0）</li>
+<li>通过请求方法告知服务器意图，<code>get</code>,<code>post</code>等</li>
+</ul>
+<h3 id="3-http-请求">3. HTTP 请求<a class="headerlink" href="#3-http-请求" title="Permanent link"></a></h3>
+<h4 id="请求报文">请求报文<a class="headerlink" href="#请求报文" title="Permanent link"></a></h4>
+<p>HTTP 的请求报文包含三个部分：<strong>请求行 + 请求头 + 数据体</strong>。请求头与数据体之间由空行隔开，每一个请求头之间需要换行。</p>
+<p>通过浏览器的 Network 选项，我们可以看到我们在请求网站时发送的 HTTP 请求头的内容：</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">GET</span> <span class="nn">/</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="na">Host</span><span class="o">:</span> <span class="l">www.example.com</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="na">Connection</span><span class="o">:</span> <span class="l">keep-alive</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="na">Pragma</span><span class="o">:</span> <span class="l">no-cache</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="na">Cache-Control</span><span class="o">:</span> <span class="l">no-cache</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="na">Upgrade-Insecure-Requests</span><span class="o">:</span> <span class="l">1</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="na">User-Agent</span><span class="o">:</span> <span class="l">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36 Edg/90.0.818.51</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="na">Accept</span><span class="o">:</span> <span class="l">text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="na">Accept-Encoding</span><span class="o">:</span> <span class="l">gzip, deflate</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="na">Accept-Language</span><span class="o">:</span> <span class="l">zh-CN,zh;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6</span>
+</span></code></pre></div>
+<p>HTTP 请求报文的请求首行由：<strong>请求方式 + 请求地址 + 请求协议</strong>组成。</p>
+<p>HTTP的头信息包括通用头、请求头、响应头和实体头四个部分。每个头域由一个域名，冒号（:）和域值三部分组成：</p>
+<ul>
+<li><strong>通用头标</strong>：即可用于请求，也可用于响应，是作为一个整体而不是特定资源与事务相关联；</li>
+<li><strong>请求头标</strong>：允许客户端传递关于自身的信息和希望的响应形式；</li>
+<li><strong>响应头标</strong>：服务器和于传递自身信息的响应；</li>
+<li><strong>实体头标</strong>：定义被传送资源的信息。即可用于请求，也可用于响应；</li>
+</ul>
+<h4 id="http-请求方法">HTTP 请求方法<a class="headerlink" href="#http-请求方法" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">序号</th>
+<th style="text-align: left;">方法</th>
+<th style="text-align: left;">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">GET</td>
+<td style="text-align: left;">请求指定的页面信息，并返回实体主体；</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">HEAD</td>
+<td style="text-align: left;">类似于 GET 请求，只不过返回的响应中没有具体的内容，用于获取报头；编写扫描工具时使用这个方法效率最高。</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">POST</td>
+<td style="text-align: left;">向指定资源提交数据进行处理请求（例如提交表单或者上传文件）。数据被包含在请求体中。POST 请求可能会导致新的资源的建立和/或已有资源的修改；</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">PUT</td>
+<td style="text-align: left;">从客户端向服务器传送的数据取代指定的文档的内容；</td>
+</tr>
+<tr>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">DELETE</td>
+<td style="text-align: left;">请求服务器删除指定的页面；</td>
+</tr>
+<tr>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">CONNECT</td>
+<td style="text-align: left;">HTTP/1.1 协议中预留给能够将连接改为管道方式的代理服务器；</td>
+</tr>
+<tr>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">OPTIONS</td>
+<td style="text-align: left;">允许客户端查看服务器的性能；</td>
+</tr>
+<tr>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">TRACE</td>
+<td style="text-align: left;">回显服务器收到的请求，主要用于测试或诊断；</td>
+</tr>
+<tr>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">PATCH</td>
+<td style="text-align: left;">是对 PUT 方法的补充，用来对已知资源进行局部更新 。</td>
+</tr>
+</tbody>
+</table>
+<h4 id="http-请求头">HTTP 请求头<a class="headerlink" href="#http-请求头" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Header</th>
+<th style="text-align: left;">解释</th>
+<th style="text-align: left;">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Accept</td>
+<td style="text-align: left;">指定客户端能够接收的内容类型</td>
+<td style="text-align: left;">Accept: text/plain, text/html</td>
+</tr>
+<tr>
+<td style="text-align: left;">Accept-Charset</td>
+<td style="text-align: left;">浏览器可以接受的字符编码集。</td>
+<td style="text-align: left;">Accept-Charset: iso-8859-5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Accept-Encoding</td>
+<td style="text-align: left;">指定浏览器可以支持的web服务器返回内容压缩编码类型。</td>
+<td style="text-align: left;">Accept-Encoding: compress, gzip</td>
+</tr>
+<tr>
+<td style="text-align: left;">Accept-Language</td>
+<td style="text-align: left;">浏览器可接受的语言</td>
+<td style="text-align: left;">Accept-Language: en,zh</td>
+</tr>
+<tr>
+<td style="text-align: left;">Accept-Ranges</td>
+<td style="text-align: left;">可以请求网页实体的一个或者多个子范围字段</td>
+<td style="text-align: left;">Accept-Ranges: bytes</td>
+</tr>
+<tr>
+<td style="text-align: left;">Authorization</td>
+<td style="text-align: left;">HTTP授权的授权证书</td>
+<td style="text-align: left;">Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cache-Control</td>
+<td style="text-align: left;">指定请求和响应遵循的缓存机制</td>
+<td style="text-align: left;">Cache-Control: no-cache</td>
+</tr>
+<tr>
+<td style="text-align: left;">Connection</td>
+<td style="text-align: left;">表示是否需要持久连接。（HTTP 1.1默认进行持久连接）</td>
+<td style="text-align: left;">Connection: close</td>
+</tr>
+<tr>
+<td style="text-align: left;">Cookie</td>
+<td style="text-align: left;">HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。</td>
+<td style="text-align: left;">Cookie: $Version=1; Skin=new;</td>
+</tr>
+<tr>
+<td style="text-align: left;">Content-Length</td>
+<td style="text-align: left;">请求的内容长度</td>
+<td style="text-align: left;">Content-Length: 348</td>
+</tr>
+<tr>
+<td style="text-align: left;">Content-Type</td>
+<td style="text-align: left;">请求的与实体对应的MIME信息</td>
+<td style="text-align: left;">Content-Type: application/x-www-form-urlencoded</td>
+</tr>
+<tr>
+<td style="text-align: left;">Date</td>
+<td style="text-align: left;">请求发送的日期和时间</td>
+<td style="text-align: left;">Date: Tue, 15 Nov 2010 08:12:31 GMT</td>
+</tr>
+<tr>
+<td style="text-align: left;">Expect</td>
+<td style="text-align: left;">请求的特定的服务器行为</td>
+<td style="text-align: left;">Expect: 100-continue</td>
+</tr>
+<tr>
+<td style="text-align: left;">From</td>
+<td style="text-align: left;">发出请求的用户的Email</td>
+<td style="text-align: left;">From: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#101;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">Host</td>
+<td style="text-align: left;">指定请求的服务器的域名和端口号</td>
+<td style="text-align: left;">Host: <a href="http://www.zcmhi.com">www.zcmhi.com</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">If-Match</td>
+<td style="text-align: left;">只有请求内容与实体相匹配才有效</td>
+<td style="text-align: left;">If-Match: “737060cd8c284d8af7ad3082f209582d”</td>
+</tr>
+<tr>
+<td style="text-align: left;">If-Modified-Since</td>
+<td style="text-align: left;">如果请求的部分在指定时间之后被修改则请求成功，未被修改则返回304代码</td>
+<td style="text-align: left;">If-Modified-Since: Sat, 29 Oct 2010 19:43:31 GMT</td>
+</tr>
+<tr>
+<td style="text-align: left;">If-None-Match</td>
+<td style="text-align: left;">如果内容未改变返回304代码，参数为服务器先前发送的Etag，与服务器回应的Etag比较判断是否改变</td>
+<td style="text-align: left;">If-None-Match: “737060cd8c284d8af7ad3082f209582d”</td>
+</tr>
+<tr>
+<td style="text-align: left;">If-Range</td>
+<td style="text-align: left;">如果实体未改变，服务器发送客户端丢失的部分，否则发送整个实体。参数也为Etag</td>
+<td style="text-align: left;">If-Range: “737060cd8c284d8af7ad3082f209582d”</td>
+</tr>
+<tr>
+<td style="text-align: left;">If-Unmodified-Since</td>
+<td style="text-align: left;">只在实体在指定时间之后未被修改才请求成功</td>
+<td style="text-align: left;">If-Unmodified-Since: Sat, 29 Oct 2010 19:43:31 GMT</td>
+</tr>
+<tr>
+<td style="text-align: left;">Max-Forwards</td>
+<td style="text-align: left;">限制信息通过代理和网关传送的时间</td>
+<td style="text-align: left;">Max-Forwards: 10</td>
+</tr>
+<tr>
+<td style="text-align: left;">Pragma</td>
+<td style="text-align: left;">用来包含实现特定的指令</td>
+<td style="text-align: left;">Pragma: no-cache</td>
+</tr>
+<tr>
+<td style="text-align: left;">Proxy-Authorization</td>
+<td style="text-align: left;">连接到代理的授权证书</td>
+<td style="text-align: left;">Proxy-Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</td>
+</tr>
+<tr>
+<td style="text-align: left;">Range</td>
+<td style="text-align: left;">只请求实体的一部分，指定范围</td>
+<td style="text-align: left;">Range: bytes=500-999</td>
+</tr>
+<tr>
+<td style="text-align: left;">Referer</td>
+<td style="text-align: left;">先前网页的地址，当前请求网页紧随其后,即来路</td>
+<td style="text-align: left;">Referer: <a href="http://www.zcmhi.com/archives/71.html">http://www.zcmhi.com/archives/71.html</a></td>
+</tr>
+<tr>
+<td style="text-align: left;">TE</td>
+<td style="text-align: left;">客户端愿意接受的传输编码，并通知服务器接受接受尾加头信息</td>
+<td style="text-align: left;">TE: trailers,deflate;q=0.5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Upgrade</td>
+<td style="text-align: left;">向服务器指定某种传输协议以便服务器进行转换（如果支持）</td>
+<td style="text-align: left;">Upgrade: HTTP/2.0, SHTTP/1.3, IRC/6.9, RTA/x11</td>
+</tr>
+<tr>
+<td style="text-align: left;">User-Agent</td>
+<td style="text-align: left;">User-Agent的内容包含发出请求的用户信息</td>
+<td style="text-align: left;">User-Agent: Mozilla/5.0 (Linux; X11)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Via</td>
+<td style="text-align: left;">通知中间网关或代理服务器地址，通信协议</td>
+<td style="text-align: left;">Via: 1.0 fred, 1.1 nowhere.com (Apache/1.1)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Warning</td>
+<td style="text-align: left;">关于消息实体的警告信息</td>
+<td style="text-align: left;">Warn: 199 Miscellaneous warning</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-http-响应">3. HTTP 响应<a class="headerlink" href="#3-http-响应" title="Permanent link"></a></h3>
+<p>响应报文与请求报文一样，由三个部分组成(<strong>响应行，响应头，响应体</strong>)。响应头与响应体之间由空行隔开，每一个请求头之间需要换行。</p>
+<p>浏览器捕捉到的响应头：</p>
+<div class="language-http highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="na">Content-Encoding</span><span class="o">:</span> <span class="l">gzip</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="na">Age</span><span class="o">:</span> <span class="l">170477</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="na">Cache-Control</span><span class="o">:</span> <span class="l">max-age=604800</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="na">Content-Type</span><span class="o">:</span> <span class="l">text/html; charset=UTF-8</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="na">Date</span><span class="o">:</span> <span class="l">Sat, 01 May 2021 12:58:12 GMT</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="na">Etag</span><span class="o">:</span> <span class="l">&quot;3147526947+ident+gzip&quot;</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="na">Expires</span><span class="o">:</span> <span class="l">Sat, 08 May 2021 12:58:12 GMT</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="na">Last-Modified</span><span class="o">:</span> <span class="l">Thu, 17 Oct 2019 07:18:26 GMT</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="na">Server</span><span class="o">:</span> <span class="l">ECS (sab/5695)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="na">Vary</span><span class="o">:</span> <span class="l">Accept-Encoding</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="na">X-Cache</span><span class="o">:</span> <span class="l">HIT</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="na">Content-Length</span><span class="o">:</span> <span class="l">648</span>
+</span></code></pre></div>
+<h4 id="http-响应码">HTTP 响应码<a class="headerlink" href="#http-响应码" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">分类</th>
+<th style="text-align: left;">分类描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1**</td>
+<td style="text-align: left;">信息，服务器收到请求，需要请求者继续执行操作</td>
+</tr>
+<tr>
+<td style="text-align: left;">2**</td>
+<td style="text-align: left;">成功，操作被成功接收并处理</td>
+</tr>
+<tr>
+<td style="text-align: left;">3**</td>
+<td style="text-align: left;">重定向，需要进一步的操作以完成请求</td>
+</tr>
+<tr>
+<td style="text-align: left;">4**</td>
+<td style="text-align: left;">客户端错误，请求包含语法错误或无法完成请求</td>
+</tr>
+<tr>
+<td style="text-align: left;">5**</td>
+<td style="text-align: left;">服务器错误，服务器在处理请求的过程中发生了错误</td>
+</tr>
+</tbody>
+</table>
+<h4 id="http-响应头">HTTP 响应头<a class="headerlink" href="#http-响应头" title="Permanent link"></a></h4>
+<table>
+<thead>
+<tr>
+<th>响应头</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Access-Control-Allow-Origin</td>
+<td>指定哪些网站可以<code>跨域源资源共享</code></td>
+<td><code>Access-Control-Allow-Origin: *</code></td>
+</tr>
+<tr>
+<td>Accept-Patch</td>
+<td>指定服务器所支持的文档补丁格式</td>
+<td>Accept-Patch: text/example;charset=utf-8</td>
+</tr>
+<tr>
+<td>Accept-Ranges</td>
+<td>服务器所支持的内容范围</td>
+<td><code>Accept-Ranges: bytes</code></td>
+</tr>
+<tr>
+<td>Age</td>
+<td>响应对象在代理缓存中存在的时间，以秒为单位</td>
+<td><code>Age: 12</code></td>
+</tr>
+<tr>
+<td>Allow</td>
+<td>对于特定资源的有效动作;</td>
+<td><code>Allow: GET, HEAD</code></td>
+</tr>
+<tr>
+<td>Cache-Control</td>
+<td>通知从服务器到客户端内的所有缓存机制，表示它们是否可以缓存这个对象及缓存有效时间。其单位为秒</td>
+<td><code>Cache-Control: max-age=3600</code></td>
+</tr>
+<tr>
+<td>Connection</td>
+<td>针对该连接所预期的选项</td>
+<td><code>Connection: close</code></td>
+</tr>
+<tr>
+<td>Content-Disposition</td>
+<td>对已知MIME类型资源的描述，浏览器可以根据这个响应头决定是对返回资源的动作，如：将其下载或是打开。</td>
+<td>Content-Disposition: attachment; filename="fname.ext"</td>
+</tr>
+<tr>
+<td>Content-Encoding</td>
+<td>响应资源所使用的编码类型。</td>
+<td><code>Content-Encoding: gzip</code></td>
+</tr>
+<tr>
+<td>Content-Language</td>
+<td>响就内容所使用的语言</td>
+<td><code>Content-Language: zh-cn</code></td>
+</tr>
+<tr>
+<td>Content-Length</td>
+<td>响应消息体的长度，用8进制字节表示</td>
+<td><code>Content-Length: 348</code></td>
+</tr>
+<tr>
+<td>Content-Location</td>
+<td>所返回的数据的一个候选位置</td>
+<td><code>Content-Location: /index.htm</code></td>
+</tr>
+<tr>
+<td>Content-MD5</td>
+<td>响应内容的二进制 MD5 散列值，以 Base64 方式编码</td>
+<td>Content-MD5: IDK0iSsgSW50ZWd0DiJUi==</td>
+</tr>
+<tr>
+<td>Content-Range</td>
+<td>如果是响应部分消息，表示属于完整消息的哪个部分</td>
+<td>Content-Range: bytes 21010-47021/47022</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>当前内容的<code>MIME</code>类型</td>
+<td>Content-Type: text/html; charset=utf-8</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>此条消息被发送时的日期和时间(以<a href="http://tools.ietf.org/html/rfc7231#section-7.1.1.1">RFC 7231</a>中定义的"HTTP日期"格式来表示)</td>
+<td>Date: Tue, 15 Nov 1994 08:12:31 GMT</td>
+</tr>
+<tr>
+<td>ETag</td>
+<td>对于某个资源的某个特定版本的一个标识符，通常是一个 消息散列</td>
+<td>ETag: "737060cd8c284d8af7ad3082f209582d"</td>
+</tr>
+<tr>
+<td>Expires</td>
+<td>指定一个日期/时间，超过该时间则认为此回应已经过期</td>
+<td>Expires: Thu, 01 Dec 1994 16:00:00 GMT</td>
+</tr>
+<tr>
+<td>Last-Modified</td>
+<td>所请求的对象的最后修改日期(按照 RFC 7231 中定义的“超文本传输协议日期”格式来表示)</td>
+<td>Last-Modified: Dec, 26 Dec 2015 17:30:00 GMT</td>
+</tr>
+<tr>
+<td>Link</td>
+<td>用来表示与另一个资源之间的类型关系，此类型关系是在<a href="https://tools.ietf.org/html/rfc5988">RFC 5988</a>中定义</td>
+<td><code>Link:</code>; rel="alternate"</td>
+</tr>
+<tr>
+<td>Location</td>
+<td>用于在进行重定向，或在创建了某个新资源时使用。</td>
+<td>Location: <a href="http://www.itbilu.com/nodejs">http://www.itbilu.com/nodejs</a></td>
+</tr>
+<tr>
+<td>P3P</td>
+<td>P3P策略相关设置</td>
+<td>P3P: CP="This is not a P3P policy!</td>
+</tr>
+<tr>
+<td>Pragma</td>
+<td>与具体的实现相关，这些响应头可能在请求/回应链中的不同时候产生不同的效果</td>
+<td><code>Pragma: no-cache</code></td>
+</tr>
+<tr>
+<td>Proxy-Authenticate</td>
+<td>要求在访问代理时提供身份认证信息。</td>
+<td><code>Proxy-Authenticate: Basic</code></td>
+</tr>
+<tr>
+<td>Public-Key-Pins</td>
+<td>用于防止中间攻击，声明网站认证中传输层安全协议的证书散列值</td>
+<td>Public-Key-Pins: max-age=2592000; pin-sha256="……";</td>
+</tr>
+<tr>
+<td>Refresh</td>
+<td>用于重定向，或者当一个新的资源被创建时。默认会在5秒后刷新重定向。</td>
+<td>Refresh: 5; url=<a href="http://itbilu.com">http://itbilu.com</a></td>
+</tr>
+<tr>
+<td>Retry-After</td>
+<td>如果某个实体临时不可用，那么此协议头用于告知客户端稍后重试。其值可以是一个特定的时间段(以秒为单位)或一个超文本传输协议日期。</td>
+<td>示例1:Retry-After: 120示例2: Retry-After: Dec, 26 Dec 2015 17:30:00 GMT</td>
+</tr>
+<tr>
+<td>Server</td>
+<td>服务器的名称</td>
+<td><code>Server: nginx/1.6.3</code></td>
+</tr>
+<tr>
+<td>Set-Cookie</td>
+<td>设置<code>HTTP cookie</code></td>
+<td>Set-Cookie: UserID=itbilu; Max-Age=3600; Version=1</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>通用网关接口的响应头字段，用来说明当前HTTP连接的响应状态。</td>
+<td><code>Status: 200 OK</code></td>
+</tr>
+<tr>
+<td>Trailer</td>
+<td><code>Trailer</code>用户说明传输中分块编码的编码信息</td>
+<td><code>Trailer: Max-Forwards</code></td>
+</tr>
+<tr>
+<td>Transfer-Encoding</td>
+<td>用表示实体传输给用户的编码形式。包括：<code>chunked</code>、<code>compress</code>、 <code>deflate</code>、<code>gzip</code>、<code>identity</code>。</td>
+<td>Transfer-Encoding: chunked</td>
+</tr>
+<tr>
+<td>Upgrade</td>
+<td>要求客户端升级到另一个高版本协议。</td>
+<td>Upgrade: HTTP/2.0, SHTTP/1.3, IRC/6.9, RTA/x11</td>
+</tr>
+<tr>
+<td>Vary</td>
+<td>告知下游的代理服务器，应当如何对以后的请求协议头进行匹配，以决定是否可使用已缓存的响应内容而不是重新从原服务器请求新的内容。</td>
+<td><code>Vary: *</code></td>
+</tr>
+<tr>
+<td>Via</td>
+<td>告知代理服务器的客户端，当前响应是通过什么途径发送的。</td>
+<td>Via: 1.0 fred, 1.1 itbilu.com (nginx/1.6.3)</td>
+</tr>
+<tr>
+<td>Warning</td>
+<td>一般性警告，告知在实体内容体中可能存在错误。</td>
+<td>Warning: 199 Miscellaneous warning</td>
+</tr>
+<tr>
+<td>WWW-Authenticate</td>
+<td>表示在请求获取这个实体时应当使用的认证模式。</td>
+<td><code>WWW-Authenticate: Basic</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="七https">七、HTTPS<a class="headerlink" href="#七https" title="Permanent link"></a></h2>
+<h3 id="1-概念_6">1. 概念<a class="headerlink" href="#1-概念_6" title="Permanent link"></a></h3>
+<blockquote>
+<p>HTTPS （全称：Hyper Text Transfer Protocol over SecureSocket Layer），是以安全为目标的 HTTP 通道，在HTTP的基础上通过传输加密和身份认证保证了传输过程的安全性 。</p>
+</blockquote>
+<h3 id="2-通信流程">2. 通信流程<a class="headerlink" href="#2-通信流程" title="Permanent link"></a></h3>
+<p>HTTPS通信主要包括几个节点，发起请求、验证身份、协商秘钥、加密会话，具体流程如下（此例子只有客户端对服务端的单向验证）：</p>
+<ol>
+<li>客户端向服务端发起建立HTTPS请求：</li>
+<li>客户端生成随机数R1 发送给服务端；</li>
+<li>客户端告诉服务端自己支持哪些加密算法。</li>
+<li>服务器向客户端发送数字证书:</li>
+<li>服务端生成随机数R2;</li>
+<li>从客户端支持的加密算法中选择一种双方都支持的加密算法（此算法用于后面的会话密钥生成）;</li>
+<li>服务端生成把证书、随机数R2、会话密钥生成算法，一同发给客户端;</li>
+<li>客户端验证数字证书，证书验证通过后客户端生成会话密钥（双向验证则此处客户端也会向服务器发送证书）:</li>
+<li>验证证书的可靠性，先用CA的公钥解密被加密过后的证书,能解密则说明证书没有问题，然后通过证书里提供的摘要算法进行对数据进行摘要，然后通过自己生成的摘要与服务端发送的摘要比对;</li>
+<li>验证证书合法性，包括证书是否吊销、是否到期、域名是否匹配，通过后则进行后面的流程;</li>
+<li>获得证书的公钥、会话密钥生成算法、随机数R2;</li>
+<li>生成一个随机数R3;</li>
+<li>根据会话秘钥算法使用R1、R2、R3生成会话秘钥;</li>
+<li>用服务端证书的公钥加密随机数R3并发送给服务端。</li>
+<li>服务器生成会话密钥（双向验证此处服务端也会对客户端的证书验证）：</li>
+<li>服务器用私钥解密客户端发过来的随机数R3；</li>
+<li>根据会话秘钥算法使用R1、R2、R3生成会话秘钥。</li>
+<li>客户端与服务端开始进行加密会话。</li>
+</ol>
+<h3 id="3-https-的优缺点">3. HTTPS 的优缺点<a class="headerlink" href="#3-https-的优缺点" title="Permanent link"></a></h3>
+<h4 id="优点">优点<a class="headerlink" href="#优点" title="Permanent link"></a></h4>
+<ol>
+<li>使用 HTTPS 协议可认证用户和服务器，确保数据发送到正确的客户机和服务器；</li>
+<li>HTTPS 协议是由 SSL+HTTP构建的可进行加密传输、身份认证的网络协议，要比 HTTP安全，可防止数据在传输过程中被窃取、改变，确保数据的完整性；</li>
+<li>HTTPS 是现行架构下最安全的解决方案，虽然不是绝对安全，但它大幅增加了中间人攻击的成本。</li>
+</ol>
+<h4 id="缺点">缺点<a class="headerlink" href="#缺点" title="Permanent link"></a></h4>
+<ol>
+<li>相同网络环境下，HTTPS 协议会使页面的加载时间延长近 50%，增加 10%到 20%的耗电。此外，HTTPS 协议还会影响缓存，增加数据开销和功耗；</li>
+<li>HTTPS 协议的安全是有范围的，在黑客攻击、拒绝服务攻击和服务器劫持等方面几乎起不到什么作用；</li>
+<li>最关键的是，SSL 证书的信用链体系并不安全。特别是在某些国家可以控制 CA 根证书的情况下，中间人攻击一样可行；</li>
+<li>成本增加：部署 HTTPS 后，因为 HTTPS 协议的工作要增加额外的计算资源消耗，例如 SSL 协议加密算法和 SSL 交互次数将占用一定的计算资源和服务器成本。在大规模用户访问应用的场景下，服务器需要频繁地做加密和解密操作，几乎每一个字节都需要做加解密，这就产生了服务器成本。</li>
+</ol>
+<hr />
+<blockquote>
+<p>​ Reference：</p>
+<ol>
+<li>郭浩然. 网站安全之HTTPS优缺点分析</li>
+<li><a href="http://tools.jb51.net/table/">脚本之家在线工具 (jb51.net)</a></li>
+</ol>
+</blockquote>
+
+
+
+
+<h2 id="__comments">评论</h2>
+<!-- Insert generated snippet here -->
+<script src="https://giscus.app/client.js" data-repo="wlynxg/blog" data-repo-id="R_kgDOGbVXMw"
+    data-category="Announcements" data-category-id="DIC_kwDOGbVXM84Caege" data-mapping="pathname" data-strict="0"
+    data-reactions-enabled="1" data-emit-metadata="1" data-input-position="top" data-theme="preferred_color_scheme"
+    data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async>
+    </script>
+
+
+<!-- Synchronize Giscus theme with palette -->
+<script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    // Set palette on initial load
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+        var theme = palette.color.scheme === "slate"
+            ? "transparent_dark"
+            : "light"
+
+        // Instruct Giscus to set theme
+        giscus.setAttribute("data-theme", theme)
+    }
+
+    // Register event handlers after documented loaded
+    document.addEventListener("DOMContentLoaded", function () {
+        var ref = document.querySelector("[data-md-component=palette]")
+        ref.addEventListener("change", function () {
+            var palette = __md_get("__palette")
+            if (palette && typeof palette.color === "object") {
+                var theme = palette.color.scheme === "slate"
+                    ? "transparent_dark"
+                    : "light"
+
+                // Instruct Giscus to change theme
+                var frame = document.querySelector(".giscus-frame")
+                frame.contentWindow.postMessage(
+                    { giscus: { setConfig: { theme } } },
+                    "https://giscus.app"
+                )
+            }
+        })
+    })
+</script>
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.instant", "search.highlight", "search.suggest"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="https://lib.baomitu.com/babel-polyfill/7.12.1/polyfill.min.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+        <script src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      
+    
+  </body>
+</html>
