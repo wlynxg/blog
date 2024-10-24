@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../docker%E4%B8%ADapt-get%20update%E5%87%BA%E9%94%99hash%20sum%20mismatch/">
+        <link rel="prev" href="../%E8%87%AA%E5%8A%A8%E7%A6%81%E7%94%A8%E7%99%BB%E5%BD%95%E5%A4%B1%E8%B4%A5%E7%9A%84%20ssh%20IP/">
       
       
-        <link rel="next" href="../rsylog%20%E4%BF%9D%E5%AD%98%E5%88%B0%20sqlite/">
+        <link rel="next" href="../%E8%A7%A3%E5%86%B3%20make%20warning%20Clock%20skew%20detected.%20Your%20build%20may%20be%20incomplete.%20%E9%97%AE%E9%A2%98/">
       
       
       <link rel="icon" href="../../favicon.ico">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Proc 目录为空 - Lynx's Blog</title>
+        <title>解决 `GLIBC_2.32' not found - Lynx's Blog</title>
       
     
     
@@ -75,6 +75,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#解决-glibc_232-not-found" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -105,7 +110,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Proc 目录为空
+              解决 `GLIBC_2.32' not found
             
           </span>
         </div>
@@ -2725,17 +2730,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../proc%20%E7%9B%AE%E5%BD%95%E4%B8%BA%E7%A9%BA/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2744,7 +2742,6 @@
   
 
       </a>
-      
     </li>
   
 
@@ -3006,10 +3003,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../%E8%A7%A3%E5%86%B3%20%60GLIBC_2.32%27%20not%20found/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -3018,6 +3024,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -7400,6 +7407,8 @@
   
   
   
+    
+  
   
 </nav>
                   </div>
@@ -7417,14 +7426,22 @@
   
 
 
-<h1>
-    Proc 目录为空
-</h1>
-
 
 <div style="float:right"><span id="busuanzi_container_page_pv"><font size="3" color="grey">阅读量: <span id="busuanzi_value_page_pv"></span><font></font></font></span></div>
-<p>当我们使用<strong>ls</strong>命令查看 <strong>/proc</strong> 目录时，会发现该目录的大小为0，这是为什么呢？
-原来 <strong>/proc</strong> 目录本身是一个虚拟文件系统（virtual filesystem）。该目录下的所有数据都是存在与内存之中，例如系统内核、进程、外部设备状态及网络状态等。因为这个文件的目录在内存中，因此本身不占用任何硬盘空间。</p>
+<h1 id="解决-glibc_232-not-found">解决 `GLIBC_2.32' not found<a class="headerlink" href="#解决-glibc_232-not-found" title="Permanent link"></a></h1>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># 1. 下载 glibc-2.32 包</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>wget<span class="w"> </span>http://ftp.gnu.org/gnu/glibc/glibc-2.32.tar.gz
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># 2. 解压</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>tar<span class="w"> </span>-zxvf<span class="w">  </span>glibc-2.32.tar.gz<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>glibc-2.32
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1"># 3. 配置</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>mkdir<span class="w"> </span>build<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>../configure<span class="w">  </span>--prefix<span class="o">=</span>/usr<span class="w"> </span>--disable-profile<span class="w"> </span>--enable-add-ons<span class="w"> </span>--with-headers<span class="o">=</span>/usr/include<span class="w"> </span>--with-binutils<span class="o">=</span>/usr/bin
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1"># 4. install</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>make<span class="w"> </span>-j<span class="w"> </span><span class="m">8</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>install
+</span></code></pre></div>
 
 
 
@@ -7448,7 +7465,7 @@
     <span class="md-icon" title="最后更新">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1zM12.5 7v5.2l4 2.4-1 1L11 13V7zM11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2023年3月2日 09:55:21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年10月24日 14:02:05</span>
   </span>
 
     
@@ -7458,7 +7475,7 @@
     <span class="md-icon" title="创建日期">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.47 15.08 11 13V7h1.5v5.25l3.08 1.83c-.41.28-.79.62-1.11 1m-1.39 4.84c-.36.05-.71.08-1.08.08-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8c0 .37-.03.72-.08 1.08.69.1 1.33.32 1.92.64.1-.56.16-1.13.16-1.72 0-5.5-4.5-10-10-10S2 6.5 2 12s4.47 10 10 10c.59 0 1.16-.06 1.72-.16-.32-.59-.54-1.23-.64-1.92M18 15v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2023年3月2日 09:55:21</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-datetime">2024年10月24日 14:02:05</span>
   </span>
 
     
