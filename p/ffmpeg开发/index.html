@@ -1,0 +1,1244 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="FFmpeg 开发 nginx+RTMP安装配置 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 # nginx源码下载 wget http://nginx.org/download/nginx-1.8.1.tar.gz # rtmp模块下载 git clone https://github.com/arut/nginx-rtmp-module.git tar -zxvf nginx-1.8.1.tar.gz yum install gcc pcre-devel zlib-devel ./configure --add-module=/root/nginx-rtmp-module make make install vim /usr/local/nginx/conf/nginx.conf # RTMP server rtmp { server { listen 1935; #监听的端口 chunk_size 4000; application videotest { #rtmp推流请求路径 live on; } } } gstreamer安装 1 yum install gstreamer* ffmpeg安装 1 2 3 4 5 6 wget https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 tar -jxvf ffmpeg-snapshot.tar.bz2 yum install yasm ./configure --enable-shared --prefix=/usr/local/ffmpeg make make install gstreamer使用 摄像头视频流格式 1 gst-launch-1.0 v4l2src ! 'video/x-raw,format=(string)YUY2' ! autovideosink rtmp推流（失真和延时十分严重） 1 gst-launch-1.0 v4l2src ! &#34;video/x-raw,width=352,height=288&#34; ! videoparse width=352 height=288 framerate=30/1 ! x264enc bitrate=1024 ref=4 key-int-max=20 ! video/x-h264,profile=main ! h264parse ! video/x-h264 ! flvmux name=mux ! rtmpsink location='rtmp://192.168.170.129:1935/videotest/test' FFmpeg参数参考 FFplay参数表 名称 有参数 作用 x Y 强制屏幕宽度 y Y 强制屏幕高度 s Y 强制屏幕大小 fs N 全屏 an N 关闭音频 vn N 关闭视频 ast Y 设置想播放的音频流（需要指定流ID） vst Y 设置想播放的视频流（需要指定流ID） sst Y 设置想播放的字幕流（需要指定流ID） ss Y 从指定位置开始播放，单位是秒 t Y 播放指定时长的视频 nodisp N 无显示屏幕 f Y 强制封装格式 pix_fmt Y 指定像素格式 stats N 显示统计信息 idct Y IDCT算法 ec Y 错误隐藏方法 sync Y 视音频同步方式（type=audio/video/ext） autoexit N 播放完成自动退出 exitonkeydown N 按下按键退出 exitonmousedown N 按下鼠标退出 loop Y 指定循环次数 framedrop N CPU不够的时候丢帧 window_title Y 显示窗口的标题 rdftspeed Y Rdft速度 showmode Y 显示方式(0 = video, 1 = waves, 2 = RDFT) codec Y 强制解码器 FFplay播放时的快捷键 播放视音频文件的时候，可以通过下列按键控制视音频的播放\n"><title>ffmpeg开发</title>
+<link rel=canonical href=https://wlynxg.github.io/blog/p/ffmpeg%E5%BC%80%E5%8F%91/><link rel=stylesheet href=/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css><meta property='og:title' content="ffmpeg开发"><meta property='og:description' content="FFmpeg 开发 nginx+RTMP安装配置 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 # nginx源码下载 wget http://nginx.org/download/nginx-1.8.1.tar.gz # rtmp模块下载 git clone https://github.com/arut/nginx-rtmp-module.git tar -zxvf nginx-1.8.1.tar.gz yum install gcc pcre-devel zlib-devel ./configure --add-module=/root/nginx-rtmp-module make make install vim /usr/local/nginx/conf/nginx.conf # RTMP server rtmp { server { listen 1935; #监听的端口 chunk_size 4000; application videotest { #rtmp推流请求路径 live on; } } } gstreamer安装 1 yum install gstreamer* ffmpeg安装 1 2 3 4 5 6 wget https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 tar -jxvf ffmpeg-snapshot.tar.bz2 yum install yasm ./configure --enable-shared --prefix=/usr/local/ffmpeg make make install gstreamer使用 摄像头视频流格式 1 gst-launch-1.0 v4l2src ! 'video/x-raw,format=(string)YUY2' ! autovideosink rtmp推流（失真和延时十分严重） 1 gst-launch-1.0 v4l2src ! &#34;video/x-raw,width=352,height=288&#34; ! videoparse width=352 height=288 framerate=30/1 ! x264enc bitrate=1024 ref=4 key-int-max=20 ! video/x-h264,profile=main ! h264parse ! video/x-h264 ! flvmux name=mux ! rtmpsink location='rtmp://192.168.170.129:1935/videotest/test' FFmpeg参数参考 FFplay参数表 名称 有参数 作用 x Y 强制屏幕宽度 y Y 强制屏幕高度 s Y 强制屏幕大小 fs N 全屏 an N 关闭音频 vn N 关闭视频 ast Y 设置想播放的音频流（需要指定流ID） vst Y 设置想播放的视频流（需要指定流ID） sst Y 设置想播放的字幕流（需要指定流ID） ss Y 从指定位置开始播放，单位是秒 t Y 播放指定时长的视频 nodisp N 无显示屏幕 f Y 强制封装格式 pix_fmt Y 指定像素格式 stats N 显示统计信息 idct Y IDCT算法 ec Y 错误隐藏方法 sync Y 视音频同步方式（type=audio/video/ext） autoexit N 播放完成自动退出 exitonkeydown N 按下按键退出 exitonmousedown N 按下鼠标退出 loop Y 指定循环次数 framedrop N CPU不够的时候丢帧 window_title Y 显示窗口的标题 rdftspeed Y Rdft速度 showmode Y 显示方式(0 = video, 1 = waves, 2 = RDFT) codec Y 强制解码器 FFplay播放时的快捷键 播放视音频文件的时候，可以通过下列按键控制视音频的播放\n"><meta property='og:url' content='https://wlynxg.github.io/blog/p/ffmpeg%E5%BC%80%E5%8F%91/'><meta property='og:site_name' content="Wlynxg's Blog"><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2023-05-22T14:39:31+08:00'><meta property='article:modified_time' content='2024-05-16T11:09:11+08:00'><meta name=twitter:title content="ffmpeg开发"><meta name=twitter:description content="FFmpeg 开发 nginx+RTMP安装配置 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 # nginx源码下载 wget http://nginx.org/download/nginx-1.8.1.tar.gz # rtmp模块下载 git clone https://github.com/arut/nginx-rtmp-module.git tar -zxvf nginx-1.8.1.tar.gz yum install gcc pcre-devel zlib-devel ./configure --add-module=/root/nginx-rtmp-module make make install vim /usr/local/nginx/conf/nginx.conf # RTMP server rtmp { server { listen 1935; #监听的端口 chunk_size 4000; application videotest { #rtmp推流请求路径 live on; } } } gstreamer安装 1 yum install gstreamer* ffmpeg安装 1 2 3 4 5 6 wget https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2 tar -jxvf ffmpeg-snapshot.tar.bz2 yum install yasm ./configure --enable-shared --prefix=/usr/local/ffmpeg make make install gstreamer使用 摄像头视频流格式 1 gst-launch-1.0 v4l2src ! 'video/x-raw,format=(string)YUY2' ! autovideosink rtmp推流（失真和延时十分严重） 1 gst-launch-1.0 v4l2src ! &#34;video/x-raw,width=352,height=288&#34; ! videoparse width=352 height=288 framerate=30/1 ! x264enc bitrate=1024 ref=4 key-int-max=20 ! video/x-h264,profile=main ! h264parse ! video/x-h264 ! flvmux name=mux ! rtmpsink location='rtmp://192.168.170.129:1935/videotest/test' FFmpeg参数参考 FFplay参数表 名称 有参数 作用 x Y 强制屏幕宽度 y Y 强制屏幕高度 s Y 强制屏幕大小 fs N 全屏 an N 关闭音频 vn N 关闭视频 ast Y 设置想播放的音频流（需要指定流ID） vst Y 设置想播放的视频流（需要指定流ID） sst Y 设置想播放的字幕流（需要指定流ID） ss Y 从指定位置开始播放，单位是秒 t Y 播放指定时长的视频 nodisp N 无显示屏幕 f Y 强制封装格式 pix_fmt Y 指定像素格式 stats N 显示统计信息 idct Y IDCT算法 ec Y 错误隐藏方法 sync Y 视音频同步方式（type=audio/video/ext） autoexit N 播放完成自动退出 exitonkeydown N 按下按键退出 exitonmousedown N 按下鼠标退出 loop Y 指定循环次数 framedrop N CPU不够的时候丢帧 window_title Y 显示窗口的标题 rdftspeed Y Rdft速度 showmode Y 显示方式(0 = video, 1 = waves, 2 = RDFT) codec Y 强制解码器 FFplay播放时的快捷键 播放视音频文件的时候，可以通过下列按键控制视音频的播放\n"><link rel="shortcut icon" href=/blog/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/blog/><img src=/blog/img/file_hu6889846174828548036.png width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🐂</span></figure><div class=site-meta><h1 class=site-name><a href=/blog>Wlynxg's Blog</a></h1><h2 class=site-description>The harder, ther luckier!</h2></div></header><ol class=menu-social><li><a href=https://github.com/wlynxg target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=mailto:liuauthor@foxmail.com target=_blank title=Mail rel=me><svg t="1730733819354" class="icon" viewBox="0 0 1024 1024" p-id="3570" width="24" height="24"><path d="M942.08 200.704s-1.024.0.0.0c-1.024-2.048-1.024-4.096-2.048-6.144-1.024-1.024-2.048-3.072-3.072-4.096l-1.024-1.024-1.024-1.024c-1.024-1.024-2.048-2.048-4.096-2.048h-1.024c-2.048-1.024-3.072-1.024-5.12-1.024h-1.024C788.48 163.84 649.216 153.6 512 153.6s-276.48 10.24-412.672 30.72h-1.024c-2.048.0-3.072 1.024-5.12 1.024H92.16c-1.024 1.024-3.072 1.024-4.096 2.048l-1.024 1.024-1.024 1.024c-1.024 1.024-2.048 2.048-3.072 4.096v1.024c-1.024 2.048-1.024 3.072-2.048 5.12C61.44 304.128 51.2 408.576 51.2 512s10.24 207.872 30.72 311.296c2.048 8.192 8.192 15.36 17.408 16.384C235.52 860.16 374.784 870.4 512 870.4s276.48-10.24 412.672-30.72c8.192-1.024 15.36-8.192 17.408-16.384C962.56 719.872 972.8 615.424 972.8 512s-10.24-207.872-30.72-311.296zm-60.416 19.456c-44.032 50.176-96.256 97.28-156.672 142.336C654.336 415.744 582.656 457.728 512 489.472c-77.824-36.864-148.48-78.848-212.992-126.976-56.32-41.984-108.544-90.112-156.672-142.336 122.88-17.408 246.784-25.6 369.664-25.6s246.784 8.192 369.664 25.6zm22.528 580.608C774.144 820.224 642.048 829.44 512 829.44s-262.144-9.216-392.192-28.672C101.376 705.536 92.16 608.256 92.16 512c0-87.04 8.192-175.104 22.528-262.144 48.128 53.248 102.4 102.4 159.744 145.408 69.632 52.224 144.384 96.256 229.376 135.168 3.072 1.024 6.144 2.048 8.192 2.048 3.072.0 5.12-1.024 8.192-2.048 76.8-32.768 153.6-78.848 229.376-135.168 60.416-46.08 114.688-94.208 159.744-144.384C924.672 337.92 931.84 424.96 931.84 512c0 96.256-9.216 193.536-27.648 288.768z" p-id="3571" fill="#707070"/></svg></a></li><li><a href=/blog/index.xml target=_blank title=RSS rel=me><svg t="1730718821658" class="icon" viewBox="0 0 1024 1024" p-id="21619" width="24" height="24"><path d="M554.666667 896C529.066667 896 512 878.933333 512 853.333333 512 665.6 358.4 512 170.666667 512 145.066667 512 128 494.933333 128 469.333333s17.066667-42.666667 42.666667-42.666666c234.666667.0 426.666667 192 426.666666 426.666666.0 25.6-17.066667 42.666667-42.666666 42.666667z" p-id="21620" fill="#707070"/><path d="M853.333333 896c-25.6.0-42.666667-17.066667-42.666666-42.666667.0-354.133333-285.866667-640-640-640-25.6.0-42.666667-17.066667-42.666667-42.666666S145.066667 128 170.666667 128C571.733334 128 896 452.266667 896 853.333333 896 878.933333 878.933333 896 853.333333 896z" p-id="21621" fill="#707070"/><path d="M213.333333 810.666667m-85.333333.0a85.333333 85.333333.0 10170.666667.0 85.333333 85.333333.0 10-170.666667.0z" p-id="21622" fill="#707070"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/blog/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/blog/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/blog/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/blog/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Links</span></a></li><li><a href=/blog/plan/><svg t="1730733517435" class="icon" viewBox="0 0 1024 1024" p-id="1581" width="24" height="24"><path d="M874.24 1013.76H143.36a94.72 94.72.0 01-94.72-94.72V188.16a94.72 94.72.0 0194.72-94.72h730.88a95.36 95.36.0 0194.72 94.72v730.88a94.72 94.72.0 01-94.72 94.72zM143.36 156.8a31.36 31.36.0 00-32 31.36v730.88a32 32 0 0032 32h730.88a32 32 0 0031.36-32V188.16a31.36 31.36.0 00-31.36-31.36z" fill="#707070" p-id="1582"/><path d="M926.08 399.36h-832a32 32 0 010-64h832a32 32 0 110 64zM339.84 273.28a31.36 31.36.0 01-31.36-32V39.04a31.36 31.36.0 0131.36-32 32 32 0 0132 32v202.24a32 32 0 01-32 32zm337.28.0a31.36 31.36.0 01-31.36-32V39.04a31.36 31.36.0 1164 0v202.24a31.36 31.36.0 01-32.64 32zM444.16 841.6a33.92 33.92.0 01-23.04-9.6l-128-138.24a32 32 0 1146.08-43.52L448 768l280.32-279.68a30.72 30.72.0 0144.8.0 31.36 31.36.0 010 44.16L466.56 832a32 32 0 01-22.4 9.6z" fill="#707070" p-id="1583"/></svg>
+<span>Plan</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#摄像头视频流格式>摄像头视频流格式</a></li><li><a href=#rtmp推流失真和延时十分严重>rtmp推流（失真和延时十分严重）</a></li></ol><ol><li><a href=#ffplay参数表>FFplay参数表</a></li><li><a href=#ffplay播放时的快捷键>FFplay播放时的快捷键</a></li><li><a href=#ffmpeg参数详解>FFmpeg参数详解</a></li></ol><ol><li><a href=#查看视频信息>查看视频信息</a></li><li><a href=#播放摄像头视频>播放摄像头视频</a></li><li><a href=#将本地摄像头数据用rtmp推流>将本地摄像头数据用RTMP推流</a></li><li><a href=#保存rtsp流到本地文件>保存RTSP流到本地文件</a></li><li><a href=#播放rtsp流>播放RTSP流</a></li><li><a href=#rtsp流转rtmp流>RTSP流转RTMP流</a><ol><li><a href=#unknown-input-format-dshow>Unknown input format: &lsquo;dshow&rsquo;</a></li></ol></li><li><a href=#输出视频所有信息并以json形式展现>输出视频所有信息并以json形式展现</a></li></ol><ol><li><a href=#结构体之间的关系>结构体之间的关系</a></li><li><a href=#解协议>解协议</a><ol><li><a href=#avoutputformat>AVOutputFormat</a></li><li><a href=#avformatcontext>AVFormatContext</a></li></ol></li><li><a href=#解封装>解封装</a><ol><li><a href=#avformatcontext-1>AVFormatContext</a></li></ol></li><li><a href=#解码>解码</a><ol><li><a href=#avstream>AVStream</a></li><li><a href=#avcodeccontext>AVCodecContext</a></li><li><a href=#avcodec>AVCodec</a></li><li><a href=#关系>关系</a></li></ol></li><li><a href=#存数据>存数据</a><ol><li><a href=#avpacket>AVPacket</a></li><li><a href=#avframe>AVFrame</a></li></ol></li></ol><ol><li><a href=#av_register_all>av_register_all()</a></li><li><a href=#avformat_network_init>avformat_network_init()</a></li><li><a href=#avformat_open_input>avformat_open_input()</a></li><li><a href=#avformat_find_stream_info>avformat_find_stream_info()</a></li><li><a href=#av_dump_format>av_dump_format()</a></li><li><a href=#avformat_alloc_output_context2>avformat_alloc_output_context2()</a></li><li><a href=#avformat_new_stream>avformat_new_stream()</a></li><li><a href=#avcodec_copy_context>avcodec_copy_context()</a></li><li><a href=#avio_open>avio_open()</a></li><li><a href=#avio_open2>avio_open2()</a></li><li><a href=#avformat_write_header>avformat_write_header()</a></li><li><a href=#av_interleaved_write_frame>av_interleaved_write_frame()</a></li><li><a href=#av_write_frame>av_write_frame()</a></li><li><a href=#av_write_trailer>av_write_trailer()</a></li><li><a href=#av_read_frame>av_read_frame()</a></li><li><a href=#av_free_packet>av_free_packet()</a></li><li><a href=#avformat_close_input>avformat_close_input()</a></li><li><a href=#avio_close>avio_close()</a></li><li><a href=#av_gettime>av_gettime()</a></li></ol><ol><li><a href=#ipb-帧>I、P、B 帧</a></li><li><a href=#dtspts-的概念>DTS、PTS 的概念</a></li><li><a href=#avrational>AVRational</a></li><li><a href=#时间单位>时间单位</a><ol><li><a href=#av_time_base>AV_TIME_BASE</a></li><li><a href=#av_time_base_q>AV_TIME_BASE_Q</a></li><li><a href=#av_rescale_qint64_t-a-avrational-bq-avrational-cq>av_rescale_q(int64_t a, AVRational bq, AVRational cq)</a></li><li><a href=#av_rescale_q_rndint64_t-a-avrational-bq-avrational-cq-enum-avrounding-rnd>av_rescale_q_rnd(int64_t a, AVRational bq, AVRational cq, enum AVRounding rnd)</a></li><li><a href=#av_q2d>av_q2d()</a></li></ol></li><li><a href=#av_usleep>av_usleep()</a><ol><li><a href=#根据pts计算一帧在整个视频中的位置>根据PTS计算一帧在整个视频中的位置</a></li><li><a href=#计算视频长度的方法>计算视频长度的方法</a></li><li><a href=#时间基转换公式>时间基转换公式</a></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/blog/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/ style=background-color:#7469b6;color:#fff>杂七杂八</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/blog/p/ffmpeg%E5%BC%80%E5%8F%91/>ffmpeg开发</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>May 22, 2023</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 22 分钟</time></div></footer></div></header><section class=article-content><h1 id=ffmpeg-开发>FFmpeg 开发</h1><h1 id=nginxrtmp安装配置>nginx+RTMP安装配置</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># nginx源码下载</span>
+</span></span><span class=line><span class=cl>wget http://nginx.org/download/nginx-1.8.1.tar.gz
+</span></span><span class=line><span class=cl><span class=c1># rtmp模块下载</span>
+</span></span><span class=line><span class=cl>git clone https://github.com/arut/nginx-rtmp-module.git
+</span></span><span class=line><span class=cl>tar -zxvf nginx-1.8.1.tar.gz
+</span></span><span class=line><span class=cl>yum install gcc pcre-devel zlib-devel
+</span></span><span class=line><span class=cl>./configure --add-module<span class=o>=</span>/root/nginx-rtmp-module
+</span></span><span class=line><span class=cl>make
+</span></span><span class=line><span class=cl>make install
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>vim /usr/local/nginx/conf/nginx.conf
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># RTMP server</span>
+</span></span><span class=line><span class=cl>rtmp <span class=o>{</span>    
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>    server <span class=o>{</span>    
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>        listen 1935<span class=p>;</span>  <span class=c1>#监听的端口  </span>
+</span></span><span class=line><span class=cl>    
+</span></span><span class=line><span class=cl>        chunk_size 4000<span class=p>;</span>    
+</span></span><span class=line><span class=cl>             
+</span></span><span class=line><span class=cl>        application videotest <span class=o>{</span>  <span class=c1>#rtmp推流请求路径  </span>
+</span></span><span class=line><span class=cl>            live on<span class=p>;</span>      
+</span></span><span class=line><span class=cl>        <span class=o>}</span>    
+</span></span><span class=line><span class=cl>    <span class=o>}</span>    
+</span></span><span class=line><span class=cl><span class=o>}</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=gstreamer安装>gstreamer安装</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>yum install gstreamer*
+</span></span></code></pre></td></tr></table></div></div><h1 id=ffmpeg安装>ffmpeg安装</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>wget https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
+</span></span><span class=line><span class=cl>tar -jxvf ffmpeg-snapshot.tar.bz2
+</span></span><span class=line><span class=cl>yum install yasm
+</span></span><span class=line><span class=cl>./configure --enable-shared --prefix<span class=o>=</span>/usr/local/ffmpeg
+</span></span><span class=line><span class=cl>make
+</span></span><span class=line><span class=cl>make install 
+</span></span></code></pre></td></tr></table></div></div><h1 id=gstreamer使用>gstreamer使用</h1><h2 id=摄像头视频流格式>摄像头视频流格式</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>gst-launch-1.0 v4l2src ! <span class=s1>&#39;video/x-raw,format=(string)YUY2&#39;</span> ! autovideosink
+</span></span></code></pre></td></tr></table></div></div><h2 id=rtmp推流失真和延时十分严重>rtmp推流（失真和延时十分严重）</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>gst-launch-1.0 v4l2src ! <span class=s2>&#34;video/x-raw,width=352,height=288&#34;</span> ! videoparse <span class=nv>width</span><span class=o>=</span><span class=m>352</span> <span class=nv>height</span><span class=o>=</span><span class=m>288</span> <span class=nv>framerate</span><span class=o>=</span>30/1 ! x264enc <span class=nv>bitrate</span><span class=o>=</span><span class=m>1024</span> <span class=nv>ref</span><span class=o>=</span><span class=m>4</span> key-int-max<span class=o>=</span><span class=m>20</span> ! video/x-h264,profile<span class=o>=</span>main ! h264parse ! video/x-h264 ! flvmux <span class=nv>name</span><span class=o>=</span>mux ! rtmpsink <span class=nv>location</span><span class=o>=</span><span class=s1>&#39;rtmp://192.168.170.129:1935/videotest/test&#39;</span>
+</span></span></code></pre></td></tr></table></div></div><h1 id=ffmpeg参数参考>FFmpeg参数参考</h1><h2 id=ffplay参数表>FFplay参数表</h2><div class=table-wrapper><table><thead><tr><th>名称</th><th>有参数</th><th>作用</th></tr></thead><tbody><tr><td>x</td><td>Y</td><td>强制屏幕宽度</td></tr><tr><td>y</td><td>Y</td><td>强制屏幕高度</td></tr><tr><td>s</td><td>Y</td><td>强制屏幕大小</td></tr><tr><td>fs</td><td>N</td><td>全屏</td></tr><tr><td>an</td><td>N</td><td>关闭音频</td></tr><tr><td>vn</td><td>N</td><td>关闭视频</td></tr><tr><td>ast</td><td>Y</td><td>设置想播放的音频流（需要指定流ID）</td></tr><tr><td>vst</td><td>Y</td><td>设置想播放的视频流（需要指定流ID）</td></tr><tr><td>sst</td><td>Y</td><td>设置想播放的字幕流（需要指定流ID）</td></tr><tr><td>ss</td><td>Y</td><td>从指定位置开始播放，单位是秒</td></tr><tr><td>t</td><td>Y</td><td>播放指定时长的视频</td></tr><tr><td>nodisp</td><td>N</td><td>无显示屏幕</td></tr><tr><td>f</td><td>Y</td><td>强制封装格式</td></tr><tr><td>pix_fmt</td><td>Y</td><td>指定像素格式</td></tr><tr><td>stats</td><td>N</td><td>显示统计信息</td></tr><tr><td>idct</td><td>Y</td><td>IDCT算法</td></tr><tr><td>ec</td><td>Y</td><td>错误隐藏方法</td></tr><tr><td>sync</td><td>Y</td><td>视音频同步方式（type=audio/video/ext）</td></tr><tr><td>autoexit</td><td>N</td><td>播放完成自动退出</td></tr><tr><td>exitonkeydown</td><td>N</td><td>按下按键退出</td></tr><tr><td>exitonmousedown</td><td>N</td><td>按下鼠标退出</td></tr><tr><td>loop</td><td>Y</td><td>指定循环次数</td></tr><tr><td>framedrop</td><td>N</td><td>CPU不够的时候丢帧</td></tr><tr><td>window_title</td><td>Y</td><td>显示窗口的标题</td></tr><tr><td>rdftspeed</td><td>Y</td><td>Rdft速度</td></tr><tr><td>showmode</td><td>Y</td><td>显示方式(0 = video, 1 = waves, 2 = RDFT)</td></tr><tr><td>codec</td><td>Y</td><td>强制解码器</td></tr></tbody></table></div><h2 id=ffplay播放时的快捷键>FFplay播放时的快捷键</h2><p>播放视音频文件的时候，可以通过下列按键控制视音频的播放</p><div class=table-wrapper><table><thead><tr><th>按键</th><th style=text-align:center>作用</th></tr></thead><tbody><tr><td>q, ESC</td><td style=text-align:center>退出</td></tr><tr><td>f</td><td style=text-align:center>全屏</td></tr><tr><td>p, 空格</td><td style=text-align:center>暂停</td></tr><tr><td>w</td><td style=text-align:center>显示音频波形</td></tr><tr><td>s</td><td style=text-align:center>逐帧显示</td></tr><tr><td>左方向键/右方向键</td><td style=text-align:center>向后10s/向前10s</td></tr><tr><td>上方向键/下方向键</td><td style=text-align:center>向后1min/向前1min</td></tr><tr><td>page down/page up</td><td style=text-align:center>向后10min/向前10min</td></tr><tr><td>鼠标点击屏幕</td><td style=text-align:center>跳转到指定位置（根据鼠标位置相对屏幕的宽度计算）</td></tr></tbody></table></div><h2 id=ffmpeg参数详解>FFmpeg参数详解</h2><p><strong>a) 通用选项</strong></p><div class=table-wrapper><table><thead><tr><th>参数</th><th style=text-align:center>功能</th></tr></thead><tbody><tr><td>-L</td><td style=text-align:center>许可证</td></tr><tr><td>-h</td><td style=text-align:center>帮助</td></tr><tr><td>-fromats</td><td style=text-align:center>显示可用的格式</td></tr><tr><td>-f fmt</td><td style=text-align:center>强迫采用格式fmt</td></tr><tr><td>-i filename</td><td style=text-align:center>输入文件</td></tr><tr><td>-y</td><td style=text-align:center>覆盖输出文件</td></tr><tr><td>-t duration</td><td style=text-align:center>设置纪录时间 hh:mm:ss[.xxx]格式的记录时间也支持</td></tr><tr><td>-ss position</td><td style=text-align:center>搜索到指定的时间 [-]hh:mm:ss[.xxx]的格式也支持</td></tr><tr><td>-title string</td><td style=text-align:center>设置标题</td></tr><tr><td>-author string</td><td style=text-align:center>设置作者</td></tr><tr><td>-copyright string</td><td style=text-align:center>设置版权</td></tr><tr><td>-comment string</td><td style=text-align:center>设置评论</td></tr><tr><td>-target type</td><td style=text-align:center>设置目标文件类型(vcd,svcd,dvd) 所有的格式选项（比特率，编解码以及缓冲区大小）自动设置，只需要输入如下的就可以了：ffmpeg -i myfile.avi -target vcd /tmp/vcd.mpg</td></tr><tr><td>-hq</td><td style=text-align:center>激活高质量设置</td></tr><tr><td>-itsoffset offset</td><td style=text-align:center>设置以秒为基准的时间偏移，该选项影响所有后面的输入文件。该偏移被加到输入文件的时戳，定义一个正偏移意味着相应的流被延迟了 offset秒。 [-]hh:mm:ss[.xxx]的格式也支持</td></tr></tbody></table></div><p><strong>b) 视频选项</strong></p><p>-b bitrate 设置比特率，缺省200kb/s
+-r fps 设置帧频 缺省25
+-s size 设置帧大小 格式为WXH 缺省160X128.下面的简写也可以直接使用：
+Sqcif 128X96 qcif 176X144 cif 252X288 4cif 704X576
+-aspect aspect 设置横纵比 4:3 16:9 或 1.3333 1.7777
+-croptop size 设置顶部切除带大小 像素单位
+-cropbottom size –cropleft size –cropright size
+-padtop size 设置顶部补齐的大小 像素单位
+-padbottom size –padleft size –padright size –padcolor color 设置补齐条颜色(hex,6个16进制的数，红:绿:兰排列，比如 000000代表黑色)
+-vn 不做视频记录
+-bt tolerance 设置视频码率容忍度kbit/s
+-maxrate bitrate设置最大视频码率容忍度
+-minrate bitreate 设置最小视频码率容忍度
+-bufsize size 设置码率控制缓冲区大小
+-vcodec codec 强制使用codec编解码方式。如果用copy表示原始编解码数据必须被拷贝。
+-sameq 使用同样视频质量作为源（VBR）
+-pass n 选择处理遍数（1或者2）。两遍编码非常有用。第一遍生成统计信息，第二遍生成精确的请求的码率
+-passlogfile file 选择两遍的纪录文件名为file</p><p><strong>c)高级视频选项</strong></p><p>-g gop_size 设置图像组大小
+-intra 仅适用帧内编码
+-qscale q 使用固定的视频量化标度(VBR)
+-qmin q 最小视频量化标度(VBR)
+-qmax q 最大视频量化标度(VBR)
+-qdiff q 量化标度间最大偏差 (VBR)
+-qblur blur 视频量化标度柔化(VBR)
+-qcomp compression 视频量化标度压缩(VBR)
+-rc_init_cplx complexity 一遍编码的初始复杂度
+-b_qfactor factor 在p和b帧间的qp因子
+-i_qfactor factor 在p和i帧间的qp因子
+-b_qoffset offset 在p和b帧间的qp偏差
+-i_qoffset offset 在p和i帧间的qp偏差
+-rc_eq equation 设置码率控制方程 默认tex^qComp
+-rc_override override 特定间隔下的速率控制重载
+-me method 设置运动估计的方法 可用方法有 zero phods log x1 epzs(缺省) full
+-dct_algo algo 设置dct的算法 可用的有 0 FF_DCT_AUTO 缺省的DCT 1 FF_DCT_FASTINT 2 FF_DCT_INT 3 FF_DCT_MMX 4 FF_DCT_MLIB 5 FF_DCT_ALTIVEC
+-idct_algo algo 设置idct算法。可用的有 0 FF_IDCT_AUTO 缺省的IDCT 1 FF_IDCT_INT 2 FF_IDCT_SIMPLE 3 FF_IDCT_SIMPLEMMX 4 FF_IDCT_LIBMPEG2MMX 5 FF_IDCT_PS2 6 FF_IDCT_MLIB 7 FF_IDCT_ARM 8 FF_IDCT_ALTIVEC 9 FF_IDCT_SH4 10 FF_IDCT_SIMPLEARM
+-er n 设置错误残留为n 1 FF_ER_CAREFULL 缺省 2 FF_ER_COMPLIANT 3 FF_ER_AGGRESSIVE 4 FF_ER_VERY_AGGRESSIVE
+-ec bit_mask 设置错误掩蔽为bit_mask,该值为如下值的位掩码 1 FF_EC_GUESS_MVS (default=enabled) 2 FF_EC_DEBLOCK (default=enabled)
+-bf frames 使用frames B 帧，支持mpeg1,mpeg2,mpeg4
+-mbd mode 宏块决策 0 FF_MB_DECISION_SIMPLE 使用mb_cmp 1 FF_MB_DECISION_BITS 2 FF_MB_DECISION_RD
+-4mv 使用4个运动矢量 仅用于mpeg4
+-part 使用数据划分 仅用于mpeg4
+-bug param 绕过没有被自动监测到编码器的问题
+-strict strictness 跟标准的严格性
+-aic 使能高级帧内编码 h263+
+-umv 使能无限运动矢量 h263+
+-deinterlace 不采用交织方法
+-interlace 强迫交织法编码仅对mpeg2和mpeg4有效。当你的输入是交织的并且你想要保持交织以最小图像损失的时候采用该选项。可选的方法是不交织，但是损失更大
+-psnr 计算压缩帧的psnr
+-vstats 输出视频编码统计到vstats_hhmmss.log
+-vhook module 插入视频处理模块 module 包括了模块名和参数，用空格分开</p><p><strong>D)音频选项</strong></p><p>-ab bitrate 设置音频码率
+-ar freq 设置音频采样率
+-ac channels 设置通道 缺省为1
+-an 不使能音频纪录
+-acodec codec 使用codec编解码</p><p><strong>E)音频/视频捕获选项</strong></p><p>-vd device 设置视频捕获设备。比如/dev/video0
+-vc channel 设置视频捕获通道 DV1394专用
+-tvstd standard 设置电视标准 NTSC PAL(SECAM)
+-dv1394 设置DV1394捕获
+-av device 设置音频设备 比如/dev/dsp</p><p><strong>F)高级选项</strong></p><p>-map file:stream 设置输入流映射
+-debug 打印特定调试信息
+-benchmark 为基准测试加入时间
+-hex 倾倒每一个输入包
+-bitexact 仅使用位精确算法 用于编解码测试
+-ps size 设置包大小，以bits为单位
+-re 以本地帧频读数据，主要用于模拟捕获设备
+-loop 循环输入流（只工作于图像流，用于ffserver测试）</p><h1 id=使用到的ffmpeg命令>使用到的FFmpeg命令</h1><h2 id=查看视频信息>查看视频信息</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ffmpeg -i video
+</span></span></code></pre></td></tr></table></div></div><ul><li>HEVC/H.265</li><li>AVC/H.264</li></ul><h2 id=播放摄像头视频>播放摄像头视频</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ffplay -f video4linux2 -framerate <span class=m>30</span> -video_size hd720 /dev/video0
+</span></span></code></pre></td></tr></table></div></div><ul><li>-f：强制使用设定的格式解析</li><li>video4linux2：（简称V4L2)，是Linux中关于视频设备的内核驱动</li><li>-framerate：指定帧率播放</li><li>-video_size：设定播放视频尺寸</li><li>hd720：720P分辨率</li><li>/dev/video0：摄像头，在Linux里允许像读取文件一样读取摄像头数据</li></ul><h2 id=将本地摄像头数据用rtmp推流>将本地摄像头数据用RTMP推流</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ffmpeg -i /dev/video0 -vcodec libx264 -f flv rtmp://...
+</span></span></code></pre></td></tr></table></div></div><ul><li>-i：输入</li><li>-f：强迫采用格式fmt</li><li>flv：被众多新一代视频分享网站所采用，是增长最快、最为广泛的视频传播格式</li></ul><h2 id=保存rtsp流到本地文件>保存RTSP流到本地文件</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ffmpeg -i <span class=s2>&#34;rtsp://...&#34;</span> -vcodec copy -acodec copy xxx.flv
+</span></span></code></pre></td></tr></table></div></div><ul><li>-vcodec copy：vcodec指定视频编码器，copy 指明只拷贝，不做编解码</li><li>-acodec copy：acodec指定音频编码器，copy 指明只拷贝，不做编解码</li></ul><h2 id=播放rtsp流>播放RTSP流</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ffplay -rtsp_transport -max_delay <span class=m>5000000</span> tcp rtsp://...
+</span></span></code></pre></td></tr></table></div></div><ul><li>-rtsp_transport tcp：ffmpeg默认采用UDP协议。当RTSP采用的是TCP协议时，直接播放就会报错，我们就需要指定协议</li><li>-max_delay 5000000：指定最大延时为5000000微秒</li></ul><h2 id=rtsp流转rtmp流>RTSP流转RTMP流</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ffmpeg -rtsp_transport tcp -i <span class=s2>&#34;rtsp://...&#34;</span> -vcodec copy -an -f flv rtmp://...
+</span></span></code></pre></td></tr></table></div></div><h3 id=unknown-input-format-dshow>Unknown input format: &lsquo;dshow&rsquo;</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ffmpeg -list_devices <span class=nb>true</span> -f dshow -i dummy
+</span></span></code></pre></td></tr></table></div></div><p>dshow是<strong>Windows</strong> DirectShow输入设备，linux无法使用</p><h2 id=输出视频所有信息并以json形式展现>输出视频所有信息并以json形式展现</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ffprobe -i 输入视频路径 -v quiet -print_format json -show_format -show_streams
+</span></span></code></pre></td></tr></table></div></div><h1 id=音视频处理流程>音视频处理流程</h1><pre tabindex=0><code class=language-mermaid data-lang=mermaid></code></pre><h1 id=ffmpeg主要结构体>FFmpeg主要结构体</h1><h2 id=结构体之间的关系>结构体之间的关系</h2><p><img src=https://pic.try-hard.cn/blog/20130914204051125 loading=lazy alt=img></p><h2 id=解协议>解协议</h2><h3 id=avoutputformat>AVOutputFormat</h3><ul><li><p>主要功能：保存了输出格式（MP4、flv等）的信息和一些常规设置。</p></li><li><p>主要信息：</p></li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>name</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>long_name</span><span class=p>;</span><span class=c1>//格式的描述性名称，易于阅读。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>enum</span> <span class=nc>AVCodecID</span> <span class=n>audio_codec</span><span class=p>;</span> <span class=c1>//默认的音频编解码器
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>enum</span> <span class=nc>AVCodecID</span> <span class=n>video_codec</span><span class=p>;</span> <span class=c1>//默认的视频编解码器
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>enum</span> <span class=nc>AVCodecID</span> <span class=n>subtitle_codec</span><span class=p>;</span> <span class=c1>//默认的字幕编解码器
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>struct</span> <span class=nc>AVOutputFormat</span> <span class=o>*</span><span class=n>next</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>write_header</span><span class=p>)(</span><span class=k>struct</span> <span class=nc>AVFormatContext</span> <span class=o>*</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>write_packet</span><span class=p>)(</span><span class=k>struct</span> <span class=nc>AVFormatContext</span> <span class=o>*</span><span class=p>,</span> <span class=n>AVPacket</span> <span class=o>*</span><span class=n>pkt</span><span class=p>);</span><span class=c1>//写一个数据包。 如果在标志中设置AVFMT_ALLOW_FLUSH，则pkt可以为NULL。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>write_trailer</span><span class=p>)(</span><span class=k>struct</span> <span class=nc>AVFormatContext</span> <span class=o>*</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>interleave_packet</span><span class=p>)(</span><span class=k>struct</span> <span class=nc>AVFormatContext</span> <span class=o>*</span><span class=p>,</span> <span class=n>AVPacket</span> <span class=o>*</span><span class=n>out</span><span class=p>,</span> <span class=n>AVPacket</span> <span class=o>*</span><span class=n>in</span><span class=p>,</span> <span class=kt>int</span> <span class=n>flush</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>control_message</span><span class=p>)(</span><span class=k>struct</span> <span class=nc>AVFormatContext</span> <span class=o>*</span><span class=n>s</span><span class=p>,</span> <span class=kt>int</span> <span class=n>type</span><span class=p>,</span> <span class=kt>void</span> <span class=o>*</span><span class=n>data</span><span class=p>,</span> <span class=n>size_t</span> <span class=n>data_size</span><span class=p>);</span><span class=c1>//允许从应用程序向设备发送消息。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>write_uncoded_frame</span><span class=p>)(</span><span class=k>struct</span> <span class=nc>AVFormatContext</span> <span class=o>*</span><span class=p>,</span> <span class=kt>int</span> <span class=n>stream_index</span><span class=p>,</span>   <span class=n>AVFrame</span> <span class=o>**</span><span class=n>frame</span><span class=p>,</span> <span class=kt>unsigned</span> <span class=n>flags</span><span class=p>);</span><span class=c1>//写一个未编码的AVFrame。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>init</span><span class=p>)(</span><span class=k>struct</span> <span class=nc>AVFormatContext</span> <span class=o>*</span><span class=p>);</span><span class=c1>//初始化格式。 可以在此处分配数据，并设置在发送数据包之前需要设置的任何AVFormatContext或AVStream参数。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>void</span> <span class=p>(</span><span class=o>*</span><span class=n>deinit</span><span class=p>)(</span><span class=k>struct</span> <span class=nc>AVFormatContext</span> <span class=o>*</span><span class=p>);</span><span class=c1>//取消初始化格式。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>check_bitstream</span><span class=p>)(</span><span class=k>struct</span> <span class=nc>AVFormatContext</span> <span class=o>*</span><span class=p>,</span> <span class=k>const</span> <span class=n>AVPacket</span> <span class=o>*</span><span class=n>pkt</span><span class=p>);</span><span class=c1>//设置任何必要的比特流过滤，并提取全局头部所需的任何额外数据。
+</span></span></span></code></pre></td></tr></table></div></div><p><img src=https://pic.try-hard.cn/blog/20161021114952074 loading=lazy alt=img></p><h3 id=avformatcontext>AVFormatContext</h3><ul><li><p>主要功能：描述了一个媒体文件或媒体流的构成和基本信息</p></li><li><p>主要信息：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>struct</span> <span class=nc>AVInputFormat</span> <span class=o>*</span><span class=n>iformat</span><span class=p>;</span><span class=c1>//输入数据的封装格式。仅解封装用，由avformat_open_input()设置
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>struct</span> <span class=nc>AVOutputFormat</span> <span class=o>*</span><span class=n>oformat</span><span class=p>;</span><span class=c1>//输出数据的封装格式。仅封装用，调用者在avformat_write_header()之前设置
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVIOContext</span> <span class=o>*</span><span class=n>pb</span><span class=p>;</span>  <span class=c1>// I/O上下文
+</span></span></span><span class=line><span class=cl><span class=c1>// 解封装：由用户在avformat_open_input()之前设置（然后用户必须手动关闭它）或通过avformat_open_input()设置
+</span></span></span><span class=line><span class=cl><span class=c1>// 封装：由用户在avformat_write_header()之前设置。 调用者必须注意关闭/释放IO上下文
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>unsigned</span> <span class=kt>int</span> <span class=n>nb_streams</span><span class=p>;</span><span class=c1>//AVFormatContext.streams中元素的个数
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVStream</span> <span class=o>**</span><span class=n>streams</span><span class=p>;</span><span class=c1>//文件中所有流的列表
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>char</span> <span class=n>filename</span><span class=p>[</span><span class=mi>1024</span><span class=p>];</span><span class=c1>//输入输出文件名
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>start_time</span><span class=p>;</span><span class=c1>//第一帧的位置
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>duration</span><span class=p>;</span><span class=c1>//流的持续时间
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>bit_rate</span><span class=p>;</span><span class=c1>//总流比特率（bit / s），如果不可用则为0。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>probesize</span><span class=p>;</span><span class=c1>//从输入读取的用于确定输入容器格式的数据的最大大小。仅封装用，由调用者在avformat_open_input()之前设置。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVDictionary</span> <span class=o>*</span><span class=n>metadata</span><span class=p>;</span><span class=c1>//元数据
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVCodec</span> <span class=o>*</span><span class=n>video_codec</span><span class=p>;</span><span class=c1>//视频编解码器
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVCodec</span> <span class=o>*</span><span class=n>audio_codec</span><span class=p>;</span><span class=c1>//音频编解码器
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVCodec</span> <span class=o>*</span><span class=n>subtitle_codec</span><span class=p>;</span><span class=c1>//字母编解码器
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVCodec</span> <span class=o>*</span><span class=n>data_codec</span><span class=p>;</span><span class=c1>//数据编解码器
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>io_open</span><span class=p>)(</span><span class=k>struct</span> <span class=nc>AVFormatContext</span> <span class=o>*</span><span class=n>s</span><span class=p>,</span> <span class=n>AVIOContext</span> <span class=o>**</span><span class=n>pb</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>url</span><span class=p>,</span> <span class=kt>int</span> <span class=n>flags</span><span class=p>,</span> <span class=n>AVDictionary</span> <span class=o>**</span><span class=n>options</span><span class=p>);</span><span class=c1>//打开IO stream的回调函数。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>void</span> <span class=p>(</span><span class=o>*</span><span class=n>io_close</span><span class=p>)(</span><span class=k>struct</span> <span class=nc>AVFormatContext</span> <span class=o>*</span><span class=n>s</span><span class=p>,</span> <span class=n>AVIOContext</span> <span class=o>*</span><span class=n>pb</span><span class=p>);</span><span class=c1>//关闭使用AVFormatContext.io_open()打开的流的回调函数
+</span></span></span></code></pre></td></tr></table></div></div><h2 id=解封装>解封装</h2><h3 id=avformatcontext-1>AVFormatContext</h3><ul><li>主要功能：</li></ul><h2 id=解码>解码</h2><h3 id=avstream>AVStream</h3><ul><li>主要功能：存储每一个视频/音频流信息</li><li>主要信息：</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>int</span> <span class=n>index</span><span class=p>;</span> <span class=c1>//在AVFormatContext中的索引，这个数字是自动生成的，可以通过这个数字从AVFormatContext::streams表中索引到该流。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>id</span><span class=p>;</span><span class=c1>//流的标识，依赖于具体的容器格式。解码：由libavformat设置。编码：由用户设置，如果未设置则由libavformat替换。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVCodecContext</span> <span class=o>*</span><span class=n>codec</span><span class=p>;</span><span class=c1>//指向该流对应的AVCodecContext结构，调用avformat_open_input时生成。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVRational</span> <span class=n>time_base</span><span class=p>;</span><span class=c1>//这是表示帧时间戳的基本时间单位（以秒为单位）。该流中媒体数据的pts和dts都将以这个时间基准为粒度。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>start_time</span><span class=p>;</span><span class=c1>//流的起始时间，以流的时间基准为单位。如需设置，100％确保你设置它的值真的是第一帧的pts。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>duration</span><span class=p>;</span><span class=c1>//解码：流的持续时间。如果源文件未指定持续时间，但指定了比特率，则将根据比特率和文件大小估计该值。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>nb_frames</span><span class=p>;</span> <span class=c1>//此流中的帧数（如果已知）或0。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>enum</span> <span class=nc>AVDiscard</span> <span class=n>discard</span><span class=p>;</span><span class=c1>//选择哪些数据包可以随意丢弃，不需要去demux。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVRational</span> <span class=n>sample_aspect_ratio</span><span class=p>;</span><span class=c1>//样本长宽比（如果未知，则为0）。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVDictionary</span> <span class=o>*</span><span class=n>metadata</span><span class=p>;</span><span class=c1>//元数据信息。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVRational</span> <span class=n>avg_frame_rate</span><span class=p>;</span><span class=c1>//平均帧速率。解封装：可以在创建流时设置为libavformat，也可以在avformat_find_stream_info（）中设置。封装：可以由调用者在avformat_write_header（）之前设置。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVPacket</span> <span class=n>attached_pic</span><span class=p>;</span><span class=c1>//附带的图片。比如说一些MP3，AAC音频文件附带的专辑封面。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>probe_packets</span><span class=p>;</span><span class=c1>//编解码器用于probe的包的个数。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>codec_info_nb_frames</span><span class=p>;</span><span class=c1>//在av_find_stream_info（）期间已经解封装的帧数。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>request_probe</span><span class=p>;</span><span class=c1>//流探测状态，1表示探测完成，0表示没有探测请求，rest 执行探测。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>skip_to_keyframe</span><span class=p>;</span><span class=c1>//表示应丢弃直到下一个关键帧的所有内容。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>skip_samples</span><span class=p>;</span><span class=c1>//在从下一个数据包解码的帧开始时要跳过的采样数。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>start_skip_samples</span><span class=p>;</span><span class=c1>//如果不是0，则应该从流的开始跳过的采样的数目。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>first_discard_sample</span><span class=p>;</span><span class=c1>//如果不是0，则应该从流中丢弃第一个音频样本。
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kt>int64_t</span> <span class=n>pts_reorder_error</span><span class=p>[</span><span class=n>MAX_REORDER_DELAY</span><span class=o>+</span><span class=mi>1</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=kt>uint8_t</span> <span class=n>pts_reorder_error_count</span><span class=p>[</span><span class=n>MAX_REORDER_DELAY</span><span class=o>+</span><span class=mi>1</span><span class=p>];</span><span class=c1>//内部数据，从pts生成dts。
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl><span class=kt>int64_t</span> <span class=n>last_dts_for_order_check</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kt>uint8_t</span> <span class=n>dts_ordered</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=kt>uint8_t</span> <span class=n>dts_misordered</span><span class=p>;</span><span class=c1>//内部数据，用于分析dts和检测故障mpeg流。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVRational</span> <span class=n>display_aspect_ratio</span><span class=p>;</span><span class=c1>//显示宽高比。
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=avcodeccontext>AVCodecContext</h3><ul><li>主要功能：存储该视频/音频流使用解码方式的相关数据</li><li>主要信息：</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>enum</span> <span class=nc>AVMediaType</span> <span class=n>codec_type</span><span class=p>;</span> <span class=c1>//编解码器的类型（视频，音频...）。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>const</span> <span class=k>struct</span> <span class=nc>AVCodec</span>  <span class=o>*</span><span class=n>codec</span><span class=p>;</span> <span class=c1>//采用的解码器AVCodec（H.264,MPEG2...）。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>bit_rate</span><span class=p>;</span><span class=c1>//平均比特率。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>uint8_t</span> <span class=o>*</span><span class=n>extradata</span><span class=p>;</span><span class=c1>//针对特定编码器包含的附加信息（例如对于H.264解码器来说，存储SPS，PPS等）。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>extradata_size</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=n>AVRational</span> <span class=n>time_base</span><span class=p>;</span><span class=c1>//时间的基准单位，根据该参数，可以把PTS转化为实际的时间（单位为秒s）。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=err>编解码延迟。</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=n>delay</span><span class=p>;</span><span class=c1>//编码：从编码器输入到解码器输出的帧延迟数。解码：除了规范中规定的标准解码器外产生的帧延迟数。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>width</span><span class=p>,</span> <span class=n>height</span><span class=p>;</span><span class=c1>//代表宽和高（仅视频）。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>refs</span><span class=p>;</span><span class=c1>//运动估计参考帧的个数（H.264的话会有多帧，MPEG2这类的一般就没有了）。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>sample_rate</span><span class=p>;</span> <span class=c1>//采样率（仅音频）。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>channels</span><span class=p>;</span> <span class=c1>//声道数（仅音频）。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>enum</span> <span class=nc>AVSampleFormat</span> <span class=n>sample_fmt</span><span class=p>;</span>  <span class=c1>//音频采样格式，编码：由用户设置。解码：由libavcodec设置。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>frame_size</span><span class=p>;</span><span class=c1>//音频帧中每个声道的采样数。编码：由libavcodec在avcodec_open2（）中设置。 解码：可以由一些解码器设置以指示恒定的帧大小.
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>frame_number</span><span class=p>;</span><span class=c1>//帧计数器，由libavcodec设置。解码：从解码器返回的帧的总数。编码：到目前为止传递给编码器的帧的总数。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>uint64_t</span> <span class=n>channel_layout</span><span class=p>;</span><span class=c1>//音频声道布局。编码：由用户设置。解码：由用户设置，可能被libavcodec覆盖。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>enum</span> <span class=nc>AVAudioServiceType</span> <span class=n>audio_service_type</span><span class=p>;</span><span class=c1>//音频流传输的服务类型。编码：由用户设置。解码：由libavcodec设置。
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=avcodec>AVCodec</h3><ul><li>主要功能：存储编解码器信息</li><li>主要信息：</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>name</span><span class=p>;</span><span class=c1>//编解码器的名字，比较短。在编码器和解码器之间是全局唯一的。 这是用户查找编解码器的主要方式
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>long_name</span><span class=p>;</span><span class=c1>//编解码器的名字，全称，比较长
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>enum</span> <span class=nc>AVMediaType</span> <span class=n>type</span><span class=p>;</span><span class=c1>//指明了类型，是视频，音频，还是字幕
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>enum</span> <span class=nc>AVCodecID</span> <span class=n>id</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=k>const</span> <span class=n>AVRational</span> <span class=o>*</span><span class=n>supported_framerates</span><span class=p>;</span><span class=c1>//支持的帧率（仅视频）
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>const</span> <span class=k>enum</span> <span class=nc>AVPixelFormat</span> <span class=o>*</span><span class=n>pix_fmts</span><span class=p>;</span><span class=c1>//支持的像素格式（仅视频）
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>const</span> <span class=kt>int</span> <span class=o>*</span><span class=n>supported_samplerates</span><span class=p>;</span><span class=c1>//支持的采样率（仅音频）
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>const</span> <span class=k>enum</span> <span class=nc>AVSampleFormat</span> <span class=o>*</span><span class=n>sample_fmts</span><span class=p>;</span><span class=c1>//支持的采样格式（仅音频）
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>const</span> <span class=kt>uint64_t</span> <span class=o>*</span><span class=n>channel_layouts</span><span class=p>;</span><span class=c1>//支持的声道数（仅音频）
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>priv_data_size</span><span class=p>;</span><span class=c1>//私有数据的大小
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>void</span> <span class=p>(</span><span class=o>*</span><span class=n>init_static_data</span><span class=p>)(</span><span class=k>struct</span> <span class=nc>AVCodec</span> <span class=o>*</span><span class=n>codec</span><span class=p>);</span><span class=c1>//初始化编解码器静态数据，从avcodec_register（）调用
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>encode2</span><span class=p>)(</span><span class=n>AVCodecContext</span> <span class=o>*</span><span class=n>avctx</span><span class=p>,</span> <span class=n>AVPacket</span> <span class=o>*</span><span class=n>avpkt</span><span class=p>,</span> <span class=k>const</span> <span class=n>AVFrame</span> <span class=o>*</span><span class=n>frame</span><span class=p>,</span> <span class=kt>int</span> <span class=o>*</span><span class=n>got_packet_ptr</span><span class=p>);</span><span class=c1>//将数据编码到AVPacket
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>decode</span><span class=p>)(</span><span class=n>AVCodecContext</span> <span class=o>*</span><span class=p>,</span> <span class=kt>void</span> <span class=o>*</span><span class=n>outdata</span><span class=p>,</span> <span class=kt>int</span> <span class=o>*</span><span class=n>outdata_size</span><span class=p>,</span> <span class=n>AVPacket</span> <span class=o>*</span><span class=n>avpkt</span><span class=p>);</span><span class=c1>//解码数据到AVPacket
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=p>(</span><span class=o>*</span><span class=n>close</span><span class=p>)(</span><span class=n>AVCodecContext</span> <span class=o>*</span><span class=p>);</span><span class=c1>//关闭编解码器。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>void</span> <span class=p>(</span><span class=o>*</span><span class=n>flush</span><span class=p>)(</span><span class=n>AVCodecContext</span> <span class=o>*</span><span class=p>);</span><span class=c1>//刷新缓冲区。当seek时会被调用
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=关系>关系</h3><pre tabindex=0><code class=language-mermaid data-lang=mermaid>graph TD
+	A[AVStream] --&gt; B[AVCodecContext]
+  B --&gt; C[AVCodec]
+</code></pre><h2 id=存数据>存数据</h2><h3 id=avpacket>AVPacket</h3><ul><li>主要功能：存储压缩编码数据相关信息，即解码前数据（例如H.264码流）</li><li>主要信息：</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>int64_t</span> <span class=n>pts</span><span class=p>;</span><span class=c1>// 显示时间，结合AVStream-&gt;time_base转换成时间戳
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>dts</span><span class=p>;</span><span class=c1>// 解码时间，结合AVStream-&gt;time_base转换成时间戳
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span>   <span class=n>size</span><span class=p>;</span><span class=c1>//data的大小
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span>   <span class=n>stream_index</span><span class=p>;</span><span class=c1>//packet在stream的index位置
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span>   <span class=n>flags</span><span class=p>;</span><span class=c1>//标示，结合AV_PKT_FLAG使用，其中最低为1表示该数据是一个关键帧。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=cp>#define AV_PKT_FLAG_KEY    0x0001 </span><span class=c1>//关键帧
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=cp>#define AV_PKT_FLAG_CORRUPT 0x0002 </span><span class=c1>//损坏的数据
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=cp>#define AV_PKT_FLAG_DISCARD  0x0004 </span><span class=c1>//丢弃的数据
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>side_data_elems</span><span class=p>;</span><span class=c1>//边缘数据元数个数
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>duration</span><span class=p>;</span><span class=c1>//数据的时长，以所属媒体流的时间基准为单位，未知则值为默认值0
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>pos</span><span class=p>;</span><span class=c1>//数据在流媒体中的位置，未知则值为默认值-1
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>uint8_t</span> <span class=o>*</span><span class=n>data</span><span class=p>;</span><span class=c1>//指向保存压缩数据的指针，这就是AVPacket的实际数据。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVPacketSideData</span> <span class=o>*</span><span class=n>side_data</span><span class=p>;</span><span class=c1>//容器提供的一些附加数据
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVBufferRef</span> <span class=o>*</span><span class=n>buf</span><span class=p>;</span><span class=c1>//用来管理data指针引用的数据缓存
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=avframe>AVFrame</h3><ul><li>主要功能：解码后数据（YUV/RGB像素数据）。AVFrame必须由** av_frame_alloc()分配内存**，同时必须由<strong>av_frame_free()释放</strong>，分配内存后能够被<strong>多次用来存储不同的数据</strong>。</li><li>主要信息：</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>uint8_t</span> <span class=o>*</span>   <span class=n>data</span> <span class=p>[</span><span class=n>AV_NUM_DATA_POINTERS</span><span class=p>];</span><span class=c1>//解码后原始数据（对视频来说是YUV，RGB，对音频来说是PCM）。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>linesize</span><span class=p>[</span><span class=n>AV_NUM_DATA_POINTERS</span><span class=p>];</span><span class=c1>//在视频中，表示图片一行数据的大小。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>uint8_t</span> <span class=o>**</span><span class=n>extended_data</span><span class=p>;</span><span class=c1>//指向数据平面/通道。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>width</span><span class=p>,</span> <span class=n>height</span><span class=p>;</span><span class=c1>//一个视频帧的宽度和高度。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>nb_samples</span><span class=p>;</span><span class=c1>//这个AVFrame中的每个音频通道中包含的音频帧个数。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>format</span><span class=p>;</span><span class=c1>//表示解码后的数据类型或格式，-1表示未被设置或不能识别的类型。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>key_frame</span><span class=p>;</span><span class=c1>//是否为关键帧。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=k>enum</span> <span class=nc>AVPictureType</span> <span class=n>pict_type</span><span class=p>;</span><span class=c1>//帧的类型。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=n>AVRational</span> <span class=n>sample_aspect_ratio</span><span class=p>;</span><span class=c1>//视频帧的宽高比，0表示未知。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>pts</span><span class=p>;</span><span class=c1>//显示时间戳，表示该什么时候被显示。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int64_t</span> <span class=n>pkt_dts</span><span class=p>;</span><span class=c1>//从AVPacket中拷贝的值。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>coded_picture_number</span><span class=p>;</span><span class=c1>//编码帧序号。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>display_picture_number</span><span class=p>;</span><span class=c1>//显示帧需要。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>void</span> <span class=o>*</span><span class=n>opaque</span><span class=p>;</span><span class=c1>//用户私有信息。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>repeat_pict</span><span class=p>;</span><span class=c1>//解码时，每帧图片延迟的时间，extra_delay = repeat_pict / (2*fps)。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>interlaced_frame</span><span class=p>;</span><span class=c1>//是否是隔行扫描
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>int</span> <span class=n>sample_rate</span><span class=p>;</span><span class=c1>//音频的采样率。
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=kt>uint64_t</span> <span class=n>channel_layout</span><span class=p>;</span><span class=c1>//音频的布局方式。
+</span></span></span></code></pre></td></tr></table></div></div><h1 id=常用函数>常用函数</h1></li></ul><h2 id=av_register_all>av_register_all()</h2><p><strong>功能</strong>：该函数在所有基于ffmpeg的应用程序中几乎都是第一个被调用的。只有调用了该函数，才能使用复用器，编码器等。</p><h2 id=avformat_network_init>avformat_network_init()</h2><p><strong>功能</strong>：使用ffmpeg类库进行开发时，打开流媒体（或本地文件）的函数是 <strong>avformat_open_input()</strong>；</p><p>其中打开网络流的话，需要在前面调用函数 <strong>avformat_network_init()</strong>。</p><h2 id=avformat_open_input>avformat_open_input()</h2><p><strong>功能</strong>：打开多媒体数据并且获得一些相关的信息</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Open an input stream and read the header. The codecs are not opened.
+</span></span></span><span class=line><span class=cl><span class=cm> * The stream must be closed with avformat_close_input().
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param ps Pointer to user-supplied AVFormatContext (allocated by avformat_alloc_context).
+</span></span></span><span class=line><span class=cl><span class=cm> *           May be a pointer to NULL, in which case an AVFormatContext is allocated by this
+</span></span></span><span class=line><span class=cl><span class=cm> *           function and written into ps.
+</span></span></span><span class=line><span class=cl><span class=cm> *           Note that a user-supplied AVFormatContext will be freed on failure.
+</span></span></span><span class=line><span class=cl><span class=cm> * @param url URL of the stream to open.
+</span></span></span><span class=line><span class=cl><span class=cm> * @param fmt If non-NULL, this parameter forces a specific input format.
+</span></span></span><span class=line><span class=cl><span class=cm> *            Otherwise the format is autodetected.
+</span></span></span><span class=line><span class=cl><span class=cm> * @param options  A dictionary filled with AVFormatContext and demuxer-private options.
+</span></span></span><span class=line><span class=cl><span class=cm> *                 On return this parameter will be destroyed and replaced with a dict containing
+</span></span></span><span class=line><span class=cl><span class=cm> *                 options that were not found. May be NULL.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @return 0 on success, a negative AVERROR on failure.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @note If you want to use custom IO, preallocate the format context and set its pb field.
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>avformat_open_input</span><span class=p>(</span><span class=n>AVFormatContext</span> <span class=o>**</span><span class=n>ps</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>url</span><span class=p>,</span> <span class=n>ff_const59</span> <span class=n>AVInputFormat</span> <span class=o>*</span><span class=n>fmt</span><span class=p>,</span> <span class=n>AVDictionary</span> <span class=o>**</span><span class=n>options</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>参数</strong>：</p><p>ps：函数调用成功之后处理过的AVFormatContext结构体；</p><p>url：打开的视音频流的URL；</p><p>fmt：强制指定AVFormatContext中AVInputFormat的。这个参数一般情况下可以设置为NULL，这样FFmpeg可以自动检测AVInputFormat；</p><p>options：附加的一些选项，一般情况下可以设置为NULL</p><p><strong>返回值：</strong></p><p>执行成功的话，其返回值大于等于0</p></blockquote><h2 id=avformat_find_stream_info>avformat_find_stream_info()</h2><p><strong>功能</strong>：读取一部分视音频数据并且获得一些相关的信息</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Read packets of a media file to get stream information. This
+</span></span></span><span class=line><span class=cl><span class=cm> * is useful for file formats with no headers such as MPEG. This
+</span></span></span><span class=line><span class=cl><span class=cm> * function also computes the real framerate in case of MPEG-2 repeat
+</span></span></span><span class=line><span class=cl><span class=cm> * frame mode.
+</span></span></span><span class=line><span class=cl><span class=cm> * The logical file position is not changed by this function;
+</span></span></span><span class=line><span class=cl><span class=cm> * examined packets may be buffered for later processing.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param ic media file handle
+</span></span></span><span class=line><span class=cl><span class=cm> * @param options  If non-NULL, an ic.nb_streams long array of pointers to
+</span></span></span><span class=line><span class=cl><span class=cm> *                 dictionaries, where i-th member contains options for
+</span></span></span><span class=line><span class=cl><span class=cm> *                 codec corresponding to i-th stream.
+</span></span></span><span class=line><span class=cl><span class=cm> *                 On return each dictionary will be filled with options that were not found.
+</span></span></span><span class=line><span class=cl><span class=cm> * @return &gt;=0 if OK, AVERROR_xxx on error
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @note this function isn&#39;t guaranteed to open all the codecs, so
+</span></span></span><span class=line><span class=cl><span class=cm> *       options being non-empty at return is a perfectly normal behavior.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @todo Let the user decide somehow what information is needed so that
+</span></span></span><span class=line><span class=cl><span class=cm> *       we do not waste time getting stuff the user does not need.
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>avformat_find_stream_info</span><span class=p>(</span><span class=n>AVFormatContext</span> <span class=o>*</span><span class=n>ic</span><span class=p>,</span> <span class=n>AVDictionary</span> <span class=o>**</span><span class=n>options</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>参数：</strong></p><p>ic：输入的AVFormatContext；</p><p>options：配置和定义播放器的参数</p><p>返回值：函数正常执行后返回值大于等于0</p></blockquote><p>在一些格式当中没有头部信息(flv、h264)，此时调用avformat_open_input()在打开文件无法获取到里面的信息。此时就可以调用此函数，该函数会尝试去探测文件的格式，如果格式当中没有头部信息，它只能获取到编码、宽高等信息，无法获得总时长。如果无法获取到总时长，则需要把整个文件读一遍，计算一下它的总帧数：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=n>avformat_find_stream_info</span><span class=p>(</span><span class=n>ic</span><span class=p>,</span> <span class=mi>0</span><span class=p>)</span> <span class=o>&gt;=</span><span class=mi>0</span> <span class=p>)</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>        <span class=n>LOGI</span><span class=p>(</span><span class=s>&#34;duration is: %lld, nb_stream is: %d&#34;</span><span class=p>,</span> <span class=n>ic</span><span class=o>-&gt;</span><span class=n>duration</span><span class=p>,</span> <span class=n>ic</span><span class=o>-&gt;</span><span class=n>nb_streams</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=av_dump_format>av_dump_format()</h2><p><strong>功能</strong>：打印视频流的信息</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Print detailed information about the input or output format, such as
+</span></span></span><span class=line><span class=cl><span class=cm> * duration, bitrate, streams, container, programs, metadata, side data,
+</span></span></span><span class=line><span class=cl><span class=cm> * codec and time base.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param ic        the context to analyze
+</span></span></span><span class=line><span class=cl><span class=cm> * @param index     index of the stream to dump information about
+</span></span></span><span class=line><span class=cl><span class=cm> * @param url       the URL to print, such as source or destination file
+</span></span></span><span class=line><span class=cl><span class=cm> * @param is_output Select whether the specified context is an input(0) or output(1)
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=nf>av_dump_format</span><span class=p>(</span><span class=n>AVFormatContext</span> <span class=o>*</span><span class=n>ic</span><span class=p>,</span> <span class=kt>int</span> <span class=n>index</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>url</span><span class=p>,</span> <span class=kt>int</span> <span class=n>is_output</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>参数：</strong></p><p>ic：要分析的上下文</p><p>index：要转储有关信息的流的索引</p><p>url：要打印的URL，例如源文件或目标文件</p><p>is_output：选择指定的上下文是输入（0）还是输出（1）</p></blockquote><h2 id=avformat_alloc_output_context2>avformat_alloc_output_context2()</h2><p>**功能：**初始化一个用于输出的AVFormatContext结构体</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Allocate an AVFormatContext for an output format.
+</span></span></span><span class=line><span class=cl><span class=cm> * avformat_free_context() can be used to free the context and
+</span></span></span><span class=line><span class=cl><span class=cm> * everything allocated by the framework within it.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param *ctx is set to the created format context, or to NULL in
+</span></span></span><span class=line><span class=cl><span class=cm> * case of failure
+</span></span></span><span class=line><span class=cl><span class=cm> * @param oformat format to use for allocating the context, if NULL
+</span></span></span><span class=line><span class=cl><span class=cm> * format_name and filename are used instead
+</span></span></span><span class=line><span class=cl><span class=cm> * @param format_name the name of output format to use for allocating the
+</span></span></span><span class=line><span class=cl><span class=cm> * context, if NULL filename is used instead
+</span></span></span><span class=line><span class=cl><span class=cm> * @param filename the name of the filename to use for allocating the
+</span></span></span><span class=line><span class=cl><span class=cm> * context, may be NULL
+</span></span></span><span class=line><span class=cl><span class=cm> * @return &gt;= 0 in case of success, a negative AVERROR code in case of
+</span></span></span><span class=line><span class=cl><span class=cm> * failure
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>avformat_alloc_output_context2</span><span class=p>(</span><span class=n>AVFormatContext</span> <span class=o>**</span><span class=n>ctx</span><span class=p>,</span> <span class=n>ff_const59</span> <span class=n>AVOutputFormat</span> <span class=o>*</span><span class=n>oformat</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                                   <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>format_name</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>filename</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>参数：</p><p>ctx：函数调用成功之后创建的AVFormatContext结构体</p><p>oformat：指定AVFormatContext中的AVOutputFormat，用于确定输出格式。如果指定为NULL，可以设定后两个参数（format_name或者filename）由FFmpeg猜测输出格式PS：使用该参数需要自己手动获AVOutputFormat，相对于使用后两个参数来说要麻烦一些</p><p>format_name：指定输出格式的名称。根据格式名称，FFmpeg会推测输出格式。输出格式可以是“flv”，“mkv”等等</p><p>filename：指定输出文件的名称。根据文件名称，FFmpeg会推测输出格式。文件名称可以是“xx.flv”，“yy.mkv”等等</p><p><strong>返回值：</strong></p><p>函数执行成功的话，其返回值大于等于0</p></blockquote><h2 id=avformat_new_stream>avformat_new_stream()</h2><p>**功能：**在 AVFormatContext 里创建 AVStream 通道，即为文件添加音视频流</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Add a new stream to a media file.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * When demuxing, it is called by the demuxer in read_header(). If the
+</span></span></span><span class=line><span class=cl><span class=cm> * flag AVFMTCTX_NOHEADER is set in s.ctx_flags, then it may also
+</span></span></span><span class=line><span class=cl><span class=cm> * be called in read_packet().
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * When muxing, should be called by the user before avformat_write_header().
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * User is required to call avcodec_close() and avformat_free_context() to
+</span></span></span><span class=line><span class=cl><span class=cm> * clean up the allocation by avformat_new_stream().
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param s media file handle
+</span></span></span><span class=line><span class=cl><span class=cm> * @param c If non-NULL, the AVCodecContext corresponding to the new stream
+</span></span></span><span class=line><span class=cl><span class=cm> * will be initialized to use this codec. This is needed for e.g. codec-specific
+</span></span></span><span class=line><span class=cl><span class=cm> * defaults to be set, so codec should be provided if it is known.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @return newly created stream or NULL on error.
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=n>AVStream</span> <span class=o>*</span><span class=nf>avformat_new_stream</span><span class=p>(</span><span class=n>AVFormatContext</span> <span class=o>*</span><span class=n>s</span><span class=p>,</span> <span class=k>const</span> <span class=n>AVCodec</span> <span class=o>*</span><span class=n>c</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>参数：</strong></p><p>s：视频流上下文</p><p>c：如果非空，则与新流对应的AVCodecContext将被初始化以使用此编解码器。因此如果编解码器已知，则应提供编解码器。</p><p><strong>返回值：</strong></p><p>正常执行则返回新创建的流，出错时返回空</p></blockquote><h2 id=avcodec_copy_context>avcodec_copy_context()</h2><p>**功能：**拷贝输入视频码流的AVCodecContex的数值到输出视频的AVCodecContext</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Copy the settings of the source AVCodecContext into the destination
+</span></span></span><span class=line><span class=cl><span class=cm> * AVCodecContext. The resulting destination codec context will be
+</span></span></span><span class=line><span class=cl><span class=cm> * unopened, i.e. you are required to call avcodec_open2() before you
+</span></span></span><span class=line><span class=cl><span class=cm> * can use this AVCodecContext to decode/encode video/audio data.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param dest target codec context, should be initialized with
+</span></span></span><span class=line><span class=cl><span class=cm> *             avcodec_alloc_context3(NULL), but otherwise uninitialized
+</span></span></span><span class=line><span class=cl><span class=cm> * @param src source codec context
+</span></span></span><span class=line><span class=cl><span class=cm> * @return AVERROR() on error (e.g. memory allocation error), 0 on success
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @deprecated The semantics of this function are ill-defined and it should not
+</span></span></span><span class=line><span class=cl><span class=cm> * be used. If you need to transfer the stream parameters from one codec context
+</span></span></span><span class=line><span class=cl><span class=cm> * to another, use an intermediate AVCodecParameters instance and the
+</span></span></span><span class=line><span class=cl><span class=cm> * avcodec_parameters_from_context() / avcodec_parameters_to_context()
+</span></span></span><span class=line><span class=cl><span class=cm> * functions.
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=n>attribute_deprecated</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>avcodec_copy_context</span><span class=p>(</span><span class=n>AVCodecContext</span> <span class=o>*</span><span class=n>dest</span><span class=p>,</span> <span class=k>const</span> <span class=n>AVCodecContext</span> <span class=o>*</span><span class=n>src</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>参数：</strong></p><p>dest：目标编解码器上下文</p><p>src：源编解码器上下文</p><p><strong>返回值：</strong></p><p>成功时返回0</p></blockquote><p>新版本中FFmpeg的avcodec_copy_context被avcodec_parameters_to_context和avcodec_parameters_from_context所替代，因此需要将原本的写法修改一下：</p><p><strong>旧版API：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=n>ret</span> <span class=o>=</span> <span class=n>avcodec_copy_context</span><span class=p>(</span><span class=n>out_stream</span><span class=o>-&gt;</span><span class=n>codec</span><span class=p>,</span> <span class=n>in_stream</span><span class=o>-&gt;</span><span class=n>codec</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=n>ret</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>    <span class=n>printf</span><span class=p>(</span><span class=s>&#34;Failed to copy context from input to output stream codec context</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>    <span class=k>goto</span> <span class=n>end</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl><span class=n>out_stream</span><span class=o>-&gt;</span><span class=n>codec</span><span class=o>-&gt;</span><span class=n>codec_tag</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=n>ofmt_ctx</span><span class=o>-&gt;</span><span class=n>oformat</span><span class=o>-&gt;</span><span class=n>flags</span> <span class=o>&amp;</span> <span class=n>AVFMT_GLOBALHEADER</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>out_stream</span><span class=o>-&gt;</span><span class=n>codec</span><span class=o>-&gt;</span><span class=n>flags</span> <span class=o>|=</span> <span class=n>AV_CODEC_FLAG_GLOBAL_HEADER</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p><strong>新版API：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=n>AVCodecContext</span> <span class=o>*</span><span class=n>codec_ctx</span> <span class=o>=</span> <span class=n>avcodec_alloc_context3</span><span class=p>(</span><span class=n>in_codec</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=n>ret</span> <span class=o>=</span> <span class=n>avcodec_parameters_to_context</span><span class=p>(</span><span class=n>codec_ctx</span><span class=p>,</span> <span class=n>in_stream</span><span class=o>-&gt;</span><span class=n>codecpar</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=n>ret</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>    <span class=n>printf</span><span class=p>(</span><span class=s>&#34;Failed to copy in_stream codecpar to codec context</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=k>goto</span> <span class=n>end</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl><span class=n>codec_ctx</span><span class=o>-&gt;</span><span class=n>codec_tag</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=n>ofmt_ctx</span><span class=o>-&gt;</span><span class=n>oformat</span><span class=o>-&gt;</span><span class=n>flags</span> <span class=o>&amp;</span> <span class=n>AVFMT_GLOBALHEADER</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>    <span class=n>codec_ctx</span><span class=o>-&gt;</span><span class=n>flags</span> <span class=o>|=</span> <span class=n>AV_CODEC_FLAG_GLOBAL_HEADER</span><span class=p>;</span>
+</span></span><span class=line><span class=cl> 
+</span></span><span class=line><span class=cl><span class=n>ret</span> <span class=o>=</span> <span class=n>avcodec_parameters_from_context</span><span class=p>(</span><span class=n>out_stream</span><span class=o>-&gt;</span><span class=n>codecpar</span><span class=p>,</span> <span class=n>codec_ctx</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=p>(</span><span class=n>ret</span> <span class=o>&lt;</span> <span class=mi>0</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>	<span class=n>printf</span><span class=p>(</span><span class=s>&#34;Failed to copy codec context to out_stream codecpar context</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=k>goto</span> <span class=n>end</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=avio_open>avio_open()</h2><p><strong>avio_open()</strong>，是FFmepeg早期版本。avio_open()比avio_open2()少了最后2个参数。而它前面几个参数的含义和avio_open2()是一样的。从源代码中可以看出，avio_open()内部调用了avio_open2()，并且把avio_open2()的后2个参数设置成了NULL，因此它的功能实际上和avio_open2()<strong>都是用于打开FFmpeg的输入输出文件的</strong>。其源码如下所示：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=kt>int</span> <span class=nf>avio_open</span><span class=p>(</span><span class=n>AVIOContext</span> <span class=o>**</span><span class=n>s</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>filename</span><span class=p>,</span> <span class=kt>int</span> <span class=n>flags</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>avio_open2</span><span class=p>(</span><span class=n>s</span><span class=p>,</span> <span class=n>filename</span><span class=p>,</span> <span class=n>flags</span><span class=p>,</span> <span class=nb>NULL</span><span class=p>,</span> <span class=nb>NULL</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=avio_open2>avio_open2()</h2><p>**功能：**打开FFmpeg的输入输出文件</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Create and initialize a AVIOContext for accessing the
+</span></span></span><span class=line><span class=cl><span class=cm> * resource indicated by url.
+</span></span></span><span class=line><span class=cl><span class=cm> * @note When the resource indicated by url has been opened in
+</span></span></span><span class=line><span class=cl><span class=cm> * read+write mode, the AVIOContext can be used only for writing.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param s Used to return the pointer to the created AVIOContext.
+</span></span></span><span class=line><span class=cl><span class=cm> * In case of failure the pointed to value is set to NULL.
+</span></span></span><span class=line><span class=cl><span class=cm> * @param url resource to access
+</span></span></span><span class=line><span class=cl><span class=cm> * @param flags flags which control how the resource indicated by url
+</span></span></span><span class=line><span class=cl><span class=cm> * is to be opened
+</span></span></span><span class=line><span class=cl><span class=cm> * @param int_cb an interrupt callback to be used at the protocols level
+</span></span></span><span class=line><span class=cl><span class=cm> * @param options  A dictionary filled with protocol-private options. On return
+</span></span></span><span class=line><span class=cl><span class=cm> * this parameter will be destroyed and replaced with a dict containing options
+</span></span></span><span class=line><span class=cl><span class=cm> * that were not found. May be NULL.
+</span></span></span><span class=line><span class=cl><span class=cm> * @return &gt;= 0 in case of success, a negative value corresponding to an
+</span></span></span><span class=line><span class=cl><span class=cm> * AVERROR code in case of failure
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>avio_open2</span><span class=p>(</span><span class=n>AVIOContext</span> <span class=o>**</span><span class=n>s</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>*</span><span class=n>url</span><span class=p>,</span> <span class=kt>int</span> <span class=n>flags</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>               <span class=k>const</span> <span class=n>AVIOInterruptCB</span> <span class=o>*</span><span class=n>int_cb</span><span class=p>,</span> <span class=n>AVDictionary</span> <span class=o>**</span><span class=n>options</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>参数：</strong></p><p>s：函数调用成功之后创建的AVIOContext结构体</p><p>url：输入输出协议的地址</p><p>flags：打开地址的方式。可以选择只读，只写，或者读写，取值如下</p><ul><li>AVIO_FLAG_READ：只读</li><li>AVIO_FLAG_WRITE：只写</li><li>AVIO_FLAG_READ_WRITE：读写</li></ul><p>int_cb：在协议级使用的中断回调</p><p>options：设置</p><p><strong>返回值：</strong></p><p>成功时返回值大于等于0，出错时对应AVERROR代码</p></blockquote><h2 id=avformat_write_header>avformat_write_header()</h2><blockquote><p>avformat_write_header()，av_write_frame()以及av_write_trailer()这三个函数一般是配套使用，其中av_write_frame()用于写视频数据（，avformat_write_header()用于写视频文件头，而av_write_trailer()用于写视频文件尾</p></blockquote><p>**功能：**写视频文件头</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Allocate the stream private data and write the stream header to
+</span></span></span><span class=line><span class=cl><span class=cm> * an output media file.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param s Media file handle, must be allocated with avformat_alloc_context().
+</span></span></span><span class=line><span class=cl><span class=cm> *          Its oformat field must be set to the desired output format;
+</span></span></span><span class=line><span class=cl><span class=cm> *          Its pb field must be set to an already opened AVIOContext.
+</span></span></span><span class=line><span class=cl><span class=cm> * @param options  An AVDictionary filled with AVFormatContext and muxer-private options.
+</span></span></span><span class=line><span class=cl><span class=cm> *                 On return this parameter will be destroyed and replaced with a dict containing
+</span></span></span><span class=line><span class=cl><span class=cm> *                 options that were not found. May be NULL.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @return AVSTREAM_INIT_IN_WRITE_HEADER on success if the codec had not already been fully initialized in avformat_init,
+</span></span></span><span class=line><span class=cl><span class=cm> *         AVSTREAM_INIT_IN_INIT_OUTPUT  on success if the codec had already been fully initialized in avformat_init,
+</span></span></span><span class=line><span class=cl><span class=cm> *         negative AVERROR on failure.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @see av_opt_find, av_dict_set, avio_open, av_oformat_next, avformat_init_output.
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=n>av_warn_unused_result</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>avformat_write_header</span><span class=p>(</span><span class=n>AVFormatContext</span> <span class=o>*</span><span class=n>s</span><span class=p>,</span> <span class=n>AVDictionary</span> <span class=o>**</span><span class=n>options</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>参数：</strong></p><p>s：用于输出的AVFormatContext</p><p>options：额外的选项，一般为NULL</p><p><strong>返回值：</strong></p><p>函数正常执行后返回值等于0</p></blockquote><h2 id=av_interleaved_write_frame>av_interleaved_write_frame()</h2><p>**功能：**将数据包写入输出媒体文件，以确保正确的交织。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Write a packet to an output media file ensuring correct interleaving.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * This function will buffer the packets internally as needed to make sure the
+</span></span></span><span class=line><span class=cl><span class=cm> * packets in the output file are properly interleaved in the order of
+</span></span></span><span class=line><span class=cl><span class=cm> * increasing dts. Callers doing their own interleaving should call
+</span></span></span><span class=line><span class=cl><span class=cm> * av_write_frame() instead of this function.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * Using this function instead of av_write_frame() can give muxers advance
+</span></span></span><span class=line><span class=cl><span class=cm> * knowledge of future packets, improving e.g. the behaviour of the mp4
+</span></span></span><span class=line><span class=cl><span class=cm> * muxer for VFR content in fragmenting mode.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param s media file handle
+</span></span></span><span class=line><span class=cl><span class=cm> * @param pkt The packet containing the data to be written.
+</span></span></span><span class=line><span class=cl><span class=cm> *            If the packet is reference-counted, this function will take
+</span></span></span><span class=line><span class=cl><span class=cm> *            ownership of this reference and unreference it later when it sees
+</span></span></span><span class=line><span class=cl><span class=cm> *            fit.
+</span></span></span><span class=line><span class=cl><span class=cm> *            The caller must not access the data through this reference after
+</span></span></span><span class=line><span class=cl><span class=cm> *            this function returns. If the packet is not reference-counted,
+</span></span></span><span class=line><span class=cl><span class=cm> *            libavformat will make a copy.
+</span></span></span><span class=line><span class=cl><span class=cm> *            This parameter can be NULL (at any time, not just at the end), to
+</span></span></span><span class=line><span class=cl><span class=cm> *            flush the interleaving queues.
+</span></span></span><span class=line><span class=cl><span class=cm> *            Packet&#39;s @ref AVPacket.stream_index &#34;stream_index&#34; field must be
+</span></span></span><span class=line><span class=cl><span class=cm> *            set to the index of the corresponding stream in @ref
+</span></span></span><span class=line><span class=cl><span class=cm> *            AVFormatContext.streams &#34;s-&gt;streams&#34;.
+</span></span></span><span class=line><span class=cl><span class=cm> *            The timestamps (@ref AVPacket.pts &#34;pts&#34;, @ref AVPacket.dts &#34;dts&#34;)
+</span></span></span><span class=line><span class=cl><span class=cm> *            must be set to correct values in the stream&#39;s timebase (unless the
+</span></span></span><span class=line><span class=cl><span class=cm> *            output format is flagged with the AVFMT_NOTIMESTAMPS flag, then
+</span></span></span><span class=line><span class=cl><span class=cm> *            they can be set to AV_NOPTS_VALUE).
+</span></span></span><span class=line><span class=cl><span class=cm> *            The dts for subsequent packets in one stream must be strictly
+</span></span></span><span class=line><span class=cl><span class=cm> *            increasing (unless the output format is flagged with the
+</span></span></span><span class=line><span class=cl><span class=cm> *            AVFMT_TS_NONSTRICT, then they merely have to be nondecreasing).
+</span></span></span><span class=line><span class=cl><span class=cm> *            @ref AVPacket.duration &#34;duration&#34;) should also be set if known.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @return 0 on success, a negative AVERROR on error. Libavformat will always
+</span></span></span><span class=line><span class=cl><span class=cm> *         take care of freeing the packet, even if this function fails.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @see av_write_frame(), AVFormatContext.max_interleave_delta
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>av_interleaved_write_frame</span><span class=p>(</span><span class=n>AVFormatContext</span> <span class=o>*</span><span class=n>s</span><span class=p>,</span> <span class=n>AVPacket</span> <span class=o>*</span><span class=n>pkt</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>参数：</strong></p><p>s：用于输出的AVFormatContext</p><p>pkt：包含要写入的数据的包</p><p><strong>返回值：</strong></p><p>函数正常执行后返回值等于0</p></blockquote><h2 id=av_write_frame>av_write_frame()</h2><p>**功能：**输出一帧视音频数据</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Write a packet to an output media file.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * This function passes the packet directly to the muxer, without any buffering
+</span></span></span><span class=line><span class=cl><span class=cm> * or reordering. The caller is responsible for correctly interleaving the
+</span></span></span><span class=line><span class=cl><span class=cm> * packets if the format requires it. Callers that want libavformat to handle
+</span></span></span><span class=line><span class=cl><span class=cm> * the interleaving should call av_interleaved_write_frame() instead of this
+</span></span></span><span class=line><span class=cl><span class=cm> * function.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param s media file handle
+</span></span></span><span class=line><span class=cl><span class=cm> * @param pkt The packet containing the data to be written. Note that unlike
+</span></span></span><span class=line><span class=cl><span class=cm> *            av_interleaved_write_frame(), this function does not take
+</span></span></span><span class=line><span class=cl><span class=cm> *            ownership of the packet passed to it (though some muxers may make
+</span></span></span><span class=line><span class=cl><span class=cm> *            an internal reference to the input packet).
+</span></span></span><span class=line><span class=cl><span class=cm> *            &lt;br&gt;
+</span></span></span><span class=line><span class=cl><span class=cm> *            This parameter can be NULL (at any time, not just at the end), in
+</span></span></span><span class=line><span class=cl><span class=cm> *            order to immediately flush data buffered within the muxer, for
+</span></span></span><span class=line><span class=cl><span class=cm> *            muxers that buffer up data internally before writing it to the
+</span></span></span><span class=line><span class=cl><span class=cm> *            output.
+</span></span></span><span class=line><span class=cl><span class=cm> *            &lt;br&gt;
+</span></span></span><span class=line><span class=cl><span class=cm> *            Packet&#39;s @ref AVPacket.stream_index &#34;stream_index&#34; field must be
+</span></span></span><span class=line><span class=cl><span class=cm> *            set to the index of the corresponding stream in @ref
+</span></span></span><span class=line><span class=cl><span class=cm> *            AVFormatContext.streams &#34;s-&gt;streams&#34;.
+</span></span></span><span class=line><span class=cl><span class=cm> *            &lt;br&gt;
+</span></span></span><span class=line><span class=cl><span class=cm> *            The timestamps (@ref AVPacket.pts &#34;pts&#34;, @ref AVPacket.dts &#34;dts&#34;)
+</span></span></span><span class=line><span class=cl><span class=cm> *            must be set to correct values in the stream&#39;s timebase (unless the
+</span></span></span><span class=line><span class=cl><span class=cm> *            output format is flagged with the AVFMT_NOTIMESTAMPS flag, then
+</span></span></span><span class=line><span class=cl><span class=cm> *            they can be set to AV_NOPTS_VALUE).
+</span></span></span><span class=line><span class=cl><span class=cm> *            The dts for subsequent packets passed to this function must be strictly
+</span></span></span><span class=line><span class=cl><span class=cm> *            increasing when compared in their respective timebases (unless the
+</span></span></span><span class=line><span class=cl><span class=cm> *            output format is flagged with the AVFMT_TS_NONSTRICT, then they
+</span></span></span><span class=line><span class=cl><span class=cm> *            merely have to be nondecreasing).  @ref AVPacket.duration
+</span></span></span><span class=line><span class=cl><span class=cm> *            &#34;duration&#34;) should also be set if known.
+</span></span></span><span class=line><span class=cl><span class=cm> * @return &lt; 0 on error, = 0 if OK, 1 if flushed and there is no more data to flush
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @see av_interleaved_write_frame()
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>av_write_frame</span><span class=p>(</span><span class=n>AVFormatContext</span> <span class=o>*</span><span class=n>s</span><span class=p>,</span> <span class=n>AVPacket</span> <span class=o>*</span><span class=n>pkt</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>参数：</strong></p><p>s：用于输出的AVFormatContext</p><p>pkt：等待输出的AVPacket</p><p><strong>返回值：</strong></p><p>函数正常执行后返回值等于0</p></blockquote><h2 id=av_write_trailer>av_write_trailer()</h2><p>**功能：**输出文件尾</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Write the stream trailer to an output media file and free the
+</span></span></span><span class=line><span class=cl><span class=cm> * file private data.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * May only be called after a successful call to avformat_write_header.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param s media file handle
+</span></span></span><span class=line><span class=cl><span class=cm> * @return 0 if OK, AVERROR_xxx on error
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>av_write_trailer</span><span class=p>(</span><span class=n>AVFormatContext</span> <span class=o>*</span><span class=n>s</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>参数：</strong></p><p>s：用于输出的AVFormatContext</p><p><strong>返回值：</strong></p><p>函数正常执行后返回值等于0</p></blockquote><h2 id=av_read_frame>av_read_frame()</h2><p>功能：读取码流中的音频若干帧或者视频一帧</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Return the next frame of a stream.
+</span></span></span><span class=line><span class=cl><span class=cm> * This function returns what is stored in the file, and does not validate
+</span></span></span><span class=line><span class=cl><span class=cm> * that what is there are valid frames for the decoder. It will split what is
+</span></span></span><span class=line><span class=cl><span class=cm> * stored in the file into frames and return one for each call. It will not
+</span></span></span><span class=line><span class=cl><span class=cm> * omit invalid data between valid frames so as to give the decoder the maximum
+</span></span></span><span class=line><span class=cl><span class=cm> * information possible for decoding.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * On success, the returned packet is reference-counted (pkt-&gt;buf is set) and
+</span></span></span><span class=line><span class=cl><span class=cm> * valid indefinitely. The packet must be freed with av_packet_unref() when
+</span></span></span><span class=line><span class=cl><span class=cm> * it is no longer needed. For video, the packet contains exactly one frame.
+</span></span></span><span class=line><span class=cl><span class=cm> * For audio, it contains an integer number of frames if each frame has
+</span></span></span><span class=line><span class=cl><span class=cm> * a known fixed size (e.g. PCM or ADPCM data). If the audio frames have
+</span></span></span><span class=line><span class=cl><span class=cm> * a variable size (e.g. MPEG audio), then it contains one frame.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * pkt-&gt;pts, pkt-&gt;dts and pkt-&gt;duration are always set to correct
+</span></span></span><span class=line><span class=cl><span class=cm> * values in AVStream.time_base units (and guessed if the format cannot
+</span></span></span><span class=line><span class=cl><span class=cm> * provide them). pkt-&gt;pts can be AV_NOPTS_VALUE if the video format
+</span></span></span><span class=line><span class=cl><span class=cm> * has B-frames, so it is better to rely on pkt-&gt;dts if you do not
+</span></span></span><span class=line><span class=cl><span class=cm> * decompress the payload.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @return 0 if OK, &lt; 0 on error or end of file. On error, pkt will be blank
+</span></span></span><span class=line><span class=cl><span class=cm> *         (as if it came from av_packet_alloc()).
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @note pkt will be initialized, so it may be uninitialized, but it must not
+</span></span></span><span class=line><span class=cl><span class=cm> *       contain data that needs to be freed.
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>av_read_frame</span><span class=p>(</span><span class=n>AVFormatContext</span> <span class=o>*</span><span class=n>s</span><span class=p>,</span> <span class=n>AVPacket</span> <span class=o>*</span><span class=n>pkt</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>参数：</strong></p><p>s：输入的AVFormatContext</p><p>pkt：输出的AVPacket</p><p><strong>返回值：</strong></p><p>成功返回0</p></blockquote><h2 id=av_free_packet>av_free_packet()</h2><p>功能：释放 packet 占用的资源</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Free a packet.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @deprecated Use av_packet_unref
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param pkt packet to free
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=n>attribute_deprecated</span>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=nf>av_free_packet</span><span class=p>(</span><span class=n>AVPacket</span> <span class=o>*</span><span class=n>pkt</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p><strong>参数：</strong></p><p>packet：需要是释放的packet</p></blockquote><p><strong>新的API：</strong></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Convenience function to free all the side data stored.
+</span></span></span><span class=line><span class=cl><span class=cm> * All the other fields stay untouched.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param pkt packet
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=nf>av_packet_free_side_data</span><span class=p>(</span><span class=n>AVPacket</span> <span class=o>*</span><span class=n>pkt</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=avformat_close_input>avformat_close_input()</h2><p><strong>功能</strong>：关闭一个AVFormatContext，一般和 <strong>avformat_open_input()</strong> 成对出现</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Close an opened input AVFormatContext. Free it and all its contents
+</span></span></span><span class=line><span class=cl><span class=cm> * and set *s to NULL.
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>void</span> <span class=nf>avformat_close_input</span><span class=p>(</span><span class=n>AVFormatContext</span> <span class=o>**</span><span class=n>s</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=avio_close>avio_close()</h2><p>**功能：**关闭AVIOContext访问的资源并释放（只能用于被 <strong>avio_open()</strong> 打开的）</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Close the resource accessed by the AVIOContext s and free it.
+</span></span></span><span class=line><span class=cl><span class=cm> * This function can only be used if s was opened by avio_open().
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * The internal buffer is automatically flushed before closing the
+</span></span></span><span class=line><span class=cl><span class=cm> * resource.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @return 0 on success, an AVERROR &lt; 0 on error.
+</span></span></span><span class=line><span class=cl><span class=cm> * @see avio_closep
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>avio_close</span><span class=p>(</span><span class=n>AVIOContext</span> <span class=o>*</span><span class=n>s</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=av_gettime>av_gettime()</h2><p>**功能：**以微秒为单位获取当前时间。</p><p>由于int64_t最大为9,223,372,036,854,775,807，因此会发生溢出的情况，得到的时间戳有正有负</p><h1 id=音视频基础知识>音视频基础知识</h1><h1 id=ffmpeg中的时间处理>FFmpeg中的时间处理</h1><h2 id=ipb-帧>I、P、B 帧</h2><p>I 帧、P 帧、B 帧的区别在于：</p><ul><li>I 帧（Intra coded frames）：I 帧图像采用帧内编码方式，即只利用了单帧图像内的空间相关性，而没有利用时间相关性。I 帧使用帧内压缩，不使用运动补偿，由于 I 帧不依赖其它帧，所以是随机存取的入点，同时是解码的基准帧。I 帧主要用于接收机的初始化和信道的获取，以及节目的切换和插入，I 帧图像的压缩倍数相对较低。I 帧图像是周期性出现在图像序列中的，出现频率可由编码器选择。</li><li>P 帧（Predicted frames）：P 帧和 B 帧图像采用帧间编码方式，即同时利用了空间和时间上的相关性。P 帧图像只采用前向时间预测，可以提高压缩效率和图像质量。P 帧图像中可以包含帧内编码的部分，即 P 帧中的每一个宏块可以是前向预测，也可以是帧内编码。</li><li>B 帧（Bi-directional predicted frames）：B 帧图像采用双向时间预测，可以大大提高压缩倍数。值得注意的是，由于 B 帧图像采用了未来帧作为参考，因此 MPEG-2 编码码流中图像帧的传输顺序和显示顺序是不同的。</li></ul><p>也就是说，一个 I 帧可以不依赖其他帧就解码出一幅完整的图像，而 P 帧、B 帧不行。P 帧需要依赖视频流中排在它前面的帧才能解码出图像。B 帧则需要依赖视频流中排在它前面或后面的帧才能解码出图像。</p><p>这就带来一个问题：在视频流中，先到来的 B 帧无法立即解码，需要等待它依赖的后面的 I、P 帧先解码完成，这样一来播放时间与解码时间不一致了，顺序打乱了，那这些帧该如何播放呢？这时就需要我们来了解另外两个概念：DTS 和 PTS</p><h2 id=dtspts-的概念>DTS、PTS 的概念</h2><p>DTS、PTS 的概念如下所述：</p><ul><li>DTS（Decoding Time Stamp）：即解码时间戳，这个时间戳的意义在于告诉播放器该在什么时候解码这一帧的数据。</li><li>PTS（Presentation Time Stamp）：即显示时间戳，这个时间戳用来告诉播放器该在什么时候显示这一帧的数据。</li></ul><p>需要注意的是：虽然 DTS、PTS 是用于指导播放端的行为，但它们是在编码的时候由编码器生成的。</p><p>当视频流中没有 B 帧时，通常 DTS 和 PTS 的顺序是一致的。但如果有 B 帧时，就回到了我们前面说的问题：解码顺序和播放顺序不一致了。</p><p>比如一个视频中，帧的显示顺序是：I B B P，现在我们需要在解码 B 帧时知道 P 帧中信息，因此这几帧在视频流中的顺序可能是：I P B B，这时候就体现出每帧都有 DTS 和 PTS 的作用了。DTS 告诉我们该按什么顺序解码这几帧图像，PTS 告诉我们该按什么顺序显示这几帧图像。顺序大概如下：</p><pre tabindex=0><code>   PTS: 1 4 2 3
+   DTS: 1 2 3 4
+Stream: I P B B
+</code></pre><h2 id=avrational>AVRational</h2><ul><li>主要功能：表示时间刻度</li><li>主要信息：</li></ul><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Rational number (pair of numerator and denominator).
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=k>typedef</span> <span class=k>struct</span> <span class=nc>AVRational</span><span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=kt>int</span> <span class=n>num</span><span class=p>;</span> <span class=c1>///&lt; Numerator
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=kt>int</span> <span class=n>den</span><span class=p>;</span> <span class=c1>///&lt; Denominator
+</span></span></span><span class=line><span class=cl><span class=c1></span><span class=p>}</span> <span class=n>AVRational</span><span class=p>;</span><span class=c1>// 标识一个分数，num为分数，den为分母。例如（1,25）表示1s25帧
+</span></span></span></code></pre></td></tr></table></div></div><h2 id=时间单位>时间单位</h2><h3 id=av_time_base>AV_TIME_BASE</h3><p>ffmpeg中的内部计时单位（时间基），ffmepg中的所有时间都是于它为一个单位，比如AVStream中的duration即以为着这个流的长度为duration个AV_TIME_BASE。AV_TIME_BASE定义为：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Internal time base represented as integer
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cp>#define AV_TIME_BASE            1000000
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=av_time_base_q>AV_TIME_BASE_Q</h3><p>ffmpeg内部时间基的分数表示，实际上它是AV_TIME_BASE的倒数。从它的定义能很清楚的看到这点：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Internal time base represented as fractional value
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=cp>#define AV_TIME_BASE_Q          (AVRational){1, AV_TIME_BASE}
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=av_rescale_qint64_t-a-avrational-bq-avrational-cq>av_rescale_q(int64_t a, AVRational bq, AVRational cq)</h3><p>功能：计算a*bq / cq来把时间戳从一个时间基调整到另外一个时间基。在进行时间基转换的时候，应该首先这个函数，因为它可以避免溢出的情况发生。</p><h3 id=av_rescale_q_rndint64_t-a-avrational-bq-avrational-cq-enum-avrounding-rnd>av_rescale_q_rnd(int64_t a, AVRational bq, AVRational cq, enum AVRounding rnd)</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Rescale a 64-bit integer by 2 rational numbers with specified rounding.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * The operation is mathematically equivalent to `a * bq / cq`.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @see av_rescale(), av_rescale_rnd(), av_rescale_q()
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>int64_t</span> <span class=nf>av_rescale_q_rnd</span><span class=p>(</span><span class=kt>int64_t</span> <span class=n>a</span><span class=p>,</span> <span class=n>AVRational</span> <span class=n>bq</span><span class=p>,</span> <span class=n>AVRational</span> <span class=n>cq</span><span class=p>,</span>
+</span></span><span class=line><span class=cl>                         <span class=k>enum</span> <span class=nc>AVRounding</span> <span class=n>rnd</span><span class=p>)</span> <span class=n>av_const</span><span class=p>;</span>
+</span></span></code></pre></td></tr></table></div></div><p>功能：将以 &ldquo;时钟基c&rdquo; 表示的 数值a 转换成以 &ldquo;时钟基b&rdquo; 来表示。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=k>enum</span> <span class=nc>AVRounding</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl>    <span class=n>AV_ROUND_ZERO</span>     <span class=o>=</span> <span class=mi>0</span><span class=p>,</span> <span class=c1>///&lt; Round toward zero.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>AV_ROUND_INF</span>      <span class=o>=</span> <span class=mi>1</span><span class=p>,</span> <span class=c1>///&lt; Round away from zero.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>AV_ROUND_DOWN</span>     <span class=o>=</span> <span class=mi>2</span><span class=p>,</span> <span class=c1>///&lt; Round toward -infinity.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>AV_ROUND_UP</span>       <span class=o>=</span> <span class=mi>3</span><span class=p>,</span> <span class=c1>///&lt; Round toward +infinity.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=n>AV_ROUND_NEAR_INF</span> <span class=o>=</span> <span class=mi>5</span><span class=p>,</span> <span class=c1>///&lt; Round to nearest and halfway cases away from zero.
+</span></span></span><span class=line><span class=cl><span class=c1></span>    <span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm>     * Flag telling rescaling functions to pass `INT64_MIN`/`MAX` through
+</span></span></span><span class=line><span class=cl><span class=cm>     * unchanged, avoiding special cases for #AV_NOPTS_VALUE.
+</span></span></span><span class=line><span class=cl><span class=cm>     *
+</span></span></span><span class=line><span class=cl><span class=cm>     * Unlike other values of the enumeration AVRounding, this value is a
+</span></span></span><span class=line><span class=cl><span class=cm>     * bitmask that must be used in conjunction with another value of the
+</span></span></span><span class=line><span class=cl><span class=cm>     * enumeration through a bitwise OR, in order to set behavior for normal
+</span></span></span><span class=line><span class=cl><span class=cm>     * cases.
+</span></span></span><span class=line><span class=cl><span class=cm>     *
+</span></span></span><span class=line><span class=cl><span class=cm>     * @code{.c}
+</span></span></span><span class=line><span class=cl><span class=cm>     * av_rescale_rnd(3, 1, 2, AV_ROUND_UP | AV_ROUND_PASS_MINMAX);
+</span></span></span><span class=line><span class=cl><span class=cm>     * // Rescaling 3:
+</span></span></span><span class=line><span class=cl><span class=cm>     * //     Calculating 3 * 1 / 2
+</span></span></span><span class=line><span class=cl><span class=cm>     * //     3 / 2 is rounded up to 2
+</span></span></span><span class=line><span class=cl><span class=cm>     * //     =&gt; 2
+</span></span></span><span class=line><span class=cl><span class=cm>     *
+</span></span></span><span class=line><span class=cl><span class=cm>     * av_rescale_rnd(AV_NOPTS_VALUE, 1, 2, AV_ROUND_UP | AV_ROUND_PASS_MINMAX);
+</span></span></span><span class=line><span class=cl><span class=cm>     * // Rescaling AV_NOPTS_VALUE:
+</span></span></span><span class=line><span class=cl><span class=cm>     * //     AV_NOPTS_VALUE == INT64_MIN
+</span></span></span><span class=line><span class=cl><span class=cm>     * //     AV_NOPTS_VALUE is passed through
+</span></span></span><span class=line><span class=cl><span class=cm>     * //     =&gt; AV_NOPTS_VALUE
+</span></span></span><span class=line><span class=cl><span class=cm>     * @endcode
+</span></span></span><span class=line><span class=cl><span class=cm>     */</span>
+</span></span><span class=line><span class=cl>    <span class=n>AV_ROUND_PASS_MINMAX</span> <span class=o>=</span> <span class=mi>8192</span><span class=p>,</span>
+</span></span><span class=line><span class=cl><span class=p>};</span>
+</span></span></code></pre></td></tr></table></div></div><blockquote><p>AV_ROUND_ZERO = 0, // Round toward zero. 趋近于0
+AV_ROUND_INF = 1, // Round away from zero. 趋远于0
+AV_ROUND_DOWN = 2, // Round toward -infinity. 趋于更小的整数
+AV_ROUND_UP = 3, // Round toward +infinity. 趋于更大的整数
+AV_ROUND_NEAR_INF = 5, // Round to nearest and halfway cases away from zero. 四舍五入,小于0.5取值趋向0,大于0.5取值趋远于0</p></blockquote><h3 id=av_q2d>av_q2d()</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Convert an AVRational to a `double`.
+</span></span></span><span class=line><span class=cl><span class=cm> * @param a AVRational to convert
+</span></span></span><span class=line><span class=cl><span class=cm> * @return `a` in floating-point form
+</span></span></span><span class=line><span class=cl><span class=cm> * @see av_d2q()
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=k>static</span> <span class=kr>inline</span> <span class=kt>double</span> <span class=nf>av_q2d</span><span class=p>(</span><span class=n>AVRational</span> <span class=n>a</span><span class=p>){</span>
+</span></span><span class=line><span class=cl>    <span class=k>return</span> <span class=n>a</span><span class=p>.</span><span class=n>num</span> <span class=o>/</span> <span class=p>(</span><span class=kt>double</span><span class=p>)</span> <span class=n>a</span><span class=p>.</span><span class=n>den</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=p>}</span>
+</span></span></code></pre></td></tr></table></div></div><p>**功能：**将AVRatioal结构转换成double</p><h2 id=av_usleep>av_usleep()</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=cm>/**
+</span></span></span><span class=line><span class=cl><span class=cm> * Sleep for a period of time.  Although the duration is expressed in
+</span></span></span><span class=line><span class=cl><span class=cm> * microseconds, the actual delay may be rounded to the precision of the
+</span></span></span><span class=line><span class=cl><span class=cm> * system timer.
+</span></span></span><span class=line><span class=cl><span class=cm> *
+</span></span></span><span class=line><span class=cl><span class=cm> * @param  usec Number of microseconds to sleep.
+</span></span></span><span class=line><span class=cl><span class=cm> * @return zero on success or (negative) error code.
+</span></span></span><span class=line><span class=cl><span class=cm> */</span>
+</span></span><span class=line><span class=cl><span class=kt>int</span> <span class=nf>av_usleep</span><span class=p>(</span><span class=kt>unsigned</span> <span class=n>usec</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><p>功能：发送流媒体的数据的时候需要延时。不然的话，FFmpeg处理数据速度很快，瞬间就能把所有的数据发送出去，流媒体服务器是接受不了的。因此需要按照视频实际的帧率发送数据。本文记录的推流器在视频帧与帧之间采用了av_usleep()函数休眠的方式来延迟发送。这样就可以按照视频的帧率发送数据了。</p><h3 id=根据pts计算一帧在整个视频中的位置>根据PTS计算一帧在整个视频中的位置</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=n>timestamp</span><span class=p>(</span><span class=err>秒</span><span class=p>)</span> <span class=o>=</span> <span class=n>pts</span> <span class=o>*</span> <span class=n>av_q2d</span><span class=p>(</span><span class=n>st</span><span class=o>-&gt;</span><span class=n>time_base</span><span class=p>);</span><span class=c1>//st是AVStream的指针，即一帧视频
+</span></span></span></code></pre></td></tr></table></div></div><h3 id=计算视频长度的方法>计算视频长度的方法</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c++ data-lang=c++><span class=line><span class=cl><span class=n>time</span><span class=p>(</span><span class=err>秒</span><span class=p>)</span> <span class=o>=</span> <span class=n>st</span><span class=o>-&gt;</span><span class=n>duration</span> <span class=o>*</span> <span class=n>av_q2d</span><span class=p>(</span><span class=n>st</span><span class=o>-&gt;</span><span class=n>time_base</span><span class=p>);</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=时间基转换公式>时间基转换公式</h3><ul><li>timestamp(ffmpeg内部时间戳) = AV_TIME_BASE * time(秒)</li><li>time(秒) = AV_TIME_BASE_Q * timestamp(ffmpeg内部时间戳)</li></ul><h1 id=ffmpeg>FFmpeg</h1></section><script src=https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js></script><script>mermaid.initialize({startOnLoad:!0}),document.addEventListener("DOMContentLoaded",function(){var e=document.querySelectorAll("pre code.language-mermaid");e.forEach(function(e){var n,t=document.createElement("div");t.className="mermaid",t.innerHTML=e.textContent,n=e.parentElement,n.parentNode.replaceChild(t,n)})})</script><footer class=article-footer><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section><section class=article-lastmod><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span>最后更新于 May 16, 2024 11:09 +0800</span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/blog/p/%E5%9B%BE%E7%89%87%E5%9C%A8-ios-%E5%92%8C-%E5%85%B6%E4%BB%96%E5%B9%B3%E5%8F%B0%E6%98%BE%E7%A4%BA%E4%B8%8D%E5%90%8C/><div class=article-details><h2 class=article-title>图片在 iOS 和 其他平台显示不同</h2></div></a></article><article><a href=/blog/p/ubuntu-%E8%BF%90%E8%A1%8C-clash-%E5%B9%B6%E4%BD%9C%E4%B8%BA%E6%97%81%E8%B7%AF%E7%BD%91%E5%85%B3/><div class=article-details><h2 class=article-title>Ubuntu 运行 clash 并作为旁路网关</h2></div></a></article><article><a href=/blog/p/github-%E4%BB%93%E5%BA%93%E6%95%B4%E7%90%86/><div class=article-details><h2 class=article-title>Github 仓库整理</h2></div></a></article><article><a href=/blog/p/vscode-%E9%98%85%E8%AF%BB-linux-%E5%86%85%E6%A0%B8%E6%BA%90%E7%A0%81/><div class=article-details><h2 class=article-title>VSCode 阅读 Linux 内核源码</h2></div></a></article><article><a href=/blog/p/%E7%AE%A1%E7%90%86-windows-%E5%90%AF%E5%8A%A8%E9%A1%B9/><div class=article-details><h2 class=article-title>管理 Windows 启动项</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2024 Wlynxg's Blog</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.29.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
