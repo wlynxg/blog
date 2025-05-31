@@ -6,20 +6,19 @@
 package main
 
 import (
-	"net"
+    "net"
 )
 
 func main() {
-	packet, err := net.ListenPacket("udp", "")
-	if err != nil {
-		panic(err)
-	}
+    packet, err := net.ListenPacket("udp", "")
+    if err != nil {
+        panic(err)
+    }
 
-	peerAddress := []*net.UDPAddr{}
+    peerAddress := []*net.UDPAddr{}
 
-	for _, address := range peerAddress {
-		packet.WriteTo([]byte("attempt"), address)
-	}
+    for _, address := range peerAddress {
+        packet.WriteTo([]byte("attempt"), address)
+    }
 }
 ```
-
