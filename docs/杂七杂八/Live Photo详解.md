@@ -57,11 +57,12 @@ func exportLivePhoto () {
 
 Motion Photos 是安卓采用的 Live Photo 方案, Motion Photos 和 苹果的 Live Photos 不同, Motion Photos 是一个 JPG 格式的图片, 他在文件内部嵌入了 Video 的数据, 文件内部结构如下所示: 
 
-![img](https://pic.try-hard.cn/blog/2023/02/03/20230203-145358.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-173444.png)
+
 
 <center>Motion Photo structure</center>
 
-下面是一张使用小米手机拍摄的 Motion Photos: [Motion Photos](https://pic.try-hard.cn/blog/2023/02/03/20230203-150007.jpg)
+下面是一张使用小米手机拍摄的 Motion Photos: ![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-173536.png)
 
 使用 exiftool 查看它的 metadata, 会发现如下信息:
 
@@ -79,4 +80,4 @@ Micro Video Presentation Timestamp Us: 861243
 dd if=motion.jpg of=video.mp4 bs=2979693 skip=1
 ```
 
-提取出来的视频如链接所示: [Motion Video](https://blog-img-figure.oss-cn-chengdu.aliyuncs.com/img/2023/02/03/1675408232.mp4)
+提取出来的视频如链接所示: [Motion Video](https://github.com/wlynxg/pic/blob/main/2025/06/01/1675408232.mp4)

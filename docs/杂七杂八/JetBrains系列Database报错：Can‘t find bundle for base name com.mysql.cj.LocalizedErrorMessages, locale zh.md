@@ -4,18 +4,13 @@
 
 错误状态如图所示：
 
-![案发现场](https://pic.try-hard.cn/blog/20210122112318231.png)
-
-
-
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-173357.png)
 
 这个错误的意思是说路径有问题，但是弄了很久都不知道是什么问题。
 
 最好发现原来是驱动存放的路径问题：Database 模块下载的驱动是存放在 `C:\Users\用户名\AppData\Roaming\JetBrains\IntelliJIdea2020.3\jdbc-drivers\MySQL ConnectorJ\8.0.21`路径下的，自己之前取的用户名有问题，因此才会报出这个错误。
 
 至于如何修改用户名大家就自行搜索一下吧，这里面坑太多了，大家要小心鉴别。我自己修改得教程也不放出来了，因为感觉还有点问题。。。。
-
-
 
 
 

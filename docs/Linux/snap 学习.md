@@ -42,10 +42,7 @@ These plugins implement a lifecycle over the following steps:
 Ubuntu Core 20是一个轻量，容器化，基于Ubuntu 20.04 LTS且为物联网设备和嵌入式系统所打造的版本，现在已经普遍可用。新版本内建的安全更新严格限制策略使创新者能够开发高安全的产品和方案，并完全专注于自己独特的功能和应用程序。Ubuntu Core 20由安全、广泛使用、易开发维护的snap组成，专为企业级生产和大规模部署和运营而设计。
 
 不同于传统的Linux，在Ubuntu Core的架构上使用snap架构即从Linux内核到应用层都是以snap包的形式出现。如下图所示，Linux内核单独是一个snap，上面一层是Core snap，再上一层是snap应用程序。
-
-![img](https://pic.try-hard.cn/blog/2022/12/13/20221213-142244.jpg)
-
-
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-184629.png)
 
 ## 三、Snap 缺点
 

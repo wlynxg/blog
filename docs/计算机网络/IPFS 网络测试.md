@@ -46,10 +46,11 @@
 查看日志发现，连接的 DHT 节点和找到的中继节点大部分（实测 90% 以上）都是国外的 IP 地址。
 
 下图是随机选择的几个节点地址进行地理位置查询：
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-144333.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-145149.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-145200.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-145208.png)
 
-![img](https://pic.try-hard.cn/blog/2024/07/24/20240724-153932)![img](https://pic.try-hard.cn/blog/2024/07/24/20240724-153932)
-
-![img](https://pic.try-hard.cn/blog/2024/07/24/20240724-153932)![img](https://pic.try-hard.cn/blog/2024/07/24/20240724-153932)
 
 ### 中继节点筛选和查询到服务端节点信息耗时为什么较长？
 

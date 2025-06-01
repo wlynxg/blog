@@ -1,6 +1,6 @@
 # 整体结构
 
-<img src="https://pic.try-hard.cn/blog/2024/11/21/20241121-162551.png" alt="image-20241121162549943" style="zoom:50%;" />
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-145644.png)
 
 libp2p 模块的整体结构如上图所示：
 
@@ -16,9 +16,7 @@ libp2p 模块的整体结构如上图所示：
 
 下图展示了 libp2p 中创建 stream 的主要逻辑：
 
-![image-20241121162615106](https://pic.try-hard.cn/blog/2024/11/21/20241121-162616.png)
-
-
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-145700.png)
 
 下面对流创建过程中的重要步骤进行详细讲解。
 
@@ -32,8 +30,6 @@ libp2p 默认的连接排序逻辑为：
 - 直连连接 > 中继连接；
 - 当前打开 Stream 数量较多的连接 > 当前打开 Stream 数量较少的连接。
 
-
-
 由于 libp2p 的连接选择逻辑较为简单，因此我们对连接排序逻辑进行了部分优化：
 
 - 先建立的连接 > 后建立的连接；
@@ -41,12 +37,7 @@ libp2p 默认的连接排序逻辑为：
 - QUIC > WebTransport > WebRTC > TCP > WebSocket；
 - 当前打开 Stream 数量较多的连接 > 当前打开 Stream 数量较少的连接。
 
-
-
 由于固定逻辑的排序选择无法适应复杂的网络环境，因此将连接排序函数设置为可自定义，后续可由外层做基于更多指标的连接排序，如连接带宽、丢包率等。
-
-
-
 ## 建立连接
 
 当本地到对端节点没有可用连接时，libp2p 需要根据地址列表尝试建立连接。
@@ -60,14 +51,9 @@ libp2p 默认的地址排序逻辑为:
 - Private IP 地址 > Public IP 地址 > 中继连接地址；
 - WebRTC > QUIC IPv6 > QUIC IPv4 > WebTransport IPv6 > WebTransport IPv4 > TCP IPv6 > TCP IPv4。
 
-
-
 对连接地址进行排序后，libp2p 会对所有的地址依次进行连接。但是 libp2p 不会等到连接结果返回再连接下一个。在尝试一个连接后，如果一定延时内（毫秒级别）没有结果返回的话，libp2p 会立即尝试下一个地址。
 
 当有任意一个地址连接成功后，libp2p 会立即返回当前连接，但是不会终止整个连接过程。直到整个地址列表尝试完成才会终止连接过程。
-
-
-
 ## 触发打洞
 
 libp2p 的打洞是由连接事件驱动。

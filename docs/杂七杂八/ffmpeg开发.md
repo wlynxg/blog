@@ -295,7 +295,7 @@ ffprobe -i 输入视频路径 -v quiet -print_format json -show_format -show_str
 
 ## 结构体之间的关系
 
-![img](https://pic.try-hard.cn/blog/20130914204051125)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-173022.png)
 
 ## 解协议
 
@@ -323,8 +323,7 @@ void (*deinit)(struct AVFormatContext *);//取消初始化格式。
 int (*check_bitstream)(struct AVFormatContext *, const AVPacket *pkt);//设置任何必要的比特流过滤，并提取全局头部所需的任何额外数据。
 ```
 
-![img](https://pic.try-hard.cn/blog/20161021114952074)
-
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-173032.png)
 ### AVFormatContext
 
 - 主要功能：描述了一个媒体文件或媒体流的构成和基本信息

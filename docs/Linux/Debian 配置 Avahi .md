@@ -47,8 +47,6 @@ ping avahi.local
 ssh root@avahi.local
 ```
 
-
-
 测试 samba 服务：
 
 ```bash

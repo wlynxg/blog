@@ -42,9 +42,7 @@
 * 检查有无远程访问所需的依赖程序及库文件，如果没有，提供并放至指定路径下
 
 #### 1、修改注册表，引流服务至hook.dll
-
-![image-20220104181500037](https://pic.try-hard.cn/blog/1641371995287819000.png)
-
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-175752.png)
 #### 2、hook termsrv.dll, 修改内存值，使其开启多用户模式
 
 ##### Hook 程序思路
@@ -57,7 +55,9 @@
 
 需要使用 IDA 对 `termsrv.dll`文件进行分析，找到修改的位置和修改的内容。
 
-使用 IDA 打开 `termsrv.dll`，<img src="https://pic.try-hard.cn/blog/1641371996863698000.png" alt="image-20211231163539598" style="zoom:50%;" />，找到 Header 值位置 `180000000`。
+使用 IDA 打开 `termsrv.dll`，
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-175818.png)
+，找到 Header 值位置 `180000000`。
 
 ------
 
@@ -71,7 +71,9 @@
 
 需要将该函数此处的**比较跳转（JZ）修改为直接跳转（JMP）**：
 
-<img src="https://pic.try-hard.cn/blog/1640940565444559900.png" alt="image-20211231164923727" style="zoom:50%;" /><img src="https://pic.try-hard.cn/blog/1641371995832106600.png" alt="image-20211231165052140" style="zoom: 150%;" />
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-175844.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-175900.png)
+
 
 修改前：
 
@@ -99,10 +101,9 @@
 **修改内容**：
 
 需要将此处传入值 1 修改为 0：
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-175917.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-175928.png)
 
-![image-20211231170503259](https://pic.try-hard.cn/blog/1641521828174369500.png)
-
-![image-20220107101750144](https://pic.try-hard.cn/blog/1641521870209041400.png)  
 
 修改前：
 
@@ -131,7 +132,9 @@
 
 需要将**修改此处的比较、跳转语句修改为直接重设寄存器值语句**：
 
-<img src="https://pic.try-hard.cn/blog/1640941868379462900.png" alt="image-20211231171108299" style="zoom:50%;" /><img src="https://pic.try-hard.cn/blog/1641371995833250000.png" alt="image-20211231171211874" style="zoom:80%;" />
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-175949.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-180005.png)
+
 
 修改前：
 
@@ -163,7 +166,7 @@
 
 通过全局关键字搜索找到该函数变量的存放区域：
 
-![image-20211231173653900](https://pic.try-hard.cn/blog/1641523867678600600.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-180017.png)
 
 变量的值需要重设为：
 
@@ -237,24 +240,22 @@ bFUSEnabled.x64       =10401C
 剪切板重定向器。
 
 位置：`Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\AddIns\Clip Redirector`
-
-![image-20220104155454043](https://pic.try-hard.cn/blog/1641282896195997800.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-180106.png)
 
 **DND Redirector**：
 
 RDP 展示程序。
 
 位置：`Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\AddIns\DND Redirector`
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-180130.png)
 
-![image-20220104155511882](https://pic.try-hard.cn/blog/1641371996462112500.png)
 
 **Dynamic VC**：
 
 Dynamic Virtual Channel。
 
 位置：`Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\AddIns\Dynamic VC`
-
-![image-20220104155536954](https://pic.try-hard.cn/blog/1641371996872038300.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-180116.png)
 
 #### 4、补全缺失的依赖程序
 
@@ -285,8 +286,8 @@ Dynamic Virtual Channel。
 5. 杀死 `TermService` 服务的进程；
 
 6. 启动 `TermService` 服务，服务启动后会根据 `ServiceDll`的值加载 `rdpwrap.dll`程序，`rdowrap.dll` 程序则会去 Hook `termsrv.dll`文件（如果在Windows 服务管理中 `TermService` 服务配置为自动，那么可以不用手动重启，Windows 会自动重启该服务
-
-   ![image-20220104170954585](https://pic.try-hard.cn/blog/1641371995711388400.png))。
+ ![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-180148.png)
+)。
 
 ## 二、开启单用户多会话模式
 
@@ -310,15 +311,15 @@ C:\Windows\System32\lusrmgr.msc
 
 按下 `Win + R` 键，输入 `regedit` 进入注册表编辑，找到 `Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\TSAppAllowList`，新建项(K)`Applications`：
 
-<img src="https://pic.try-hard.cn/blog/1641375435987023300.png" alt="image-20211227111624640"  />
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-180206.png)
 
 这个`Applications`就是我们允许远程访问 App 的白名单。
 
 下面演示添加一个测试应用：
 
 1. 在 `Applications` 下面新建一个项(K)，取名为 `Test`
-2. 为该项添加一个 字符串值 ，名字为`Path`，其值为 `C:\Windows\explorer.exe`(Windows 资源管理器)：![image-20211227112558072](https://pic.try-hard.cn/blog/1641375435373788600.png)
-2. 重启主机，使相关配置项生效。
+2. 为该项添加一个 字符串值 ，名字为`Path`，其值为 `C:\Windows\explorer.exe`(Windows 资源管理器)：![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-180219.png)
+3. 重启主机，使相关配置项生效。
 
 Windows 服务端更多配置项可查看官方文档：[Search | Microsoft Docs](https://docs.microsoft.com/en-us/search/?terms=Microsoft-Windows-TerminalServices&scope=OEM)
 
@@ -393,6 +394,6 @@ remoteapplicationprogram:s:||Test		// RemoteApp的别名或绝对路径(加||代
 将上一步中编写的 rdp 文件复制到客户端，如果是 Windows 客户端则可以直接双击打开，如果非 Windows 端需要安装 WIndows 远程桌面客户端。
 
 双击打开，输入新建的用户名和密码，就可以使用服务端的远程应用了：
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-180237.png)
 
-![image-20220106110655367](https://pic.try-hard.cn/blog/1641438567590380700.png)
 

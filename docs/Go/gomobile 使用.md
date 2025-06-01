@@ -1,2 +1,0 @@
-# gomobile 使用
-

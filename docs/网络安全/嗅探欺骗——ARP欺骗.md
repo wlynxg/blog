@@ -17,15 +17,16 @@ Ettercap是针对中级攻击者的综合套件。它具有嗅探实时连接，
 ### 2. 实现攻击
 1. 在终端输入`ettercap -G`启动Ettercap界面版
 2. 选择**eth0**网卡（若为无线攻击则选择wlan0）
-![选择网卡](https://pic.try-hard.cn/blog/20200209100747802.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-170711.png)
 3. 扫描主机
-![扫描主机](https://pic.try-hard.cn/blog/20200209101016507.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-170723.png)
 4. 在**Host List**中选择被攻击主机IP
-![选择被攻击者主机](https://pic.try-hard.cn/blog/20200209101231241.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-170738.png)
 5. 攻击方式选择ARP欺骗
-![选择攻击方式](https://pic.try-hard.cn/blog/2020020910134853.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-170900.png)
 6. 攻击完成
-![获取数据](https://img-blog.csdnimg.cn/20200209103015142.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQzNTgwMTkz,size_16,color_FFFFFF,t_70)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-170850.png)
+
 # 三、防范ARP欺骗
 - 升级客户端的操作系统和应用程序补丁
 - 设置静态的ARP缓存表

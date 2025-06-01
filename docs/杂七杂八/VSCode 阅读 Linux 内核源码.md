@@ -22,13 +22,13 @@ apt install global
 
 从 VSCode 插件市场下载 Remote - SSH 插件：
 
-![image-20240607125804485](http://pic.try-hard.cn/blog/2024/06/07/20240607-125805.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-174319.png)
 
 使用 Remote - SSH 连接到 Linux，打开一个新的窗口，然后在远程主机上安装 C/C++ 和 C/C++ GNU Global 插件：
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-174329.png)
 
-![image-20240607134840641](http://pic.try-hard.cn/blog/2024/06/07/20240607-134841.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-174341.png)
 
-![image-20240607134857997](http://pic.try-hard.cn/blog/2024/06/07/20240607-134858.png)
 
 在 Settings 中配置 `global` 的路径，注意 `gnuGlobal.objDirPrefix`要提前创建好文件夹：
 

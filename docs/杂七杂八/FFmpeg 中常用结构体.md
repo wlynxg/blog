@@ -5,8 +5,7 @@
 > 雷神的原文：[FFMPEG中最关键的结构体之间的关系](https://blog.csdn.net/leixiaohua1020/article/details/11693997)
 
 ## 结构体之间的关系
-
-![img](https://pic.try-hard.cn/blog/20130914204051125)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-172913.png)
 
 ## 解封装
 
@@ -34,7 +33,7 @@ void (*deinit)(struct AVFormatContext *);//取消初始化格式。
 int (*check_bitstream)(struct AVFormatContext *, const AVPacket *pkt);//设置任何必要的比特流过滤，并提取全局头部所需的任何额外数据。
 ```
 
-![img](https://pic.try-hard.cn/blog/20161021114952074)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-172926.png)
 
 ### AVFormatContext
 

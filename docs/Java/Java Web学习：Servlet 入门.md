@@ -9,8 +9,7 @@
 ## 二、创建 Servlet 程序
 
 配置好 Servlet 项目依赖后，按照下图所示创建文件夹和文件如下：
-
-![image-20210708231051818](https://pic.try-hard.cn/blog/2022/12/13/20221213-140839.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-183439.png)
 
 HelloServlet.java：
 
@@ -90,7 +89,7 @@ index.jsp：
 
 运行程序，浏览器访问地址：http://127.0.0.1:8080，网页出现如下信息：
 
-![image-20210708100045665](https://pic.try-hard.cn/blog/2022/12/13/20221213-140757.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-183452.png)
 
 浏览器访问地址：http://127.0.0.1:8080/hello，控制台打印出：**Servlet 被访问**。
 

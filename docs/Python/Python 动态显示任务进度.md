@@ -12,7 +12,8 @@ for i in range(101):
 	print("%d%"%i, end="", flush=True)
 ```
 这样我们就可以实现从进度的展示了
-![进度](https://pic.try-hard.cn/blog/20191116222702358.gif)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-184930.png)
+
 # 二、tqdm模块
 tqdm是 Python 进度条库，可以在 Python 长循环中添加一个进度提示信息用法：tqdm(iterator)。
 ## 安装

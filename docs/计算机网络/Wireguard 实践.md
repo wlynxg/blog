@@ -27,9 +27,10 @@ $ sudo apt install wireguard
 
 Windows 下载完成后，会存在一个后台服务和一个 GUI 的界面
 
-![image-20230305222529698](https://pic.try-hard.cn/blog/image-20230305222529698.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-150945.png)
 
-![image-20230305215527942](https://pic.try-hard.cn/blog/image-20230305215527942.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-150955.png)
+
 
 ### Android
 
@@ -102,8 +103,6 @@ qrencode -t ansiutf8 < client.conf
 echo "net.ipv4.ip_forward = 1" >> /etc/sysctl.conf
 echo "net.ipv4.conf.all.proxy_arp = 1" >> /etc/sysctl.conf
 sysctl -p /etc/sysctl.conf
-
-
 ```
 
 ```bash
@@ -122,7 +121,6 @@ PublicKey = l6ZuOCtYWCvW4o2o1QIZ1W4kGGCErVt3ERdzyxwJ9h8=
 AllowedIPs = 172.30.66.12/32,10.113.0.0/16, 10.20.0.0/16, 10.50.0.0/16, 192.168.80.0/24, 192.168.3.0/24, 192.168.8.0/24, 192.168.10.0/24, 192.168.12.0/24, 192.168.24.0/24, 192.168.25.0/24, 192.168.26.0/24, 192.168.27.0/24, 192.168.30.0/24, 192.168.32.0/24
 PersistentKeepalive = 5
 ```
-
 
 
 ### 3. LAN to LAN

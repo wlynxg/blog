@@ -6,30 +6,23 @@
 
 安装：
 
-![image-20220107144346050](https://pic.try-hard.cn/blog/image-20220107144346050.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-172526.png)
 
 选择`SetupCapture`：
-
-![image-20220107144410330](https://pic.try-hard.cn/blog/image-20220107144410330.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-172539.png)
 
 勾选设置：
-
-![image-20220107144424715](https://pic.try-hard.cn/blog/image-20220107144424715.png)
-
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-172550.png)
 
 
 对当前主机内容拍摄快照：
-
-![image-20220107144918746](https://pic.try-hard.cn/blog/image-20220107144918746.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-172605.png)
 
 执行需要观测的程序：
-
-![image-20220107145012378](https://pic.try-hard.cn/blog/image-20220107145012378.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-172618.png)
 
 执行操作后再观测当前主机状态：
-
-![image-20220107145120954](https://pic.try-hard.cn/blog/image-20220107145120954.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-172631.png)
 
 完成后就可以在此处看到这个过程中主机更改的信息了：
-
-![image-20220107145209016](https://pic.try-hard.cn/blog/image-20220107145209016.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-172643.png)

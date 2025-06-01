@@ -28,8 +28,6 @@ A:['1', '2']          B:2     C:['2']
 A:['1', '2', '3']     B:3     C:['3']
 ```
 
-![](https://pic.try-hard.cn/blog/aHR0cDovL2ltZy5kb3V0dWxhLmNvbS9wcm9kdWN0aW9uL3VwbG9hZHMvaW1hZ2UvMjAxNi8wMS8yMC8yMDE2MDEyMDI0NDcwNF9kTm95cU0uanBn)
-
 大家猜到了这个结果了吗？猜到的朋友都是大佬，下面的内容就可以略过了。没有猜到的朋友也不要慌，毕竟这玩意儿有点坑。。。
 
 在解释这个结果之前，大家需要复习一下 Python 中可变对象和不可变对象这两个概念：
@@ -111,8 +109,6 @@ print(f"A:{A} B:{B} C:{C}") # A:['1', '2', '3']  B:'3'  C:['3']
 ```
 
 经过俺的这番讲解，朋友们你们学废了吗？
-
-![](https://pic.try-hard.cn/blog/aHR0cDovL2ltZy5kb3V0dWxhLmNvbS9wcm9kdWN0aW9uL3VwbG9hZHMvaW1hZ2UvMjAxNy8wNS8yNi8yMDE3MDUyNjgxMjk4NF9pTW1RZXQuanBn)
 
 为了避免以后在程序中出现莫名其妙的 Bug，大家要记住在 Python 程序中
 

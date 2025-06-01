@@ -2,7 +2,8 @@
 
 # 一、效果图
 
-![效果图](https://pic.try-hard.cn/blog/20190929131801893.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-184816.png)
+
 # 二、程序分析
 在介绍代码之前我们先简单介绍一下turtle库。
 **turtle库**是Python的基础绘图库（[官方手册](https://docs.python.org/2/library/turtle.html)），turtle库是Python标准库之一，不需要自己再另外安装。turtle库被介绍为一个最常用的用来给孩子们介绍编程知识的方法库，其主要是用于程序设计入门，利用turtle可以制作很多复杂的绘图。好了，turtle库的介绍到此为止，接下来开始分析我们的程序：

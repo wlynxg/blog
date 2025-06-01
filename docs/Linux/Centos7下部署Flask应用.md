@@ -195,6 +195,6 @@ systemctl restart nginx
 
 直接访问服务器 IP：
 
-![image-20210706152141259](https://pic.try-hard.cn/blog/2022/12/13/20221213-141624.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-183927.png)
 
 配置完成！

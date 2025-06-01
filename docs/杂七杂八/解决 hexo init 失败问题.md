@@ -26,7 +26,7 @@ FATAL {
 
 ## 解决办法：替换 GitHub 链接
 
-对于国内无法正常克隆 GitHub 仓库，可以通过替换 GitHub 链接来解决。不知道的朋友可以参看我的这篇博文：[GitHub 克隆加速](https://blog.csdn.net/qq_43580193/article/details/117341242)。
+对于国内无法正常克隆 GitHub 仓库，可以通过替换 GitHub 链接来解决。不知道的朋友可以参看我的这篇博文：[[GitHub 克隆加速]]
 
 那么我们只要替换掉 hexo 的 GitHub 链接就可以正常运行 hexo 了。
 

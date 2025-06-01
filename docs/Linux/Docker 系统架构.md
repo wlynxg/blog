@@ -5,8 +5,7 @@
 通过下图可以发现，Docker 系统主要包含客户端、服务端和仓库三大部分。
 
 `Docker` 在运行时分为 `Docker 引擎（服务端守护进程）` 和 `客户端工具`，我们日常使用各种 `docker 命令`，其实就是在使用 `客户端工具` 与 `Docker 引擎` 进行交互：
-
-![img](https://pic.try-hard.cn/blog/1631179825421890600.jpg)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-184105.png)
 
 ## 二、Client
 
@@ -32,7 +31,7 @@ docker -H host
 
 因为镜像包含了完整的 root 文件系统，因此其体积往往是巨大的。为了解决这个问题，采用了 [Union FS (opens new window)](https://en.wikipedia.org/wiki/Union_mount)的技术，将其设计为分层存储的架构，由多层文件系统联合组成：
 
-![img](https://pic.try-hard.cn/blog/1631179816285823100.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-184117.png)
 
 ### 容器
 

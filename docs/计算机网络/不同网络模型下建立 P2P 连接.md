@@ -2,7 +2,7 @@
 
 ## 一、公网 - 公网
 
-![image-20230425171056854](https://pic.try-hard.cn/blog/2023/04/25/20230425-171058.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-140449.png)
 
 在当前网络模型中，客户端 A 和客户端 B 都位于公网。客户端 A 和 客户端 B 通过以下步骤即可建立 P2P 连接：
 
@@ -11,10 +11,9 @@
 3. 客户端 B 根据从中心服务器获取的信息发现 A 具有公网地址，因此 B 等待 A 进行连接；
 
 
-
 ## 二、NAT - 公网
 
-![image-20230425163422662](https://pic.try-hard.cn/blog/2023/04/25/20230425-163425.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-140506.png)
 
 在当前网络模型中，客户端 B 位于公网，有公网 IP，客户端 A 位于任意 NAT 后。客户端 A 和 客户端 B 通过以下步骤即可建立 P2P 连接：
 
@@ -26,7 +25,7 @@
 
 ## 三、客户端位于同一NAT后
 
-![image-20230425174627374](https://pic.try-hard.cn/blog/2023/04/25/20230425-174629.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-140531.png)
 
 在当前网络模型中，客户端 A 和客户端 B 位于同一任意 NAT 后。客户端 A 和 客户端 B 通过以下步骤即可建立 P2P 连接：
 
@@ -38,13 +37,13 @@
 
 ## 四、客户端分属与不同NAT下
 
-![image-20230425180929671](https://pic.try-hard.cn/blog/2023/04/25/20230425-180931.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-140547.png)
 
 在当前网络模型中，客户端 A 和客户端 B 都位于 NAT 后。客户端 A 和 客户端 B 能否建立 P2P 连接和各自所属 NAT 类型有关。
 
 ### 1. 任意 NAT - (Full Cone NAT或Restricted Cone NAT)
 
-![image-20230425183759867](https://pic.try-hard.cn/blog/2023/04/25/20230425-183801.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-140600.png)
 
 Full Cone NAT、Restricted Cone NAT和Port Restricted Cone NAT都有同样的映射规则：**本地地址和端口不变时，映射到 NAT 上的端口不变**。
 
@@ -62,7 +61,7 @@ Full Cone NAT、Restricted Cone NAT和Port Restricted Cone NAT都有同样的映
 
 > Easy NAT 代指 RFC3489 所定义的 Full Cone NAT、Restricted Cone NAT、Port Restricted Cone NAT。
 
-![image-20230425185223983](https://pic.try-hard.cn/blog/2023/04/25/20230425-185300.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-140612.png)
 
 当两端都位于 Easy NAT 下时，通过以下方式可以建立 P2P 连接（任意 NAT - (Full Cone NAT或Restricted Cone NAT) 流程类似）：
 
@@ -73,10 +72,9 @@ Full Cone NAT、Restricted Cone NAT和Port Restricted Cone NAT都有同样的映
 5. 接收数据时，客户端 B 就会知道客户端在 NAT 网关1上映射的端口和地址，此时客户端 B向NAT 网关1上映射的端口和地址发包，客户端A即可收到。此时客户端 A 和客户端 B 成功建立 P2P连接。
 
 
-
 ### 3. Symmetric NAT - Port Restricted Cone NAT
 
-![image-20230425190545112](https://pic.try-hard.cn/blog/2023/04/25/20230425-190547.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-140627.png)
 
 当客户端 A 位于 Symmetric NAT 下，客户端 B 位于 Port Restricted Cone NAT 时，通过以下方式可以建立 P2P 连接：
 
@@ -124,10 +122,7 @@ $$
 \end{array}
 $$
 根据上面的公式绘制出三维图如图所示：
-
-![psuccess](https://pic.try-hard.cn/blog/2023/04/26/20230426-140318.svg)
-
-
+![data.svg](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-141224.svg)
 
 根据函数图我们可以发现，当客户端 A 映射在公网上的端口越多时，建立连接所需的发包数越少，下表中列举了部分数据：
 
@@ -161,7 +156,7 @@ $$
 
 ## 五、客户端位于同一大 NAT 下，但不属于同一内网
 
-![image-20230425175617453](https://pic.try-hard.cn/blog/2023/04/25/20230425-175619.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-141314.png)
 
 在当前网络模型中，客户端 A 和客户端 B 位于同一任意大 NAT 后，但是分属于大 NAT 下的两个小子网中。客户端 A 和 客户端 B 需要通过以下步骤建立连接：
 
@@ -171,10 +166,9 @@ $$
 3. 当数据包到达 NAT 网关2后，下面的流程就和 “客户端分属与不同NAT下”时的打洞行为一致了。
 
 
-
 ## 六、多层 NAT
 
-![image-20230426151647292](https://pic.try-hard.cn/blog/2023/04/26/20230426-151649.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-141330.png)
 
 在网络中，存在设备在多层NAT后的情况。
 

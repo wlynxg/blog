@@ -25,16 +25,13 @@ make
 
 # Wireshark 添加远程接口
 
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-141548.png)
 
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-141558.png)
 
-![image-20240711142928187](https://pic.try-hard.cn/blog/2024/07/11/20240711-142929.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-141610.png)
 
-![image-20240711142953630](https://pic.try-hard.cn/blog/2024/07/11/20240711-142954.png)
-
-![image-20240711143025405](https://pic.try-hard.cn/blog/2024/07/11/20240711-143026.png)
-
-![image-20240711143037964](https://pic.try-hard.cn/blog/2024/07/11/20240711-143038.png)
-
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-141623.png)
 输入远程主机地址，即可拿到所有网卡：
 
-![image-20240711143136528](https://pic.try-hard.cn/blog/2024/07/11/20240711-143137.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-141635.png)

@@ -26,7 +26,7 @@ token.set_token('token-string-here12345')
 token.save
 ```
 
-![image-20220322122124653](https://pic.try-hard.cn/blog/image-20220322122124653.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-173342.png)
 
 ## 2. 使用 API 访问接口
 

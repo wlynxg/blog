@@ -11,9 +11,7 @@ HTTP 代理存在两种形式：
 
 下图（出自《HTTP 权威指南》）展示了这种行为：
 
-![web_proxy](https://pic.try-hard.cn/blog/2023/11/22/20231122-125032.webp)
-
-
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-143504.png)
 
 对于普通 HTTP 代理，是无法代理 HTTPS 流量的。因为 HTTP 代理本身是一个 HTTP 服务器，没法提供 HTTPS 服务。即使我们将 HTTP 代理直接变成一个 HTTPS 服务器，同样也无法抓取 HTTPS 包。因为 HTTPS 是能够防止中间人攻击的。
 
@@ -25,13 +23,11 @@ HTTP 代理存在两种形式：
 
 下图（出自《HTTP 权威指南》）展示隧道代理的原理：
 
-![web_tunnel](https://pic.try-hard.cn/blog/web_tunnel.png.webp)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-143517.png)
 
 隧道代理无论是 HTTP 的流量还是 HTTPS 的流量，都能够进行代理。不仅是 HTTP 和 HTTPS，只要是 TCP 或者是 UDP 协议的流量，他都能够代理。
 
 隧道代理只会无脑转发流量，而不会查看流量，就像一根管子，将两端连接在一起。这也是为什么叫隧道代理的原因。
-
-
 
 参考：
 

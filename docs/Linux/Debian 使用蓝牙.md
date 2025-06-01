@@ -36,8 +36,6 @@ usermod -a -G bluetooth root
 reboot
 ```
 
-
-
 ## 使用蓝牙服务
 
 ```bash

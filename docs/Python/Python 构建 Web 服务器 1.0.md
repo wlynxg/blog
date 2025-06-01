@@ -141,5 +141,6 @@ if __name__ == '__main__':
 
 浏览器出现以下信息则代表我们的 Web 服务器运行成功：
 
-![image-20210708151410314](https://pic.try-hard.cn/blog/image-20210708151410314.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-184952.png)
+
 

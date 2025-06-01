@@ -24,7 +24,8 @@
 # 三、计算机交互方式
 ### 1.命令行文本（Text-based User Interface）
 命令行一般指命令提示符。命令提示符是在操作系统中，提示进行命令输入的一种工作提示符。在不同的操作系统环境下，命令提示符各不相同。
-![Windows的cmd界面](https://pic.try-hard.cn/blog/20190926220044827.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-191443.png)
+
 ### 2.图形界面化（Graphical User Interface）
 图形用户界面指采用图形方式显示的计算机操作用户界面。![Windows的图形界面](https://pic.try-hard.cn/blog/20190926220238621.jpg)
 ### 3.常用Dos命令

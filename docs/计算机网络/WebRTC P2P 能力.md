@@ -6,7 +6,7 @@
 > - STUN：用于探测自身节点公网 IP + Port 和 自身所处 NAT 类型；
 > - TURN：中继服务器，用于转发中继流量。
 
-![image-20240222192857658](https://pic.try-hard.cn/blog/2024/02/22/20240222-192900.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-150918.png)
 
 ## P2P 能力
 
@@ -47,8 +47,3 @@ await peerConnection.setRemoteDescription(answerSdp)
 ```
 
 在 WebRTC Direct 中，libp2p 直接使用地址转换成 SDP 进行 WebRTC 连接。
-
-### WebRTC 
-
-
-

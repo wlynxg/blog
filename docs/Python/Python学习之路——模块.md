@@ -1,7 +1,8 @@
 # Python 学习之路——模块
 
 Python作为当今一种十分流行地语言，在许多方面都有着涉及，而支撑Python能够这么强大的就是许许多多的开源库。
-![Python库](https://pic.try-hard.cn/blog/20191107142837822.jpg)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-191538.png)
+
 每一个库也是一个模块，我们在设计程序时也要尽量将程序模块化。程序模块化后在后面的程序开发中就可以通过组合模块来搭建完整程序，避免重复造轮子的现象。
 **模块化的优点：**
 

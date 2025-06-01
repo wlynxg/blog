@@ -98,4 +98,4 @@ Linux 上 [bluez](http://www.bluez.org/) 服务对底层接口进行了封装，
 
 **A**: 使用非安全通道可以进行联通，安全通道尚未进行尝试。
 
-![img](https://pic.try-hard.cn/blog/2023/09/26/20230926-213300)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-173425.png)
