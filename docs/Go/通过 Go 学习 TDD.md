@@ -17,7 +17,7 @@
 
 流程如图所示：
 
-![img](https://pic.try-hard.cn/blog/TDD.jpg)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-214512.png)
 
 ### TDD 的三条规则
 

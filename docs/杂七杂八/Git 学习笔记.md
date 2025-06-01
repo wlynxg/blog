@@ -2,12 +2,10 @@
 
 ## 一、入门使用
 
-> 包含操作：
->
-> - git init：初始化 git 仓库
-> - git add <file>：添加文件
-> - git commit：提交文件
-
+	包含操作：
+	git init：初始化 git 仓库
+	git add <file>：添加文件
+	git commit：提交文件
 
 ```bash
 # 1. 创建文件夹
@@ -27,7 +25,7 @@ git commit -m "创建 readme"
 
 **Commit Message 规范**：
 
-为了方便我们对提交信息的查找与使用，我们在编写 commit message 时应该遵循一定的规范，社区有多种 Commit message 的[写法规范](https://github.com/ajoslin/conventional-changelog/blob/master/conventions)，我们主要使用[Angular 规范](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#heading=h.greljkmo14y0)，这是使用最为广泛的规范。
+为了方便我们对提交信息的查找与使用，我们在编写 commit message 时应该遵循一定的规范，社区有多种 Commit message 的 [写法规范](https://github.com/ajoslin/conventional-changelog/blob/master/conventions)，我们主要使用[Angular 规范](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#heading=h.greljkmo14y0)，这是使用最为广泛的规范。
 
 具体的规范要求可以查看：[Commit message 和 Change log 编写指南 - 阮一峰的网络日志 (ruanyifeng.com)](https://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html)
 
@@ -41,7 +39,9 @@ git 的版本库里存了很多东西，其中最重要的就是 **暂存区（s
 
 我们在执行 `git add <file>`命令时，git 会将我们添加的文件从工作区添加到暂存区，当我们执行 `git commit`命令时，又会将文件添加到分支中：
 
-![git-repo](https://pic.try-hard.cn/blog/0.jpg)
+
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-215556.png)
+
 
 下面我们通过实践观察 git 的工作流程：
 
@@ -80,9 +80,8 @@ nothing to commit, working tree clean
 
 ## 三、撤销修改
 
-> 包含操作：
->
-> - git restore：撤销修改
+包含操作：
+git restore：撤销修改
 
 当我们在工作区修改了文件后，如果我们想撤销修改，回退到之前的版本，那么我们可以使用 `git restore`命令进行撤销：
 
@@ -144,10 +143,10 @@ no changes added to commit (use "git add" and/or "git commit -a")
 ## 四、远程仓库
 
 > 包含操作：
->
-> - git remote：管理远程仓库
-> - git push：将分支推送到远程仓库
-> - git pull：将远程分支拉到本地
+> 
+> git remote：管理远程仓库
+> git push：将分支推送到远程仓库
+> git pull：将远程分支拉到本地
 
 ## 五、分支管理
 

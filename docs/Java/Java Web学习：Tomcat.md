@@ -2,7 +2,7 @@
 
 ## 一、简介
 
-> ![Tomcat Home](https://pic.try-hard.cn/blog/2022/12/13/20221213-140931.png)
+> ![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-231428.png)
 >
 > **Tomcat是一款Apache下面的开源的Servlet容器，实现了对Servlet和JSP规范的支持**。另外 **Tomcat** 本身内含了一个 HTTP 服务器，所以也可以被当作一个 Web 服务器来使用。但是Tomcat作为一个Web服务器，它对静态资源的处理能力要比Apache或者Nginx这类的Web服务器差很多，所以我们经常将Apache和Tomcat（或者是Nginx和Tomcat）组合使用，Apache来充当Web服务器处理静态资源的请求，Tomcat充当Servlet容器来处理动态请求。
 

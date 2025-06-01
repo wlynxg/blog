@@ -2,7 +2,7 @@
 
 ## 一、数据类型分类
 
-![img](https://pic.try-hard.cn/blog/20201123160405555.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-231447.png)
 
 ## 二、基本数据类型
 

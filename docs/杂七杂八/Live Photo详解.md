@@ -10,9 +10,10 @@
 
 如下测试文件：
 
-MOV 视频：[MOV](https://blog-img-figure.oss-cn-chengdu.aliyuncs.com/img/1675405539.MOV)
+MOV 视频：[MOV](https://github.com/wlynxg/pic/blob/main/2025/06/01/1675405539.mov)
 
-JGP 图片：[JPG](https://pic.try-hard.cn/blog/2023/02/03/20230203-142744.JPG)
+JGP 图片：![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-224824.png)
+
 
 使用 [exiftool](https://exiftool.org/) 查看两个文件的 metadata，图片的元数据中有一个 **Media Group UUID**：
 
@@ -58,7 +59,6 @@ func exportLivePhoto () {
 Motion Photos 是安卓采用的 Live Photo 方案, Motion Photos 和 苹果的 Live Photos 不同, Motion Photos 是一个 JPG 格式的图片, 他在文件内部嵌入了 Video 的数据, 文件内部结构如下所示: 
 
 ![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-173444.png)
-
 
 <center>Motion Photo structure</center>
 

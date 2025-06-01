@@ -27,7 +27,9 @@
 ![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-191443.png)
 
 ### 2.图形界面化（Graphical User Interface）
-图形用户界面指采用图形方式显示的计算机操作用户界面。![Windows的图形界面](https://pic.try-hard.cn/blog/20190926220238621.jpg)
+图形用户界面指采用图形方式显示的计算机操作用户界面。
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-215110.png)
+
 ### 3.常用Dos命令
 （Dos命令指DOS操作系统的命令，是一种面向磁盘的操作命令，主要包括目录操作类命令、磁盘操作类命令、文件操作类命令和其它命令）
 1    dir    列出文件或文件夹

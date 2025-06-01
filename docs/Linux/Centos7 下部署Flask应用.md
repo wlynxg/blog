@@ -59,7 +59,7 @@ systemctl start nginx
 
 通过 IP 直接访问服务器，访问成功说明 nginx 开启成功：
 
-![image-20210706142809083](https://pic.try-hard.cn/blog/2022/12/13/20221213-141628.png)
+![image.png](https://raw.githubusercontent.com/wlynxg/pic/main/2025/06/01/20250601-215359.png)
 
 常用命令：
 
