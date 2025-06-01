@@ -1,0 +1,188 @@
+{
+  "main": {
+    "id": "82569d87147c8ad2",
+    "type": "split",
+    "children": [
+      {
+        "id": "8a487cb08bfb3ce3",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1b039fb726164866",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "云原生/Beyla 工作原理.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Beyla 工作原理"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "e1c8bf051d88ad21",
+    "type": "split",
+    "children": [
+      {
+        "id": "9a99189f11862721",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "79d2e45bb07753e6",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "文件列表"
+            }
+          },
+          {
+            "id": "e6646e2893c5cd57",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "a5648120503e0f8d",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          },
+          {
+            "id": "4f8a83306824ed3f",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "云原生/Beyla 工作原理.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Beyla 工作原理 的大纲"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "cf162cb8686bb4f9",
+    "type": "split",
+    "children": [
+      {
+        "id": "f83bc890078e4699",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2f65877284d7ce89",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "云原生/Beyla 工作原理.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Beyla 工作原理 的反向链接列表"
+            }
+          },
+          {
+            "id": "5ba4b162e6ea6982",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "云原生/Beyla 工作原理.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Beyla 工作原理 的出链列表"
+            }
+          },
+          {
+            "id": "101a574a2930fa42",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "标签"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": true,
+      "canvas:新建白板": true,
+      "daily-notes:打开/创建今天的日记": true,
+      "templates:插入模板": true,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "79d2e45bb07753e6",
+  "lastOpenFiles": [
+    "云原生/Beyla 工作原理.md",
+    "Pasted image 20250601111357.png",
+    "杂七杂八/免费 SSL 证书申请.md",
+    "20250601111247.png",
+    "20250601110343.png",
+    "20250601110246.png",
+    "Pasted image 20250601110229.png",
+    "Pasted image 20250601110122.png",
+    "Pasted image 20250601110008.png",
+    "Pasted image 20250601105928.png",
+    "Pasted image 20250601105908.png",
+    "Pasted image 20250601105811.png",
+    "杂七杂八/“无刺鱼基因工程”引发的思考.md",
+    "云原生/私有仓库导入.md"
+  ]
+}

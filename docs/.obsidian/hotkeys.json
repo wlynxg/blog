@@ -1,0 +1,18 @@
+{
+  "editor:toggle-source": [
+    {
+      "modifiers": [
+        "Ctrl"
+      ],
+      "key": "/"
+    }
+  ],
+  "outline:open-for-current": [
+    {
+      "modifiers": [
+        "Ctrl"
+      ],
+      "key": "."
+    }
+  ]
+}
