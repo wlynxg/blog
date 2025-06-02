@@ -308,10 +308,6 @@ root@k8s:~# kubectl get pods -n kube-flannel
 NAME                    READY   STATUS    RESTARTS   AGE
 kube-flannel-ds-v92h4   1/1     Running   0          22s
 ```
-
-
-kubeadm join 10.35.203.150:6443 --token 53qvfh.uxhu0q518lunwkc8 \
-        --discovery-token-ca-cert-hash sha256:2bb8206b44f91540ab99a56424b4cf2cc09906c1da8eb165544b3b2054d2414b
 ### slave 节点
 	注意⚠️：此部分需要在所有 slave 节点执行！
 
