@@ -1,0 +1,468 @@
+<!doctype html><html lang=zh-cn dir=ltr><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'><meta name=description content="环境配置 该部分配置所有节点都需要执行！ 关闭防火墙 1 2 3 4 5 root@k8s:~# ufw status Status: inactive # 关闭防火墙 ufw disable 关闭 swap 由于 swap 在涉及交换内存时，保证和核算 Pod 内存利用率存在固有的困难。因此 k8s 需要禁用 Linux 的 swap 功能（1.22 以后 k8s 在逐步支持，不过当前还不够完善）。\n1 2 3 4 5 6 7 # 临时关闭 swapoff -a # 永久关闭 vim /etc/fstab （注释fstab中swap配置） # 或者直接使用 sed sed -ri 's/.*swap.*/#&/' /etc/fstab 关闭 SELinux 1 2 3 4 5 6 7 8 # 查看是否开启 SELinux # 某些ubuntu版本，没有安装selinux，则可以不用配置 getenforce # 临时关闭 SELinux setenforce 0 # 永久关闭 SELinux sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config 开启内核流量转发并让 iptables 看到桥接流量 1 2 3 4 5 6 7 8 # 载入内核模块 tee /etc/modules-load.d/k8s.conf <<EOF overlay br_netfilter EOF modprobe overlay modprobe br_netfilter 1 2 3 4 5 6 7 # 开启 bridge 流量过滤和内核流量转发功能 tee /etc/sysctl.d/k8s.conf << EOF net.bridge.bridge-nf-call-ip6tables = 1 net.bridge.bridge-nf-call-iptables = 1 net.ipv4.ip_forward = 1 net.ipv6.conf.all.forwarding = 1 EOF 1 2 # 应用配置而不重新启动 sysctl --system 1 2 3 4 5 6 # 查看相关内核模块是否载入 lsmod | grep br_netfilter lsmod | grep overlay # 查看内核参数是否修改 sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward net.ipv6.conf.all.forwarding 安装容器运行时 k8s 官方推介 containerd 作为 k8s 的容器运行时。因此下面在集群中安装 containerd。 下面介绍使用 apt-get 的方式在环境中安装 containerd，其余平台和环境安装 containerd 可见: https://github.com/containerd/containerd/blob/main/docs/getting-started.md\n"><title>Ubuntu 安装 k8s 集群</title>
+<link rel=canonical href=https://wlynxg.github.io/blog/p/ubuntu-%E5%AE%89%E8%A3%85-k8s-%E9%9B%86%E7%BE%A4/><link rel=stylesheet href=/blog/scss/style.min.663803bebe609202d5b39d848f2d7c2dc8b598a2d879efa079fa88893d29c49c.css><meta property='og:title' content="Ubuntu 安装 k8s 集群"><meta property='og:description' content="环境配置 该部分配置所有节点都需要执行！ 关闭防火墙 1 2 3 4 5 root@k8s:~# ufw status Status: inactive # 关闭防火墙 ufw disable 关闭 swap 由于 swap 在涉及交换内存时，保证和核算 Pod 内存利用率存在固有的困难。因此 k8s 需要禁用 Linux 的 swap 功能（1.22 以后 k8s 在逐步支持，不过当前还不够完善）。\n1 2 3 4 5 6 7 # 临时关闭 swapoff -a # 永久关闭 vim /etc/fstab （注释fstab中swap配置） # 或者直接使用 sed sed -ri 's/.*swap.*/#&/' /etc/fstab 关闭 SELinux 1 2 3 4 5 6 7 8 # 查看是否开启 SELinux # 某些ubuntu版本，没有安装selinux，则可以不用配置 getenforce # 临时关闭 SELinux setenforce 0 # 永久关闭 SELinux sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config 开启内核流量转发并让 iptables 看到桥接流量 1 2 3 4 5 6 7 8 # 载入内核模块 tee /etc/modules-load.d/k8s.conf <<EOF overlay br_netfilter EOF modprobe overlay modprobe br_netfilter 1 2 3 4 5 6 7 # 开启 bridge 流量过滤和内核流量转发功能 tee /etc/sysctl.d/k8s.conf << EOF net.bridge.bridge-nf-call-ip6tables = 1 net.bridge.bridge-nf-call-iptables = 1 net.ipv4.ip_forward = 1 net.ipv6.conf.all.forwarding = 1 EOF 1 2 # 应用配置而不重新启动 sysctl --system 1 2 3 4 5 6 # 查看相关内核模块是否载入 lsmod | grep br_netfilter lsmod | grep overlay # 查看内核参数是否修改 sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward net.ipv6.conf.all.forwarding 安装容器运行时 k8s 官方推介 containerd 作为 k8s 的容器运行时。因此下面在集群中安装 containerd。 下面介绍使用 apt-get 的方式在环境中安装 containerd，其余平台和环境安装 containerd 可见: https://github.com/containerd/containerd/blob/main/docs/getting-started.md\n"><meta property='og:url' content='https://wlynxg.github.io/blog/p/ubuntu-%E5%AE%89%E8%A3%85-k8s-%E9%9B%86%E7%BE%A4/'><meta property='og:site_name' content="Wlynxg's Blog"><meta property='og:type' content='article'><meta property='article:section' content='Post'><meta property='article:published_time' content='2025-06-02T22:04:25+08:00'><meta property='article:modified_time' content='2025-06-02T22:04:43+08:00'><meta name=twitter:title content="Ubuntu 安装 k8s 集群"><meta name=twitter:description content="环境配置 该部分配置所有节点都需要执行！ 关闭防火墙 1 2 3 4 5 root@k8s:~# ufw status Status: inactive # 关闭防火墙 ufw disable 关闭 swap 由于 swap 在涉及交换内存时，保证和核算 Pod 内存利用率存在固有的困难。因此 k8s 需要禁用 Linux 的 swap 功能（1.22 以后 k8s 在逐步支持，不过当前还不够完善）。\n1 2 3 4 5 6 7 # 临时关闭 swapoff -a # 永久关闭 vim /etc/fstab （注释fstab中swap配置） # 或者直接使用 sed sed -ri 's/.*swap.*/#&/' /etc/fstab 关闭 SELinux 1 2 3 4 5 6 7 8 # 查看是否开启 SELinux # 某些ubuntu版本，没有安装selinux，则可以不用配置 getenforce # 临时关闭 SELinux setenforce 0 # 永久关闭 SELinux sed -i 's/^SELINUX=.*/SELINUX=disabled/' /etc/selinux/config 开启内核流量转发并让 iptables 看到桥接流量 1 2 3 4 5 6 7 8 # 载入内核模块 tee /etc/modules-load.d/k8s.conf <<EOF overlay br_netfilter EOF modprobe overlay modprobe br_netfilter 1 2 3 4 5 6 7 # 开启 bridge 流量过滤和内核流量转发功能 tee /etc/sysctl.d/k8s.conf << EOF net.bridge.bridge-nf-call-ip6tables = 1 net.bridge.bridge-nf-call-iptables = 1 net.ipv4.ip_forward = 1 net.ipv6.conf.all.forwarding = 1 EOF 1 2 # 应用配置而不重新启动 sysctl --system 1 2 3 4 5 6 # 查看相关内核模块是否载入 lsmod | grep br_netfilter lsmod | grep overlay # 查看内核参数是否修改 sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward net.ipv6.conf.all.forwarding 安装容器运行时 k8s 官方推介 containerd 作为 k8s 的容器运行时。因此下面在集群中安装 containerd。 下面介绍使用 apt-get 的方式在环境中安装 containerd，其余平台和环境安装 containerd 可见: https://github.com/containerd/containerd/blob/main/docs/getting-started.md\n"><link rel="shortcut icon" href=/blog/favicon.ico></head><body class=article-page><script>(function(){const e="StackColorScheme";localStorage.getItem(e)||localStorage.setItem(e,"auto")})()</script><script>(function(){const t="StackColorScheme",e=localStorage.getItem(t),n=window.matchMedia("(prefers-color-scheme: dark)").matches===!0;e=="dark"||e==="auto"&&n?document.documentElement.dataset.scheme="dark":document.documentElement.dataset.scheme="light"})()</script><div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky"><button class="hamburger hamburger--spin" type=button id=toggle-menu aria-label=切换菜单>
+<span class=hamburger-box><span class=hamburger-inner></span></span></button><header><figure class=site-avatar><a href=/blog/><img src=/blog/img/file_hu6889846174828548036.png width=300 height=300 class=site-logo loading=lazy alt=Avatar>
+</a><span class=emoji>🐂</span></figure><div class=site-meta><h1 class=site-name><a href=/blog>Wlynxg's Blog</a></h1><h2 class=site-description>The harder, ther luckier!</h2></div></header><ol class=menu-social><li><a href=https://github.com/wlynxg target=_blank title=GitHub rel=me><svg class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6.0 00-1.3-3.2 4.2 4.2.0 00-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3.0 00-6.2.0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2.0 00-.1 3.2A4.6 4.6.0 004 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.2-.5 2V21"/></svg></a></li><li><a href=mailto:liuauthor@foxmail.com target=_blank title=Mail rel=me><svg t="1730733819354" class="icon" viewBox="0 0 1024 1024" p-id="3570" width="24" height="24"><path d="M942.08 200.704s-1.024.0.0.0c-1.024-2.048-1.024-4.096-2.048-6.144-1.024-1.024-2.048-3.072-3.072-4.096l-1.024-1.024-1.024-1.024c-1.024-1.024-2.048-2.048-4.096-2.048h-1.024c-2.048-1.024-3.072-1.024-5.12-1.024h-1.024C788.48 163.84 649.216 153.6 512 153.6s-276.48 10.24-412.672 30.72h-1.024c-2.048.0-3.072 1.024-5.12 1.024H92.16c-1.024 1.024-3.072 1.024-4.096 2.048l-1.024 1.024-1.024 1.024c-1.024 1.024-2.048 2.048-3.072 4.096v1.024c-1.024 2.048-1.024 3.072-2.048 5.12C61.44 304.128 51.2 408.576 51.2 512s10.24 207.872 30.72 311.296c2.048 8.192 8.192 15.36 17.408 16.384C235.52 860.16 374.784 870.4 512 870.4s276.48-10.24 412.672-30.72c8.192-1.024 15.36-8.192 17.408-16.384C962.56 719.872 972.8 615.424 972.8 512s-10.24-207.872-30.72-311.296zm-60.416 19.456c-44.032 50.176-96.256 97.28-156.672 142.336C654.336 415.744 582.656 457.728 512 489.472c-77.824-36.864-148.48-78.848-212.992-126.976-56.32-41.984-108.544-90.112-156.672-142.336 122.88-17.408 246.784-25.6 369.664-25.6s246.784 8.192 369.664 25.6zm22.528 580.608C774.144 820.224 642.048 829.44 512 829.44s-262.144-9.216-392.192-28.672C101.376 705.536 92.16 608.256 92.16 512c0-87.04 8.192-175.104 22.528-262.144 48.128 53.248 102.4 102.4 159.744 145.408 69.632 52.224 144.384 96.256 229.376 135.168 3.072 1.024 6.144 2.048 8.192 2.048 3.072.0 5.12-1.024 8.192-2.048 76.8-32.768 153.6-78.848 229.376-135.168 60.416-46.08 114.688-94.208 159.744-144.384C924.672 337.92 931.84 424.96 931.84 512c0 96.256-9.216 193.536-27.648 288.768z" p-id="3571" fill="#707070"/></svg></a></li><li><a href=/blog/index.xml target=_blank title=RSS rel=me><svg t="1730718821658" class="icon" viewBox="0 0 1024 1024" p-id="21619" width="24" height="24"><path d="M554.666667 896C529.066667 896 512 878.933333 512 853.333333 512 665.6 358.4 512 170.666667 512 145.066667 512 128 494.933333 128 469.333333s17.066667-42.666667 42.666667-42.666666c234.666667.0 426.666667 192 426.666666 426.666666.0 25.6-17.066667 42.666667-42.666666 42.666667z" p-id="21620" fill="#707070"/><path d="M853.333333 896c-25.6.0-42.666667-17.066667-42.666666-42.666667.0-354.133333-285.866667-640-640-640-25.6.0-42.666667-17.066667-42.666667-42.666666S145.066667 128 170.666667 128C571.733334 128 896 452.266667 896 853.333333 896 878.933333 878.933333 896 853.333333 896z" p-id="21621" fill="#707070"/><path d="M213.333333 810.666667m-85.333333.0a85.333333 85.333333.0 10170.666667.0 85.333333 85.333333.0 10-170.666667.0z" p-id="21622" fill="#707070"/></svg></a></li></ol><ol class=menu id=main-menu><li><a href=/blog/><svg class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><polyline points="5 12 3 12 12 3 21 12 19 12"/><path d="M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/><path d="M9 21v-6a2 2 0 012-2h2a2 2 0 012 2v6"/></svg>
+<span>Home</span></a></li><li><a href=/blog/archives/><svg class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><rect x="3" y="4" width="18" height="4" rx="2"/><path d="M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8"/><line x1="10" y1="12" x2="14" y2="12"/></svg>
+<span>Archives</span></a></li><li><a href=/blog/search/><svg class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="10" cy="10" r="7"/><line x1="21" y1="21" x2="15" y2="15"/></svg>
+<span>Search</span></a></li><li><a href=/blog/links/><svg class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M10 14a3.5 3.5.0 005 0l4-4a3.5 3.5.0 00-5-5l-.5.5"/><path d="M14 10a3.5 3.5.0 00-5 0l-4 4a3.5 3.5.0 005 5l.5-.5"/></svg>
+<span>Links</span></a></li><li><a href=/blog/plan/><svg t="1730733517435" class="icon" viewBox="0 0 1024 1024" p-id="1581" width="24" height="24"><path d="M874.24 1013.76H143.36a94.72 94.72.0 01-94.72-94.72V188.16a94.72 94.72.0 0194.72-94.72h730.88a95.36 95.36.0 0194.72 94.72v730.88a94.72 94.72.0 01-94.72 94.72zM143.36 156.8a31.36 31.36.0 00-32 31.36v730.88a32 32 0 0032 32h730.88a32 32 0 0031.36-32V188.16a31.36 31.36.0 00-31.36-31.36z" fill="#707070" p-id="1582"/><path d="M926.08 399.36h-832a32 32 0 010-64h832a32 32 0 110 64zM339.84 273.28a31.36 31.36.0 01-31.36-32V39.04a31.36 31.36.0 0131.36-32 32 32 0 0132 32v202.24a32 32 0 01-32 32zm337.28.0a31.36 31.36.0 01-31.36-32V39.04a31.36 31.36.0 1164 0v202.24a31.36 31.36.0 01-32.64 32zM444.16 841.6a33.92 33.92.0 01-23.04-9.6l-128-138.24a32 32 0 1146.08-43.52L448 768l280.32-279.68a30.72 30.72.0 0144.8.0 31.36 31.36.0 010 44.16L466.56 832a32 32 0 01-22.4 9.6z" fill="#707070" p-id="1583"/></svg>
+<span>Plan</span></a></li><li class=menu-bottom-section><ol class=menu><li id=dark-mode-toggle><svg class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="8" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<svg class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="16" cy="12" r="2"/><rect x="2" y="6" width="20" height="12" rx="6"/></svg>
+<span>暗色模式</span></li></ol></li></ol></aside><aside class="sidebar right-sidebar sticky"><section class="widget archives"><div class=widget-icon><svg class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><line x1="5" y1="9" x2="19" y2="9"/><line x1="5" y1="15" x2="19" y2="15"/><line x1="11" y1="4" x2="7" y2="20"/><line x1="17" y1="4" x2="13" y2="20"/></svg></div><h2 class="widget-title section-title">目录</h2><div class=widget--toc><nav id=TableOfContents><ol><li><a href=#关闭防火墙>关闭防火墙</a></li><li><a href=#关闭-swap>关闭 swap</a></li><li><a href=#关闭-selinux>关闭 SELinux</a></li><li><a href=#开启内核流量转发并让-iptables-看到桥接流量>开启内核流量转发并让 iptables 看到桥接流量</a></li><li><a href=#安装容器运行时>安装容器运行时</a></li></ol><ol><li><a href=#添加-k8s-软件源>添加 k8s 软件源</a></li><li><a href=#安装配置-k8s>安装配置 k8s</a><ol><li><a href=#master-节点>master 节点</a></li><li><a href=#slave-节点>slave 节点</a></li></ol></li></ol></nav></div></section></aside><main class="main full-width"><article class=main-article><header class=article-header><div class=article-details><header class=article-category><a href=/blog/categories/linux/ style=background-color:#2e8b57;color:#fff>Linux</a></header><div class=article-title-wrapper><h2 class=article-title><a href=/blog/p/ubuntu-%E5%AE%89%E8%A3%85-k8s-%E9%9B%86%E7%BE%A4/>Ubuntu 安装 k8s 集群</a></h2></div><footer class=article-time><div><svg class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><path d="M11.795 21H5a2 2 0 01-2-2V7a2 2 0 012-2h12a2 2 0 012 2v4"/><circle cx="18" cy="18" r="4"/><path d="M15 3v4"/><path d="M7 3v4"/><path d="M3 11h16"/><path d="M18 16.496V18l1 1"/></svg>
+<time class=article-time--published>Jun 02, 2025</time></div><div><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<time class=article-time--reading>阅读时长: 5 分钟</time></div></footer></div></header><section class=article-content><h1 id=环境配置>环境配置</h1><pre><code>该部分配置所有节点都需要执行！
+</code></pre><h2 id=关闭防火墙>关闭防火墙</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>root@k8s:~# ufw status
+</span></span><span class=line><span class=cl>Status: inactive
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 关闭防火墙</span>
+</span></span><span class=line><span class=cl>ufw disable 
+</span></span></code></pre></td></tr></table></div></div><h2 id=关闭-swap>关闭 swap</h2><p>由于 <code>swap</code> 在涉及交换内存时，保证和核算 Pod 内存利用率存在固有的困难。因此 k8s 需要禁用 Linux 的 swap 功能（1.22 以后 k8s 在逐步支持，不过当前还不够完善）。</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 临时关闭</span>
+</span></span><span class=line><span class=cl>swapoff -a
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 永久关闭</span>
+</span></span><span class=line><span class=cl>vim /etc/fstab （注释fstab中swap配置）
+</span></span><span class=line><span class=cl><span class=c1># 或者直接使用 sed</span>
+</span></span><span class=line><span class=cl>sed -ri <span class=s1>&#39;s/.*swap.*/#&amp;/&#39;</span> /etc/fstab
+</span></span></code></pre></td></tr></table></div></div><h2 id=关闭-selinux>关闭 SELinux</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 查看是否开启 SELinux</span>
+</span></span><span class=line><span class=cl><span class=c1># 某些ubuntu版本，没有安装selinux，则可以不用配置</span>
+</span></span><span class=line><span class=cl>getenforce
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 临时关闭 SELinux</span>
+</span></span><span class=line><span class=cl>setenforce <span class=m>0</span> 
+</span></span><span class=line><span class=cl><span class=c1># 永久关闭 SELinux</span>
+</span></span><span class=line><span class=cl>sed -i <span class=s1>&#39;s/^SELINUX=.*/SELINUX=disabled/&#39;</span> /etc/selinux/config
+</span></span></code></pre></td></tr></table></div></div><h2 id=开启内核流量转发并让-iptables-看到桥接流量>开启内核流量转发并让 iptables 看到桥接流量</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 载入内核模块</span>
+</span></span><span class=line><span class=cl>tee /etc/modules-load.d/k8s.conf <span class=s>&lt;&lt;EOF 
+</span></span></span><span class=line><span class=cl><span class=s>overlay 
+</span></span></span><span class=line><span class=cl><span class=s>br_netfilter 
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>modprobe overlay 
+</span></span><span class=line><span class=cl>modprobe br_netfilter
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 开启 bridge 流量过滤和内核流量转发功能</span>
+</span></span><span class=line><span class=cl>tee /etc/sysctl.d/k8s.conf <span class=s>&lt;&lt; EOF 
+</span></span></span><span class=line><span class=cl><span class=s>net.bridge.bridge-nf-call-ip6tables = 1 
+</span></span></span><span class=line><span class=cl><span class=s>net.bridge.bridge-nf-call-iptables = 1 
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv4.ip_forward = 1 
+</span></span></span><span class=line><span class=cl><span class=s>net.ipv6.conf.all.forwarding = 1
+</span></span></span><span class=line><span class=cl><span class=s>EOF</span>
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 应用配置而不重新启动</span>
+</span></span><span class=line><span class=cl>sysctl --system
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 查看相关内核模块是否载入</span>
+</span></span><span class=line><span class=cl>lsmod <span class=p>|</span> grep br_netfilter
+</span></span><span class=line><span class=cl>lsmod <span class=p>|</span> grep overlay
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看内核参数是否修改</span>
+</span></span><span class=line><span class=cl>sysctl net.bridge.bridge-nf-call-iptables net.bridge.bridge-nf-call-ip6tables net.ipv4.ip_forward net.ipv6.conf.all.forwarding
+</span></span></code></pre></td></tr></table></div></div><h2 id=安装容器运行时>安装容器运行时</h2><p>k8s 官方推介 <strong><a class=link href=https://github.com/containerd/containerd target=_blank rel=noopener>containerd</a></strong> 作为 k8s 的容器运行时。因此下面在集群中安装 <code>containerd</code>。
+下面介绍使用 <code>apt-get</code> 的方式在环境中安装 <code>containerd</code>，其余平台和环境安装 <code>containerd</code> 可见: <a class=link href=https://github.com/containerd/containerd/blob/main/docs/getting-started.md target=_blank rel=noopener>https://github.com/containerd/containerd/blob/main/docs/getting-started.md</a></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># Add Docker&#39;s official GPG key:</span>
+</span></span><span class=line><span class=cl>sudo apt-get update
+</span></span><span class=line><span class=cl>sudo apt-get install ca-certificates curl
+</span></span><span class=line><span class=cl>sudo install -m <span class=m>0755</span> -d /etc/apt/keyrings
+</span></span><span class=line><span class=cl>sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+</span></span><span class=line><span class=cl>sudo chmod a+r /etc/apt/keyrings/docker.asc
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># Add the repository to Apt sources:</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  <span class=s2>&#34;deb [arch=</span><span class=k>$(</span>dpkg --print-architecture<span class=k>)</span><span class=s2> signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+</span></span></span><span class=line><span class=cl><span class=s2>  </span><span class=k>$(</span>. /etc/os-release <span class=o>&amp;&amp;</span> <span class=nb>echo</span> <span class=s2>&#34;</span><span class=si>${</span><span class=nv>UBUNTU_CODENAME</span><span class=k>:-</span><span class=nv>$VERSION_CODENAME</span><span class=si>}</span><span class=s2>&#34;</span><span class=k>)</span><span class=s2> stable&#34;</span> <span class=p>|</span> <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>  sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null
+</span></span><span class=line><span class=cl>sudo apt-get update
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># install containerd.io</span>
+</span></span><span class=line><span class=cl>sudo apt-get install containerd.io
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 查看 containerd 状态</span>
+</span></span><span class=line><span class=cl>systemctl status containerd
+</span></span></code></pre></td></tr></table></div></div><p>配置 <code>containerd</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 生成默认配置</span>
+</span></span><span class=line><span class=cl>containerd config default &gt; /etc/containerd/config.toml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 如果提示：/etc/containerd/config.toml: No such file or directory</span>
+</span></span><span class=line><span class=cl><span class=c1># 则需要手动创建文件夹再执行上面的命令</span>
+</span></span><span class=line><span class=cl>mkdir /etc/containerd/
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># k8s 官方推荐使用 systemd 作为 CgroupDriver</span>
+</span></span><span class=line><span class=cl><span class=c1># 修改 CgroupDriver 为 systemd</span>
+</span></span><span class=line><span class=cl>sed -i <span class=s1>&#39;s/SystemdCgroup \= false/SystemdCgroup \= true/g&#39;</span> /etc/containerd/config.toml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看是否修改成功</span>
+</span></span><span class=line><span class=cl>root@k8s:~# cat /etc/containerd/config.toml <span class=p>|</span> grep SystemdCgroup
+</span></span><span class=line><span class=cl>            <span class=nv>SystemdCgroup</span> <span class=o>=</span> <span class=nb>true</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 由于网络原因，国内很难拉取 registry.k8s.io/pause:3.8 镜像</span>
+</span></span><span class=line><span class=cl><span class=c1># 这个镜像是一切的pod的基础，要么自己手动导入进来，要么改成国内的镜像</span>
+</span></span><span class=line><span class=cl><span class=c1># 下面将 containerd 的镜像仓库更换为阿里云的源</span>
+</span></span><span class=line><span class=cl>sed -i <span class=s1>&#39;s/sandbox_image = &#34;.*&#34;/sandbox_image = &#34;registry.aliyuncs.com\/google_containers\/pause:3.10&#34;/&#39;</span> /etc/containerd/config.toml
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看是否修改成功</span>
+</span></span><span class=line><span class=cl>root@k8s:~# cat /etc/containerd/config.toml <span class=p>|</span> grep sandbox_image
+</span></span><span class=line><span class=cl>    <span class=nv>sandbox_image</span> <span class=o>=</span> <span class=s2>&#34;registry.aliyuncs.com/google_containers/pause:3.10&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 重启 containerd</span>
+</span></span><span class=line><span class=cl>systemctl restart containerd
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看 containerd 状态</span>
+</span></span><span class=line><span class=cl>systemctl status containerd
+</span></span></code></pre></td></tr></table></div></div><h1 id=安装-kubeadmkubelet-和-kubectl>安装 kubeadm、kubelet 和 kubectl</h1><h2 id=添加-k8s-软件源>添加 k8s 软件源</h2><pre><code> 此部分所有节点都需要执行！
+</code></pre><p>详细可见：https://kubernetes.io/zh-cn/docs/setup/production-environment/tools/kubeadm/install-kubeadm/</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>sudo apt-get update
+</span></span><span class=line><span class=cl><span class=c1># apt-transport-https 可能是一个虚拟包（dummy package）；如果是的话，你可以跳过安装这个包</span>
+</span></span><span class=line><span class=cl>sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+</span></span></code></pre></td></tr></table></div></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl><span class=c1># 对于国内机器，推介更换阿里源</span>
+</span></span><span class=line><span class=cl>curl -fsSL https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.33/deb/Release.key <span class=p>|</span> gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg 
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://mirrors.aliyun.com/kubernetes-new/core/stable/v1.33/deb/ /&#34;</span> <span class=p>|</span> tee /etc/apt/sources.list.d/kubernetes.list
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 如果是网络环境能够访问外网，则可以使用官方方式</span>
+</span></span><span class=line><span class=cl><span class=c1># 下载签名秘钥及添加apt仓库</span>
+</span></span><span class=line><span class=cl><span class=c1># 如果 `/etc/apt/keyrings` 目录不存在，则应在 curl 命令之前创建它，请阅读下面的注释。</span>
+</span></span><span class=line><span class=cl><span class=c1># sudo mkdir -p -m 755 /etc/apt/keyrings</span>
+</span></span><span class=line><span class=cl>curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.33/deb/Release.key <span class=p>|</span> sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 此操作会覆盖 /etc/apt/sources.list.d/kubernetes.list 中现存的所有配置。</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s1>&#39;deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.33/deb/ /&#39;</span> <span class=p>|</span> sudo tee /etc/apt/sources.list.d/kubernetes.list
+</span></span></code></pre></td></tr></table></div></div><h2 id=安装配置-k8s>安装配置 k8s</h2><h3 id=master-节点>master 节点</h3><p>更新 apt 包索引，安装 <code>kubelet</code>、<code>kubeadm</code> 和 <code>kubectl</code>，并锁定其版本：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-shell data-lang=shell><span class=line><span class=cl>sudo apt-get update
+</span></span><span class=line><span class=cl>sudo apt-get install -y kubelet kubeadm kubectl
+</span></span><span class=line><span class=cl>sudo apt-mark hold kubelet kubeadm kubectl
+</span></span></code></pre></td></tr></table></div></div><p>用 kubeadm 初始化集群：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 初始化集群控制台 Control plane</span>
+</span></span><span class=line><span class=cl><span class=c1># 失败了可以用 kubeadm reset 重置</span>
+</span></span><span class=line><span class=cl><span class=c1># 对于国内机器建议更换镜像源为阿里源</span>
+</span></span><span class=line><span class=cl><span class=c1># 注意⚠️：此处指定 pod-network-cidr 为 10.244.0.0/16</span>
+</span></span><span class=line><span class=cl><span class=c1># 这是为了与后面的 flannel 匹配，如无特殊需求直接使用这个即可</span>
+</span></span><span class=line><span class=cl><span class=c1># apiserver-advertise-address 用于指定 k8s apiserver 监听地址，默认会使用默认网卡的 IP</span>
+</span></span><span class=line><span class=cl><span class=c1># 由于我这里是多网卡，需要更换为实际网卡地址</span>
+</span></span><span class=line><span class=cl>kubeadm init --image-repository<span class=o>=</span>registry.aliyuncs.com/google_containers --pod-network-cidr<span class=o>=</span>10.244.0.0/16 --apiserver-advertise-address<span class=o>=</span><span class=s2>&#34;192.168.5.51&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 记得把 kubeadm join xxx 保存起来 你需要此命令将节点加入集群。</span>
+</span></span><span class=line><span class=cl><span class=c1># 忘记了重新获取：kubeadm token create --print-join-command</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#要使非 root 用户可以运行 kubectl，请运行以下命令， 它们也是 kubeadm init 输出的一部分：</span>
+</span></span><span class=line><span class=cl>mkdir -p <span class=nv>$HOME</span>/.kube
+</span></span><span class=line><span class=cl>sudo cp -i /etc/kubernetes/admin.conf <span class=nv>$HOME</span>/.kube/config
+</span></span><span class=line><span class=cl>sudo chown <span class=k>$(</span>id -u<span class=k>)</span>:<span class=k>$(</span>id -g<span class=k>)</span> <span class=nv>$HOME</span>/.kube/config
+</span></span></code></pre></td></tr></table></div></div><p>状态检查：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 检查集群状态</span>
+</span></span><span class=line><span class=cl>root@k8s:~# kubectl get --raw<span class=o>=</span><span class=s1>&#39;/readyz?verbose&#39;</span>
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>ping ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>log ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>etcd ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>etcd-readiness ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>informer-sync ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/start-apiserver-admission-initializer ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/generic-apiserver-start-informers ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/priority-and-fairness-config-consumer ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/priority-and-fairness-filter ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/storage-object-count-tracker-hook ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/start-apiextensions-informers ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/start-apiextensions-controllers ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/crd-informer-synced ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/start-system-namespaces-controller ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/start-cluster-authentication-info-controller ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/start-kube-apiserver-identity-lease-controller ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/start-kube-apiserver-identity-lease-garbage-collector ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/start-legacy-token-tracking-controller ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/start-service-ip-repair-controllers ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/rbac/bootstrap-roles ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/scheduling/bootstrap-system-priority-classes ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/priority-and-fairness-config-producer ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/bootstrap-controller ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/start-kubernetes-service-cidr-controller ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/aggregator-reload-proxy-client-cert ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/start-kube-aggregator-informers ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/apiservice-status-local-available-controller ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/apiservice-status-remote-available-controller ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/apiservice-registration-controller ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/apiservice-discovery-controller ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/kube-apiserver-autoregistration ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>autoregister-completion ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/apiservice-openapi-controller ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>poststarthook/apiservice-openapiv3-controller ok
+</span></span><span class=line><span class=cl><span class=o>[</span>+<span class=o>]</span>shutdown ok
+</span></span><span class=line><span class=cl>readyz check passed
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看 namespace</span>
+</span></span><span class=line><span class=cl>root@k8s:~# kubectl get ns
+</span></span><span class=line><span class=cl>NAME              STATUS   AGE
+</span></span><span class=line><span class=cl>default           Active   5m3s
+</span></span><span class=line><span class=cl>kube-node-lease   Active   5m3s
+</span></span><span class=line><span class=cl>kube-public       Active   5m3s
+</span></span><span class=line><span class=cl>kube-system       Active   5m4s
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看 kube-system 空间 pod 状态</span>
+</span></span><span class=line><span class=cl>root@k8s:~# kubectl get pods -n kube-system 
+</span></span><span class=line><span class=cl>NAME                          READY   STATUS    RESTARTS   AGE
+</span></span><span class=line><span class=cl>coredns-757cc6c8f8-cpv64      0/1     Pending   <span class=m>0</span>          4m56s
+</span></span><span class=line><span class=cl>coredns-757cc6c8f8-h697j      0/1     Pending   <span class=m>0</span>          4m56s
+</span></span><span class=line><span class=cl>etcd-k8s                      1/1     Running   <span class=m>0</span>          5m1s
+</span></span><span class=line><span class=cl>kube-apiserver-k8s            1/1     Running   <span class=m>0</span>          5m7s
+</span></span><span class=line><span class=cl>kube-controller-manager-k8s   1/1     Running   <span class=m>0</span>          5m1s
+</span></span><span class=line><span class=cl>kube-proxy-hdf6r              1/1     Running   <span class=m>0</span>          4m56s
+</span></span><span class=line><span class=cl>kube-scheduler-k8s            1/1     Running   <span class=m>0</span>          5m7s
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 查看节点状态</span>
+</span></span><span class=line><span class=cl>root@k8s:~# kubectl get nodes
+</span></span><span class=line><span class=cl>NAME   STATUS     ROLES           AGE   VERSION
+</span></span><span class=line><span class=cl>k8s    NotReady   control-plane   14m   v1.33.1
+</span></span></code></pre></td></tr></table></div></div><p>在 <code>master node</code>上执行 <code>kubectl get nodes</code> 发现状态是 <code>NotReady</code>，这是因为还没有部署 CNI 网络插件。在 k8s 系统上 Pod 网络的实现依赖于第三方插件进行，这类插件有近数十种之多，较为著名的有 flannel、calico 和 Cilium 等。</p><p>其中 flannel 相对来说较为简单，对于初学者来说可以应用 flannel 来部署 CNI 网络插件。</p><p><code>flannel</code> 部署：</p><pre><code>注意⚠️：kube-flannel.yml 的 Network，要和 pod-network-cidr 保持一致
+如果在初始化时使用的是 --pod-network-cidr=10.244.0.0/16 则不用进行修改了，否则需要自行修改 kube-flannel.yaml
+</code></pre><p>查看 k8s <code>pod-network-cidr</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>root@k8s:~# kubectl get node -o <span class=nv>jsonpath</span><span class=o>=</span><span class=s1>&#39;{.items[0].spec.podCIDR}&#39;</span>
+</span></span><span class=line><span class=cl>10.244.0.0/24
+</span></span></code></pre></td></tr></table></div></div><p><code>kube-flannel.yml</code>:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=w>  </span><span class=nt>net-conf.json</span><span class=p>:</span><span class=w> </span><span class=p>|</span><span class=sd>
+</span></span></span><span class=line><span class=cl><span class=sd>    {
+</span></span></span><span class=line><span class=cl><span class=sd>      &#34;Network&#34;: &#34;10.244.0.0/16&#34;, &lt;- 修改此处
+</span></span></span><span class=line><span class=cl><span class=sd>      &#34;EnableNFTables&#34;: false,
+</span></span></span><span class=line><span class=cl><span class=sd>      &#34;Backend&#34;: {
+</span></span></span><span class=line><span class=cl><span class=sd>        &#34;Type&#34;: &#34;vxlan&#34;
+</span></span></span><span class=line><span class=cl><span class=sd>      }
+</span></span></span><span class=line><span class=cl><span class=sd>    }</span><span class=w>    
+</span></span></span></code></pre></td></tr></table></div></div><pre tabindex=0><code>
+ 配置对应后即可部署 `flannel`：
+```bash
+# 部署 flannel 
+root@k8s:~# kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml
+namespace/kube-flannel created
+serviceaccount/flannel created
+clusterrole.rbac.authorization.k8s.io/flannel created
+clusterrolebinding.rbac.authorization.k8s.io/flannel created
+configmap/kube-flannel-cfg created
+daemonset.apps/kube-flannel-ds created
+
+# 查看 flannel 节点状态
+root@k8s:~# kubectl get pods -n kube-flannel
+NAME                    READY   STATUS    RESTARTS   AGE
+kube-flannel-ds-v92h4   1/1     Running   0          22s
+</code></pre><h3 id=slave-节点>slave 节点</h3><pre><code>注意⚠️：此部分需要在所有 slave 节点执行！
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># slave 节点不需要安装 kubectl，只需要安装 kubelet 和 kubeadm 即可</span>
+</span></span><span class=line><span class=cl>sudo apt-get install -y kubelet kubeadm
+</span></span><span class=line><span class=cl>sudo apt-mark hold kubelet kubeadm
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># 执行 master 节点在 init 时输出的 kubeadm join xxx 命令</span>
+</span></span><span class=line><span class=cl><span class=c1># 如果忘记命令，可在 master 节点输出 kubeadm token create --print-join-command 命令查看</span>
+</span></span><span class=line><span class=cl><span class=c1># 如果 kubeadm 输出的命令的 IP 和实际联通 IP 符的，可自行修改</span>
+</span></span><span class=line><span class=cl>kubeadm join xxxx...
+</span></span></code></pre></td></tr></table></div></div><h1 id=最后>最后</h1><p>回到 <code>master</code> 节点，查看集群状态：</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># 查看节点状态</span>
+</span></span><span class=line><span class=cl>root@k8s:~# kubectl get nodes
+</span></span><span class=line><span class=cl>NAME    STATUS   ROLES           AGE   VERSION
+</span></span><span class=line><span class=cl>k8s     Ready    control-plane   96m   v1.33.1
+</span></span><span class=line><span class=cl>node1   Ready    &lt;none&gt;          95m   v1.33.1
+</span></span><span class=line><span class=cl>node2   Ready    &lt;none&gt;          94m   v1.33.1
+</span></span></code></pre></td></tr></table></div></div><p>所以节点都处于 <code>Ready</code> 状态，说明 k8s 集群已经安装配置好了。</p></section><script src=https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js></script><script>mermaid.initialize({startOnLoad:!0}),document.addEventListener("DOMContentLoaded",function(){var e=document.querySelectorAll("pre code.language-mermaid");e.forEach(function(e){var n,t=document.createElement("div");t.className="mermaid",t.innerHTML=e.textContent,n=e.parentElement,n.parentNode.replaceChild(t,n)})})</script><footer class=article-footer><section class=article-copyright><svg class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><path d="M14.5 9a3.5 4 0 100 6"/></svg>
+<span>Licensed under CC BY-NC-SA 4.0</span></section><section class=article-lastmod><svg class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
+<span>最后更新于 Jun 02, 2025 22:04 +0800</span></section></footer><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css integrity=sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI+WdtXRGWt2kTvGFasHpSy3SV crossorigin=anonymous><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js integrity=sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG+vnGctmUb0ZY0l8 crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous defer></script><script>window.addEventListener("DOMContentLoaded",()=>{renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1},{left:"\\(",right:"\\)",display:!1},{left:"\\[",right:"\\]",display:!0}],ignoredClasses:["gist"]})})</script></article><aside class=related-content--wrapper><h2 class=section-title>相关文章</h2><div class=related-content><div class="flex article-list--tile"><article><a href=/blog/p/iptables-%E5%AF%B9%E6%89%80%E6%9C%89%E8%BF%9E%E6%8E%A5%E9%99%90%E9%80%9F/><div class=article-details><h2 class=article-title>iptables 对所有连接限速</h2></div></a></article><article><a href=/blog/p/multipass-%E5%88%9B%E5%BB%BA%E6%A1%A5%E6%8E%A5%E5%AE%BF%E4%B8%BB%E6%9C%BA%E7%9A%84%E8%99%9A%E6%8B%9F%E6%9C%BA/><div class=article-details><h2 class=article-title>Multipass 创建桥接宿主机的虚拟机</h2></div></a></article><article><a href=/blog/p/centos7-%E4%B8%8B%E9%83%A8%E7%BD%B2flask%E5%BA%94%E7%94%A8/><div class=article-details><h2 class=article-title>Centos7 下部署Flask应用</h2></div></a></article><article><a href=/blog/p/docker%E4%B8%ADapt-get-update%E5%87%BA%E9%94%99hash-sum-mismatch/><div class=article-details><h2 class=article-title>docker中apt-get update出错hash sum mismatch</h2></div></a></article><article><a href=/blog/p/%E8%A7%A3%E5%86%B3-make-warning-clock-skew-detected.-your-build-may-be-incomplete.-%E9%97%AE%E9%A2%98/><div class=article-details><h2 class=article-title>解决 make warning Clock skew detected. Your build may be incomplete. 问题</h2></div></a></article></div></div></aside><footer class=site-footer><section class=copyright>&copy;
+2020 -
+2025 Wlynxg's Blog</section><section class=powerby>使用 <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a> 构建<br>主题 <b><a href=https://github.com/CaiJimmy/hugo-theme-stack target=_blank rel=noopener data-version=3.29.0>Stack</a></b> 由 <a href=https://jimmycai.com target=_blank rel=noopener>Jimmy</a> 设计</section></footer><div class=pswp tabindex=-1 role=dialog aria-hidden=true><div class=pswp__bg></div><div class=pswp__scroll-wrap><div class=pswp__container><div class=pswp__item></div><div class=pswp__item></div><div class=pswp__item></div></div><div class="pswp__ui pswp__ui--hidden"><div class=pswp__top-bar><div class=pswp__counter></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--share" title=Share></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button><div class=pswp__preloader><div class=pswp__preloader__icn><div class=pswp__preloader__cut><div class=pswp__preloader__donut></div></div></div></div></div><div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap"><div class=pswp__share-tooltip></div></div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+</button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"></button><div class=pswp__caption><div class=pswp__caption__center></div></div></div></div></div><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo=" crossorigin=anonymous defer></script><script src=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU=" crossorigin=anonymous defer></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css crossorigin=anonymous><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css crossorigin=anonymous></main></div><script src=https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z+KMkF24hUW8WePSA9HM=" crossorigin=anonymous></script><script type=text/javascript src=/blog/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js defer></script><script>(function(){const e=document.createElement("link");e.href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap",e.type="text/css",e.rel="stylesheet",document.head.appendChild(e)})()</script></body></html>
