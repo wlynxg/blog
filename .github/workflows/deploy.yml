@@ -1,0 +1,61 @@
+name: Deploy to Github Pages
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        permissions:
+            # Give the default GITHUB_TOKEN write permission to commit and push the
+            # added or changed files to the repository.
+            contents: write
+
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Cache Hugo resources
+              uses: actions/cache@v4
+              env:
+                  cache-name: cache-hugo-resources
+              with:
+                  path: resources
+                  key: ${{ env.cache-name }}
+
+            - uses: actions/setup-go@v5
+              with:
+                  go-version: "^1.17.0"
+            - run: go version
+
+            - name: Setup Hugo
+              uses: peaceiris/actions-hugo@v2
+              with:
+                  # Using the latest value doesn't work for now. 
+                  # See https://github.com/peaceiris/actions-hugo/issues/652#issuecomment-2543985304
+                  # and https://github.com/peaceiris/actions-hugo/issues/662
+                  hugo-version: "0.139.4"
+                  extended: true
+
+            - name: Generate Markdown
+              run: ls -lh && chmod +x ./scripts/update.bash && ./scripts/update.bash
+
+            - name: Build
+              run: hugo --minify --gc
+              working-directory: ./hugo
+
+            - name: Move Public
+              run: mv hugo/public . && ls -lh
+
+            - name: Deploy 🚀
+              uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                  branch: gh-pages
+                  folder: public
+                  clean: true
+                  single-commit: true

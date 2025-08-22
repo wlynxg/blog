@@ -1,0 +1,35 @@
+name: Publish docs via GitHub Pages
+on:
+  push:
+    branches:
+      - main
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event.repository.fork == false
+    steps:
+      - uses: actions/checkout@v3
+        with:
+            fetch-depth: 0
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - uses: actions/cache@v2
+        with:
+          key: ${{ github.ref }}
+          path: .cache
+      - run: pip install mkdocs
+      - run: pip install mkdocs-material
+      - run: pip install mkdocs-mermaid2-plugin
+      - run: pip install mknotebooks
+      - run: pip install mkdocs-macros-plugin
+      - run: pip install mkdocs-rss-plugin
+      - run: pip install mkdocs-git-revision-date-localized-plugin
+      - run: mkdocs gh-deploy --force
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+
